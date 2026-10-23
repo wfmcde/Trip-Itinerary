@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>TripPacer Library</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #0b1120;
+      color: #f8fafc;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: max(env(safe-area-inset-top), 48px) 16px max(env(safe-area-inset-bottom), 30px);
+    }
+
+    header {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 12px;
+    }
+
+    .app-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #38bdf8;
+      letter-spacing: -0.3px;
+    }
+
+    .app-subtitle {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .trip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .trip-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-left: 4px solid #10b981;
+      border-radius: 12px;
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .trip-card:active {
+      background-color: #273549;
+    }
+
+    .trip-info h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+
+    .trip-meta {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+
+    .trip-arrow {
+      font-size: 1.25rem;
+      color: #38bdf8;
+      font-weight: bold;
+      padding-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 class="app-title">TripPacer Library</h1>
+    <p class="app-subtitle">Select an active getaway itinerary</p>
+  </header>
+
+  <main class="trip-list">
+    <!-- Trip 1: Bellingham -->
+    <a href="BellinghamDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Historic Fairhaven (Bellingham)</h2>
+        <div class="trip-meta">Amtrak Cascades North • Taylor Dock • Keenan’s at the Pier</div>
+      </div>
+      <div class="trip-arrow">➔</div>
+    </a>
+
+    <!-- Trip 2: Centralia -->
+    <a href="CentraliaDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Historic Centralia</h2>
+        <div class="trip-meta">Amtrak Cascades South • McMenamins Olympic Club • Antiques</div>
+      </div>
+      <div class="trip-arrow">➔</div>
+    </a>
+
+    <!-- Trip 3: Mount Vernon -->
+    <a href="MountVernonDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Mount Vernon & Skagit Valley</h2>
+        <div class="trip-meta">Amtrak Cascades North • Riverwalk Trail • Skagit River Brewery</div>
+      </div>
+      <div class="trip-arrow">➔</div>
+    </a>
+  </main>
+
+</body>
+</html>

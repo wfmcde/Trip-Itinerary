@@ -1,1 +1,661 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DayTrip2BH</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #0b1120;
+      color: #f8fafc;
+      height: 100dvh; /* Uses exact visible screen height in iOS full-screen mode */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Hide the radio inputs completely */
+    input[type="radio"] {
+      display: none;
+    }
+
+    /* Header */
+    header {
+      padding-top: max(env(safe-area-inset-top), 48px);
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+      background-color: #0b1120;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    .step-pill {
+      display: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background-color: #334155;
+      color: #94a3b8;
+      padding: 4px 8px;
+      border-radius: 12px;
+    }
+
+    #step1:checked ~ header #pill1,
+    #step2:checked ~ header #pill2,
+    #step3:checked ~ header #pill3,
+    #step4:checked ~ header #pill4,
+    #step5:checked ~ header #pill5,
+    #step6:checked ~ header #pill6,
+    #step7:checked ~ header #pill7,
+    #step8:checked ~ header #pill8,
+    #step9:checked ~ header #pill9,
+    #step10:checked ~ header #pill10,
+    #step11:checked ~ header #pill11,
+    #step12:checked ~ header #pill12,
+    #step13:checked ~ header #pill13,
+    #step14:checked ~ header #pill14 {
+      display: inline-block;
+    }
+
+    /* Middle Scrollable Section */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .step-pane {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #step1:checked ~ main #pane1,
+    #step2:checked ~ main #pane2,
+    #step3:checked ~ main #pane3,
+    #step4:checked ~ main #pane4,
+    #step5:checked ~ main #pane5,
+    #step6:checked ~ main #pane6,
+    #step7:checked ~ main #pane7,
+    #step8:checked ~ main #pane8,
+    #step9:checked ~ main #pane9,
+    #step10:checked ~ main #pane10,
+    #step11:checked ~ main #pane11,
+    #step12:checked ~ main #pane12,
+    #step13:checked ~ main #pane13,
+    #step14:checked ~ main #pane14 {
+      display: flex;
+    }
+
+    .active-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-left: 4px solid #38bdf8;
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .time-badge {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #fbbf24;
+    }
+
+    .tag-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #38bdf8;
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      color: #f8fafc;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bullet-list li {
+      font-size: 0.92rem;
+      line-height: 1.35;
+      color: #cbd5e1;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .bullet-list li::before {
+      content: "•";
+      color: #38bdf8;
+      font-weight: bold;
+      font-size: 1.1rem;
+      line-height: 0.8;
+    }
+
+    .step-note {
+      margin-top: 8px;
+      padding: 7px 9px;
+      background: #131d2e;
+      border-radius: 6px;
+      border-left: 3px solid #fbbf24;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.3;
+    }
+
+    .preview-section {
+      margin-top: 2px;
+    }
+
+    .preview-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 5px;
+      padding-left: 2px;
+    }
+
+    .preview-card {
+      background-color: #131d2e;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .preview-time {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #fbbf24;
+      min-width: 65px;
+    }
+
+    .preview-title {
+      font-size: 0.82rem;
+      color: #f8fafc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Bottom Controller - Generously elevated above iOS Home swipe line */
+    footer {
+      padding-top: 8px;
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: max(env(safe-area-inset-bottom), 34px);
+      border-top: 1px solid #334155;
+      background-color: #0b1120;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-next, .btn-prev, .btn-restart {
+      display: none;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-next {
+      background-color: #10b981;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .btn-next:active {
+      background-color: #059669;
+    }
+
+    .secondary-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-prev, .btn-restart {
+      flex: 1;
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 9px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .btn-prev:active, .btn-restart:active {
+      background: #334155;
+      color: #f8fafc;
+    }
+
+    /* Next button progression */
+    #step1:checked ~ footer .next-2,
+    #step2:checked ~ footer .next-3,
+    #step3:checked ~ footer .next-4,
+    #step4:checked ~ footer .next-5,
+    #step5:checked ~ footer .next-6,
+    #step6:checked ~ footer .next-7,
+    #step7:checked ~ footer .next-8,
+    #step8:checked ~ footer .next-9,
+    #step9:checked ~ footer .next-10,
+    #step10:checked ~ footer .next-11,
+    #step11:checked ~ footer .next-12,
+    #step12:checked ~ footer .next-13,
+    #step13:checked ~ footer .next-14 {
+      display: block;
+    }
+
+    #step14:checked ~ footer .next-done {
+      display: block;
+      background-color: #475569;
+    }
+
+    /* Previous buttons */
+    #step2:checked ~ footer .prev-1,
+    #step3:checked ~ footer .prev-2,
+    #step4:checked ~ footer .prev-3,
+    #step5:checked ~ footer .prev-4,
+    #step6:checked ~ footer .prev-5,
+    #step7:checked ~ footer .prev-6,
+    #step8:checked ~ footer .prev-7,
+    #step9:checked ~ footer .prev-8,
+    #step10:checked ~ footer .prev-9,
+    #step11:checked ~ footer .prev-10,
+    #step12:checked ~ footer .prev-11,
+    #step13:checked ~ footer .prev-12,
+    #step14:checked ~ footer .prev-13 {
+      display: block;
+    }
+
+    #step1:checked ~ footer .prev-disabled {
+      display: block;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    footer .btn-restart {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pure CSS State Machine (14 Radio Inputs) -->
+  <input type="radio" name="tripstep" id="step1" checked>
+  <input type="radio" name="tripstep" id="step2">
+  <input type="radio" name="tripstep" id="step3">
+  <input type="radio" name="tripstep" id="step4">
+  <input type="radio" name="tripstep" id="step5">
+  <input type="radio" name="tripstep" id="step6">
+  <input type="radio" name="tripstep" id="step7">
+  <input type="radio" name="tripstep" id="step8">
+  <input type="radio" name="tripstep" id="step9">
+  <input type="radio" name="tripstep" id="step10">
+  <input type="radio" name="tripstep" id="step11">
+  <input type="radio" name="tripstep" id="step12">
+  <input type="radio" name="tripstep" id="step13">
+  <input type="radio" name="tripstep" id="step14">
+
+  <header>
+    <div class="brand-title">DayTrip2BH</div>
+    <div>
+      <span class="step-pill" id="pill1">Step 1 of 14</span>
+      <span class="step-pill" id="pill2">Step 2 of 14</span>
+      <span class="step-pill" id="pill3">Step 3 of 14</span>
+      <span class="step-pill" id="pill4">Step 4 of 14</span>
+      <span class="step-pill" id="pill5">Step 5 of 14</span>
+      <span class="step-pill" id="pill6">Step 6 of 14</span>
+      <span class="step-pill" id="pill7">Step 7 of 14</span>
+      <span class="step-pill" id="pill8">Step 8 of 14</span>
+      <span class="step-pill" id="pill9">Step 9 of 14</span>
+      <span class="step-pill" id="pill10">Step 10 of 14</span>
+      <span class="step-pill" id="pill11">Step 11 of 14</span>
+      <span class="step-pill" id="pill12">Step 12 of 14</span>
+      <span class="step-pill" id="pill13">Step 13 of 14</span>
+      <span class="step-pill" id="pill14">Step 14 of 14</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- STEP 1 -->
+    <div class="step-pane" id="pane1">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">07:25 AM</span><span class="tag-badge">TRANSIT</span></div>
+        <h1 class="step-title">Walk to Seattle Center Monorail</h1>
+        <ul class="bullet-list">
+          <li>Exit 2929 1st Ave and walk northeast on Denny Way or Broad St.</li>
+          <li>Walk approx. 0.4 miles (8–10 mins) toward Space Needle grounds.</li>
+          <li>Ascend to the Monorail platform via elevator or stairs.</li>
+        </ul>
+        <div class="step-note">Tip: Tap credit card or ORCA ($3.50/person) at fare gates.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">07:40 AM</span><span class="preview-title">Monorail to Westlake Center</span></div>
+        <div class="preview-card"><span class="preview-time">07:48 AM</span><span class="preview-title">Link Light Rail 1 Line South</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-pane" id="pane2">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">07:40 AM</span><span class="tag-badge">TRANSIT</span></div>
+        <h1 class="step-title">Monorail to Westlake Center</h1>
+        <ul class="bullet-list">
+          <li>Board southbound Monorail train toward downtown.</li>
+          <li>Direct 90-second non-stop ride to Westlake Center platform.</li>
+        </ul>
+        <div class="step-note">Trains depart every 10 minutes.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">07:48 AM</span><span class="preview-title">Link Light Rail 1 Line South</span></div>
+        <div class="preview-card"><span class="preview-time">08:00 AM</span><span class="preview-title">King Street Station Priority Boarding</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-pane" id="pane3">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">07:48 AM</span><span class="tag-badge">TRANSIT</span></div>
+        <h1 class="step-title">Link Light Rail 1 Line South</h1>
+        <ul class="bullet-list">
+          <li>Head down from Monorail into Downtown Transit Tunnel.</li>
+          <li>Board 1 Line heading south toward Angle Lake ($2.25/person).</li>
+          <li>Ride 3 stops: Pioneer Square, University St, exit at Int'l District.</li>
+        </ul>
+        <div class="step-note">Transit time in the tunnel is approx. 6 minutes.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">08:00 AM</span><span class="preview-title">King Street Station Priority Boarding</span></div>
+        <div class="preview-card"><span class="preview-time">08:30 AM</span><span class="preview-title">Amtrak Cascades (Train 516) Departs</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-pane" id="pane4">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">08:00 AM</span><span class="tag-badge">DEPARTURE</span></div>
+        <h1 class="step-title">King Street Station Priority Boarding</h1>
+        <ul class="bullet-list">
+          <li>Walk 1 block west on S Jackson St into King Street Station.</li>
+          <li>Head to the Business Class priority boarding queue in main hall.</li>
+          <li>Collect your onboard complimentary drink voucher.</li>
+        </ul>
+        <div class="step-note">Restrooms and waiting seating inside the depot.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">08:30 AM</span><span class="preview-title">Amtrak Cascades (Train 516) Departs</span></div>
+        <div class="preview-card"><span class="preview-time">10:37 AM</span><span class="preview-title">Arrive Fairhaven Station</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step-pane" id="pane5">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">08:30 AM</span><span class="tag-badge">RAIL</span></div>
+        <h1 class="step-title">Amtrak Cascades (Train 516) Departs</h1>
+        <ul class="bullet-list">
+          <li>Board Business Class (2x1 single/double layout).</li>
+          <li>Settle into left-side (west) seats for Puget Sound views.</li>
+          <li>Train tracks along Edmonds, Mukilteo, and Everett coastline.</li>
+        </ul>
+        <div class="step-note">Full café car is located midway through the train.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">10:37 AM</span><span class="preview-title">Arrive Fairhaven Station</span></div>
+        <div class="preview-card"><span class="preview-time">10:45 AM</span><span class="preview-title">Taylor Dock Boardwalk Stroll</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step-pane" id="pane6">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">10:37 AM</span><span class="tag-badge">ARRIVAL</span></div>
+        <h1 class="step-title">Arrive Fairhaven Station</h1>
+        <ul class="bullet-list">
+          <li>Disembark at 401 Harris Ave platform in Fairhaven.</li>
+          <li>No taxi or rideshare needed; station is adjacent to waterfront.</li>
+          <li>Exit west toward the bay and shoreline trails.</li>
+        </ul>
+        <div class="step-note">Visitor maps and restrooms inside the Fairhaven depot.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">10:45 AM</span><span class="preview-title">Taylor Dock Boardwalk Stroll</span></div>
+        <div class="preview-card"><span class="preview-time">11:30 AM</span><span class="preview-title">Lunch at Keenan’s at the Pier</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step-pane" id="pane7">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">10:45 AM</span><span class="tag-badge">EXPLORE</span></div>
+        <h1 class="step-title">Taylor Dock Boardwalk Stroll</h1>
+        <ul class="bullet-list">
+          <li>Step onto Taylor Dock elevated wooden boardwalk over Bellingham Bay.</li>
+          <li>Enjoy panoramic views of the water and San Juan Islands.</li>
+          <li>Leisurely 12-minute walk leads directly to The Chrysalis Inn.</li>
+        </ul>
+        <div class="step-note">Level, paved boardwalk with benches along the water.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">11:30 AM</span><span class="preview-title">Lunch at Keenan’s at the Pier</span></div>
+        <div class="preview-card"><span class="preview-time">01:15 PM</span><span class="preview-title">Explore Historic Fairhaven Village</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step-pane" id="pane8">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">11:30 AM</span><span class="tag-badge">DINING</span></div>
+        <h1 class="step-title">Lunch at Keenan’s at the Pier</h1>
+        <ul class="bullet-list">
+          <li>Location: 804 10th St (inside The Chrysalis Inn off the trail).</li>
+          <li>Request your reserved window table overlooking Bellingham Bay.</li>
+          <li>Relaxed sit-down dining featuring regional seafood and local wines.</li>
+        </ul>
+        <div class="step-note">Window bay seating requested.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">01:15 PM</span><span class="preview-title">Explore Historic Fairhaven Village</span></div>
+        <div class="preview-card"><span class="preview-time">03:15 PM</span><span class="preview-title">Afternoon Coffee & Refreshment</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 9 -->
+    <div class="step-pane" id="pane9">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">01:15 PM</span><span class="tag-badge">EXPLORE</span></div>
+        <h1 class="step-title">Explore Historic Fairhaven Village</h1>
+        <ul class="bullet-list">
+          <li>Stroll up into the 19th-century red-brick district.</li>
+          <li>Browse Village Books and Paper Dreams on 11th Street.</li>
+          <li>Visit local artisan boutiques and galleries along Harris Ave.</li>
+        </ul>
+        <div class="step-note">Compact 3-block historic district, entirely walkable.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">03:15 PM</span><span class="preview-title">Afternoon Coffee & Refreshment</span></div>
+        <div class="preview-card"><span class="preview-time">04:15 PM</span><span class="preview-title">Return to Fairhaven Station</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 10 -->
+    <div class="step-pane" id="pane10">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">03:15 PM</span><span class="tag-badge">LEISURE</span></div>
+        <h1 class="step-title">Afternoon Coffee & Refreshment</h1>
+        <ul class="bullet-list">
+          <li>Stop at Tony’s Coffee House (original 1971 Bellingham roastery).</li>
+          <li>Or drop into Galloway’s Cocktail Bar for a quiet afternoon drink.</li>
+          <li>Begin leisurely walk back down Harris Ave toward station.</li>
+        </ul>
+        <div class="step-note">Fairhaven Station is an easy 5-minute stroll down Harris Ave.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">04:15 PM</span><span class="preview-title">Return to Fairhaven Station</span></div>
+        <div class="preview-card"><span class="preview-time">04:44 PM</span><span class="preview-title">Amtrak Cascades (Train 519) South</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 11 -->
+    <div class="step-pane" id="pane11">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">04:15 PM</span><span class="tag-badge">CHECK-IN</span></div>
+        <h1 class="step-title">Return to Fairhaven Station</h1>
+        <ul class="bullet-list">
+          <li>Arrive at 401 Harris Ave depot platform.</li>
+          <li>Prepare for Business Class priority return boarding.</li>
+        </ul>
+        <div class="step-note">Train 519 originates in Vancouver, BC; listen for platform call.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">04:44 PM</span><span class="preview-title">Amtrak Cascades (Train 519) South</span></div>
+        <div class="preview-card"><span class="preview-time">06:55 PM</span><span class="preview-title">Arrive King Street Station</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 12 -->
+    <div class="step-pane" id="pane12">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">04:44 PM</span><span class="tag-badge">RAIL</span></div>
+        <h1 class="step-title">Amtrak Cascades (Train 519) South</h1>
+        <ul class="bullet-list">
+          <li>Board Business Class.</li>
+          <li>Sit on the right side (west) for late-afternoon water reflections.</li>
+          <li>Relaxed 2-hour rail run along Possession Sound.</li>
+        </ul>
+        <div class="step-note">Bistro car open for coffee, snacks, or regional beer/wine.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">06:55 PM</span><span class="preview-title">Arrive King Street Station</span></div>
+        <div class="preview-card"><span class="preview-time">07:15 PM</span><span class="preview-title">Monorail & Return to 2929 1st Ave</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 13 -->
+    <div class="step-pane" id="pane13">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">06:55 PM</span><span class="tag-badge">TRANSIT</span></div>
+        <h1 class="step-title">Arrive Seattle King Street Station</h1>
+        <ul class="bullet-list">
+          <li>Disembark at King Street Station.</li>
+          <li>Walk 1 block east on S Jackson St to light rail tunnel entrance.</li>
+          <li>Board 1 Line Northbound 3 stops back to Westlake Station.</li>
+        </ul>
+        <div class="step-note">Tunnel transfers take roughly 6 minutes.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">07:15 PM</span><span class="preview-title">Monorail & Return to 2929 1st Ave</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 14 -->
+    <div class="step-pane" id="pane14">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">07:15 PM</span><span class="tag-badge">HOME</span></div>
+        <h1 class="step-title">Monorail & Return to 2929 1st Ave</h1>
+        <ul class="bullet-list">
+          <li>Ascend to Westlake Center Monorail platform.</li>
+          <li>Take 90-second ride back to Seattle Center.</li>
+          <li>Walk down Denny Way, arriving at 2929 1st Ave (~7:35 PM).</li>
+        </ul>
+        <div class="step-note">Trip complete!</div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <!-- Next Buttons -->
+    <label for="step2" class="btn-next next-2">Done — Next Step ➔</label>
+    <label for="step3" class="btn-next next-3">Done — Next Step ➔</label>
+    <label for="step4" class="btn-next next-4">Done — Next Step ➔</label>
+    <label for="step5" class="btn-next next-5">Done — Next Step ➔</label>
+    <label for="step6" class="btn-next next-6">Done — Next Step ➔</label>
+    <label for="step7" class="btn-next next-7">Done — Next Step ➔</label>
+    <label for="step8" class="btn-next next-8">Done — Next Step ➔</label>
+    <label for="step9" class="btn-next next-9">Done — Next Step ➔</label>
+    <label for="step10" class="btn-next next-10">Done — Next Step ➔</label>
+    <label for="step11" class="btn-next next-11">Done — Next Step ➔</label>
+    <label for="step12" class="btn-next next-12">Done — Next Step ➔</label>
+    <label for="step13" class="btn-next next-13">Done — Next Step ➔</label>
+    <label for="step14" class="btn-next next-14">Done — Next Step ➔</label>
+    <div class="btn-next next-done">Trip Completed! ✓</div>
+
+    <div class="secondary-row">
+      <div class="btn-prev prev-disabled">← Previous</div>
+      <label for="step1" class="btn-prev prev-1">← Previous</label>
+      <label for="step2" class="btn-prev prev-2">← Previous</label>
+      <label for="step3" class="btn-prev prev-3">← Previous</label>
+      <label for="step4" class="btn-prev prev-4">← Previous</label>
+      <label for="step5" class="btn-prev prev-5">← Previous</label>
+      <label for="step6" class="btn-prev prev-6">← Previous</label>
+      <label for="step7" class="btn-prev prev-7">← Previous</label>
+      <label for="step8" class="btn-prev prev-8">← Previous</label>
+      <label for="step9" class="btn-prev prev-9">← Previous</label>
+      <label for="step10" class="btn-prev prev-10">← Previous</label>
+      <label for="step11" class="btn-prev prev-11">← Previous</label>
+      <label for="step12" class="btn-prev prev-12">← Previous</label>
+      <label for="step13" class="btn-prev prev-13">← Previous</label>
+      <label for="step1" class="btn-restart">↺ Restart</label>
+    </div>
+  </footer>
+
+</body>
+</html>

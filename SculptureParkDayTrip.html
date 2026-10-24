@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,14 +8,12 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     html, body { width: 100%; height: 100%; overflow: hidden; background-color: #0b1120; }
     body { color: #f8fafc; display: flex; flex-direction: column; max-width: 600px; margin: 0 auto; }
-    input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; opacity: 0; }
     header { padding-top: max(env(safe-area-inset-top), 44px); padding-left: 16px; padding-right: 16px; padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; background-color: #0b1120; flex-shrink: 0; }
     .brand-title { font-size: 1.1rem; font-weight: 800; color: #38bdf8; }
-    .step-pill { display: none; font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
-    #step1:checked ~ header #pill1, #step2:checked ~ header #pill2, #step3:checked ~ header #pill3, #step4:checked ~ header #pill4, #step5:checked ~ header #pill5, #step6:checked ~ header #pill6, #step7:checked ~ header #pill7, #step8:checked ~ header #pill8, #step9:checked ~ header #pill9, #step10:checked ~ header #pill10, #step11:checked ~ header #pill11, #step12:checked ~ header #pill12, #step13:checked ~ header #pill13, #step14:checked ~ header #pill14 { display: inline-block; }
+    .step-pill { font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
     main { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 16px; -webkit-overflow-scrolling: touch; }
     .step-pane { display: none; flex-direction: column; gap: 12px; padding-bottom: 10px; }
-    #step1:checked ~ main #pane1, #step2:checked ~ main #pane2, #step3:checked ~ main #pane3, #step4:checked ~ main #pane4, #step5:checked ~ main #pane5, #step6:checked ~ main #pane6, #step7:checked ~ main #pane7, #step8:checked ~ main #pane8, #step9:checked ~ main #pane9, #step10:checked ~ main #pane10, #step11:checked ~ main #pane11, #step12:checked ~ main #pane12, #step13:checked ~ main #pane13, #step14:checked ~ main #pane14 { display: flex; }
+    .step-pane.active { display: flex; }
     .active-card { background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid #38bdf8; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
     .card-top-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
     .time-badge { font-size: 1.25rem; font-weight: 900; color: #fbbf24; }
@@ -24,283 +22,194 @@
     .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .bullet-list li { font-size: 0.92rem; line-height: 1.35; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; }
     .bullet-list li::before { content: "\2022"; color: #38bdf8; font-weight: bold; font-size: 1.1rem; line-height: 0.8; }
-    .step-note { margin-top: 10px; padding: 8px 10px; background: #131d2e; border-radius: 6px; border-left: 3px solid #fbbf24; font-size: 0.82rem; color: #e2e8f0; line-height: 1.3; }
     .preview-section { margin-top: 4px; }
     .preview-label { font-size: 0.7rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; padding-left: 2px; }
     .preview-card { background-color: #131d2e; border: 1px solid #334155; border-radius: 8px; padding: 8px 12px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
     .preview-time { font-size: 0.82rem; font-weight: 800; color: #fbbf24; min-width: 65px; }
     .preview-title { font-size: 0.82rem; color: #f8fafc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     footer { flex-shrink: 0; padding-top: 10px; padding-left: 16px; padding-right: 16px; padding-bottom: max(env(safe-area-inset-bottom), 24px); border-top: 1px solid #334155; background-color: #0b1120; display: flex; gap: 8px; z-index: 100; }
-    .btn-nav { flex: 1; text-align: center; text-decoration: none; display: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
+    .btn-nav { flex: 1; text-align: center; text-decoration: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
     .btn-back { background-color: #1e293b; color: #94a3b8; border: 1px solid #334155; }
     .btn-back:active { background-color: #334155; color: #f8fafc; }
     .btn-disabled { opacity: 0.35; pointer-events: none; }
-    .btn-menu { display: block !important; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
+    .btn-menu { background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
     .btn-menu:active { background-color: #334155; }
     .btn-next { background-color: #10b981; color: #ffffff; border: 1px solid #10b981; }
     .btn-next:active { background-color: #059669; }
     .btn-finish { background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6; }
-    #step1:checked ~ footer .next-2, #step2:checked ~ footer .next-3, #step3:checked ~ footer .next-4, #step4:checked ~ footer .next-5, #step5:checked ~ footer .next-6, #step6:checked ~ footer .next-7, #step7:checked ~ footer .next-8, #step8:checked ~ footer .next-9, #step9:checked ~ footer .next-10, #step10:checked ~ footer .next-11, #step11:checked ~ footer .next-12, #step12:checked ~ footer .next-13, #step13:checked ~ footer .next-14 { display: block; }
-    #step14:checked ~ footer .next-finish { display: block; }
-    #step1:checked ~ footer .back-disabled { display: block; }
-    #step2:checked ~ footer .back-1, #step3:checked ~ footer .back-2, #step4:checked ~ footer .back-3, #step5:checked ~ footer .back-4, #step6:checked ~ footer .back-5, #step7:checked ~ footer .back-6, #step8:checked ~ footer .back-7, #step9:checked ~ footer .back-8, #step10:checked ~ footer .back-9, #step11:checked ~ footer .back-10, #step12:checked ~ footer .back-11, #step13:checked ~ footer .back-12, #step14:checked ~ footer .back-13 { display: block; }
   </style>
 </head>
 <body>
-  <input type="radio" name="tripstep" id="step1" checked>
-  <input type="radio" name="tripstep" id="step2">
-  <input type="radio" name="tripstep" id="step3">
-  <input type="radio" name="tripstep" id="step4">
-  <input type="radio" name="tripstep" id="step5">
-  <input type="radio" name="tripstep" id="step6">
-  <input type="radio" name="tripstep" id="step7">
-  <input type="radio" name="tripstep" id="step8">
-  <input type="radio" name="tripstep" id="step9">
-  <input type="radio" name="tripstep" id="step10">
-  <input type="radio" name="tripstep" id="step11">
-  <input type="radio" name="tripstep" id="step12">
-  <input type="radio" name="tripstep" id="step13">
-  <input type="radio" name="tripstep" id="step14">
 
   <header>
-    <span class="brand-title">Sculpture Park Excursion</span>
-    <div>
-      <span class="step-pill" id="pill1">Step 1 of 14</span>
-      <span class="step-pill" id="pill2">Step 2 of 14</span>
-      <span class="step-pill" id="pill3">Step 3 of 14</span>
-      <span class="step-pill" id="pill4">Step 4 of 14</span>
-      <span class="step-pill" id="pill5">Step 5 of 14</span>
-      <span class="step-pill" id="pill6">Step 6 of 14</span>
-      <span class="step-pill" id="pill7">Step 7 of 14</span>
-      <span class="step-pill" id="pill8">Step 8 of 14</span>
-      <span class="step-pill" id="pill9">Step 9 of 14</span>
-      <span class="step-pill" id="pill10">Step 10 of 14</span>
-      <span class="step-pill" id="pill11">Step 11 of 14</span>
-      <span class="step-pill" id="pill12">Step 12 of 14</span>
-      <span class="step-pill" id="pill13">Step 13 of 14</span>
-      <span class="step-pill" id="pill14">Step 14 of 14</span>
-    </div>
+    <span class="brand-title" id="trip-header-title"></span>
+    <span class="step-pill" id="step-indicator"></span>
   </header>
-  <main>
-    <div class="step-pane" id="pane1">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">11:30 AM</span><span class="tag-badge">DEPARTURE</span></div>
-        <h1 class="step-title">Exit 2929 1st Ave</h1>
-        <ul class="bullet-list">
-          <li>Exit your building at 2929 1st Ave in Belltown.</li>
-          <li>Walk 2 short blocks west down Broad Street toward Elliott Bay.</li>
-          <li>Enter the upper pavilion of the Olympic Sculpture Park.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">11:45 AM</span><span class="preview-title">Olympic Sculpture Park Z-Path</span></div>
-        <div class="preview-card"><span class="preview-time">12:30 PM</span><span class="preview-title">Lunch at Anthony's Bell Street Diner</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane2">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">11:45 AM</span><span class="tag-badge">EXPLORE</span></div>
-        <h1 class="step-title">Olympic Sculpture Park Z-Path</h1>
-        <ul class="bullet-list">
-          <li>Wander the paved zig-zag trail through the Seattle Art Museum's outdoor park.</li>
-          <li>View monumental sculptures like Calder's 'The Eagle' and Serra's 'Wake'.</li>
-          <li>Spectacular views of Puget Sound and the Olympic Mountains.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">12:30 PM</span><span class="preview-title">Lunch at Anthony's Bell Street Diner</span></div>
-        <div class="preview-card"><span class="preview-time">01:45 PM</span><span class="preview-title">Myrtle Edwards Park Shoreline Trail</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane3">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">12:30 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Lunch at Anthony's Bell Street Diner</h1>
-        <ul class="bullet-list">
-          <li>Walk 3 blocks south along the waterfront to Pier 66 (2201 Alaskan Way).</li>
-          <li>Casual seafood dining right over the water.</li>
-          <li>Enjoy fresh Dungeness crab roll, fish & chips, or grilled wild salmon.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">01:45 PM</span><span class="preview-title">Myrtle Edwards Park Shoreline Trail</span></div>
-        <div class="preview-card"><span class="preview-time">02:30 PM</span><span class="preview-title">Grain Elevator & Pocket Beach</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane4">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">01:45 PM</span><span class="tag-badge">WALK</span></div>
-        <h1 class="step-title">Myrtle Edwards Park Shoreline Trail</h1>
-        <ul class="bullet-list">
-          <li>Head back north onto the Elliott Bay Trail into Myrtle Edwards Park.</li>
-          <li>Stroll the flat, wide paved pedestrian trail hugging the shoreline.</li>
-          <li>Benches, manicured lawns, and driftwood beaches along the water.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:30 PM</span><span class="preview-title">Grain Elevator & Pocket Beach</span></div>
-        <div class="preview-card"><span class="preview-time">03:00 PM</span><span class="preview-title">Return via Broad Street Greenbelt</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane5">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:30 PM</span><span class="tag-badge">LEISURE</span></div>
-        <h1 class="step-title">Grain Elevator & Pocket Beach</h1>
-        <ul class="bullet-list">
-          <li>Walk out to the gravel pocket beach and grain terminal viewing points.</li>
-          <li>Watch Puget Sound harbor seals and passing state ferries.</li>
-          <li>Quiet, refreshing ocean breeze right in downtown Seattle.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:00 PM</span><span class="preview-title">Return via Broad Street Greenbelt</span></div>
-        <div class="preview-card"><span class="preview-time">03:15 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane6">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:00 PM</span><span class="tag-badge">WALK</span></div>
-        <h1 class="step-title">Return via Broad Street Greenbelt</h1>
-        <ul class="bullet-list">
-          <li>Turn back and ascend the gentle paved trail through the sculpture meadow.</li>
-          <li>Walk up Broad Street past local Belltown cafÃ©s.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:15 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
-        <div class="preview-card"><span class="preview-time">03:20 PM</span><span class="preview-title">Trip Complete</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane7">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:15 PM</span><span class="tag-badge">HOME</span></div>
-        <h1 class="step-title">Arrive Home at 2929 1st Ave</h1>
-        <ul class="bullet-list">
-          <li>Arrive right back at your front door at 2929 1st Ave.</li>
-          <li>Zero transit required; 100% flat doorstep neighborhood walk.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:20 PM</span><span class="preview-title">Trip Complete</span></div>
-        <div class="preview-card"><span class="preview-time">03:25 PM</span><span class="preview-title">Accessibility Note</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane8">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:20 PM</span><span class="tag-badge">HOME</span></div>
-        <h1 class="step-title">Trip Complete</h1>
-        <ul class="bullet-list">
-          <li>Olympic Sculpture Park & Waterfront walk complete!</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:25 PM</span><span class="preview-title">Accessibility Note</span></div>
-        <div class="preview-card"><span class="preview-time">03:30 PM</span><span class="preview-title">Dog Friendly</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane9">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:25 PM</span><span class="tag-badge">NOTES</span></div>
-        <h1 class="step-title">Accessibility Note</h1>
-        <ul class="bullet-list">
-          <li>Trail is 100% ADA paved and accessible for walking and strollers.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:30 PM</span><span class="preview-title">Dog Friendly</span></div>
-        <div class="preview-card"><span class="preview-time">03:35 PM</span><span class="preview-title">Best Time</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane10">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:30 PM</span><span class="tag-badge">NOTES</span></div>
-        <h1 class="step-title">Dog Friendly</h1>
-        <ul class="bullet-list">
-          <li>Myrtle Edwards Park welcomes on-leash dogs along the entire path.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:35 PM</span><span class="preview-title">Best Time</span></div>
-        <div class="preview-card"><span class="preview-time">03:40 PM</span><span class="preview-title">Sunset Extension</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane11">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:35 PM</span><span class="tag-badge">NOTES</span></div>
-        <h1 class="step-title">Best Time</h1>
-        <ul class="bullet-list">
-          <li>Afternoons offer optimal sun and Olympic Mountain clarity.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:40 PM</span><span class="preview-title">Sunset Extension</span></div>
-        <div class="preview-card"><span class="preview-time">03:45 PM</span><span class="preview-title">Nearby Dining</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane12">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:40 PM</span><span class="tag-badge">NOTES</span></div>
-        <h1 class="step-title">Sunset Extension</h1>
-        <ul class="bullet-list">
-          <li>Return at sunset for dramatic views over Bainbridge Island.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:45 PM</span><span class="preview-title">Nearby Dining</span></div>
-        <div class="preview-card"><span class="preview-time">03:50 PM</span><span class="preview-title">Complete</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane13">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:45 PM</span><span class="tag-badge">NOTES</span></div>
-        <h1 class="step-title">Nearby Dining</h1>
-        <ul class="bullet-list">
-          <li>Tilikum Place Cafe on Cedar St makes a great alternative brunch spot.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:50 PM</span><span class="preview-title">Complete</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane14">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:50 PM</span><span class="tag-badge">FINISH</span></div>
-        <h1 class="step-title">Complete</h1>
-        <ul class="bullet-list">
-          <li>Itinerary finished!</li>
-        </ul>
-      </section>
-    </div>  </main>
+
+  <main id="panes-container"></main>
+
   <footer>
-    <div class="btn-nav btn-back btn-disabled back-disabled">&larr; Back</div>
-    <label for="step1" class="btn-nav btn-back back-1" onclick="">&larr; Back</label>
-    <label for="step2" class="btn-nav btn-back back-2" onclick="">&larr; Back</label>
-    <label for="step3" class="btn-nav btn-back back-3" onclick="">&larr; Back</label>
-    <label for="step4" class="btn-nav btn-back back-4" onclick="">&larr; Back</label>
-    <label for="step5" class="btn-nav btn-back back-5" onclick="">&larr; Back</label>
-    <label for="step6" class="btn-nav btn-back back-6" onclick="">&larr; Back</label>
-    <label for="step7" class="btn-nav btn-back back-7" onclick="">&larr; Back</label>
-    <label for="step8" class="btn-nav btn-back back-8" onclick="">&larr; Back</label>
-    <label for="step9" class="btn-nav btn-back back-9" onclick="">&larr; Back</label>
-    <label for="step10" class="btn-nav btn-back back-10" onclick="">&larr; Back</label>
-    <label for="step11" class="btn-nav btn-back back-11" onclick="">&larr; Back</label>
-    <label for="step12" class="btn-nav btn-back back-12" onclick="">&larr; Back</label>
-    <label for="step13" class="btn-nav btn-back back-13" onclick="">&larr; Back</label>
-    <a href="index.html#local" class="btn-nav btn-menu">&#8962; Menu</a>
-    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next &rarr;</label>
-    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next &rarr;</label>
-    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next &rarr;</label>
-    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next &rarr;</label>
-    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next &rarr;</label>
-    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next &rarr;</label>
-    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next &rarr;</label>
-    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next &rarr;</label>
-    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next &rarr;</label>
-    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next &rarr;</label>
-    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next &rarr;</label>
-    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next &rarr;</label>
-    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next &rarr;</label>
-    <a href="index.html#local" class="btn-nav btn-finish next-finish">Finish &rarr;</a>
+    <button class="btn-nav btn-back" id="btn-back" onclick="navigate(-1)">← Back</button>
+    <a href="index.html#local" class="btn-nav btn-menu" id="btn-menu">⌂ Menu</a>
+    <button class="btn-nav btn-next" id="btn-next" onclick="navigate(1)">Next →</button>
+    <a href="index.html#local" class="btn-nav btn-finish" id="btn-finish" style="display: none;">Finish ➔</a>
   </footer>
+
+  <script>
+    const TRIP_CONFIG = {
+      title: "Sculpture Park Excursion",
+      returnHash: "#local",
+      steps: [
+        {
+          time: "11:30 AM",
+          tag: "DEPARTURE",
+          title: "Exit 2929 1st Ave",
+          bullets: [
+            "Exit your building at 2929 1st Ave in Belltown.",
+            "Walk 2 short blocks west down Broad Street toward Elliott Bay.",
+            "Enter the upper pavilion of the Olympic Sculpture Park."
+          ]
+        },
+        {
+          time: "11:45 AM",
+          tag: "EXPLORE",
+          title: "Olympic Sculpture Park Z-Path",
+          bullets: [
+            "Wander the paved zig-zag trail through the Seattle Art Museum's outdoor park.",
+            "View monumental sculptures like Calder's 'The Eagle' and Serra's 'Wake'.",
+            "Enjoy wide-open views across Puget Sound to the Olympic Mountains."
+          ]
+        },
+        {
+          time: "12:30 PM",
+          tag: "DINING",
+          title: "Lunch at Anthony's Bell Street Diner",
+          bullets: [
+            "Walk 3 blocks south along the waterfront to Pier 66 (2201 Alaskan Way).",
+            "Casual seafood dining right over the water.",
+            "Fresh Dungeness crab roll, fish & chips, or grilled wild King salmon."
+          ]
+        },
+        {
+          time: "01:45 PM",
+          tag: "WALK",
+          title: "Myrtle Edwards Park Shoreline Trail",
+          bullets: [
+            "Head back north onto the Elliott Bay Trail into Myrtle Edwards Park.",
+            "Stroll the flat, wide paved pedestrian trail hugging the shoreline.",
+            "Benches, manicured lawns, and driftwood beaches along the water."
+          ]
+        },
+        {
+          time: "02:30 PM",
+          tag: "LEISURE",
+          title: "Grain Elevator & Pocket Beach",
+          bullets: [
+            "Walk out to the gravel pocket beach and grain terminal viewing points.",
+            "Watch Puget Sound harbor seals and passing state ferries.",
+            "Quiet, refreshing salt air right in downtown Seattle."
+          ]
+        },
+        {
+          time: "03:00 PM",
+          tag: "WALK",
+          title: "Return via Broad Street Greenbelt",
+          bullets: [
+            "Turn back and ascend the gentle paved trail through the sculpture meadow.",
+            "Walk up Broad Street past local Belltown cafés."
+          ]
+        },
+        {
+          time: "03:15 PM",
+          tag: "HOME",
+          title: "Arrive Home at 2929 1st Ave",
+          bullets: [
+            "Arrive right back at your front door at 2929 1st Ave.",
+            "Zero transit required; 100% flat doorstep neighborhood walk.",
+            "Olympic Sculpture Park & Waterfront walk complete!"
+          ]
+        }
+      ]
+    };
+
+    let currentStep = 0;
+    const steps = TRIP_CONFIG.steps;
+    const totalSteps = steps.length;
+
+    document.getElementById("trip-header-title").textContent = TRIP_CONFIG.title;
+    document.getElementById("btn-menu").href = `index.html${TRIP_CONFIG.returnHash}`;
+    document.getElementById("btn-finish").href = `index.html${TRIP_CONFIG.returnHash}`;
+
+    const container = document.getElementById("panes-container");
+    container.innerHTML = steps.map((s, idx) => {
+      const bulletsHtml = s.bullets.map(b => `<li>${b}</li>`).join("");
+      
+      let previewHtml = "";
+      if (idx < totalSteps - 1) {
+        const nextCards = [idx + 1, idx + 2]
+          .filter(n => n < totalSteps)
+          .map(n => `
+            <div class="preview-card">
+              <span class="preview-time">${steps[n].time}</span>
+              <span class="preview-title">${steps[n].title}</span>
+            </div>
+          `).join("");
+
+        previewHtml = `
+          <section class="preview-section">
+            <div class="preview-label">Up Next</div>
+            ${nextCards}
+          </section>
+        `;
+      }
+
+      return `
+        <div class="step-pane ${idx === 0 ? 'active' : ''}" id="pane-${idx}">
+          <section class="active-card">
+            <div class="card-top-row">
+              <span class="time-badge">${s.time}</span>
+              <span class="tag-badge">${s.tag}</span>
+            </div>
+            <h1 class="step-title">${s.title}</h1>
+            <ul class="bullet-list">${bulletsHtml}</ul>
+          </section>
+          ${previewHtml}
+        </div>
+      `;
+    }).join("");
+
+    function updateUI() {
+      for (let i = 0; i < totalSteps; i++) {
+        document.getElementById(`pane-${i}`).classList.toggle("active", i === currentStep);
+      }
+      document.getElementById("step-indicator").textContent = `Step ${currentStep + 1} of ${totalSteps}`;
+      const btnBack = document.getElementById("btn-back");
+      if (currentStep === 0) {
+        btnBack.classList.add("btn-disabled");
+      } else {
+        btnBack.classList.remove("btn-disabled");
+      }
+      const btnNext = document.getElementById("btn-next");
+      const btnFinish = document.getElementById("btn-finish");
+      if (currentStep === totalSteps - 1) {
+        btnNext.style.display = "none";
+        btnFinish.style.display = "block";
+      } else {
+        btnNext.style.display = "block";
+        btnFinish.style.display = "none";
+      }
+      container.scrollTop = 0;
+    }
+
+    function navigate(direction) {
+      const next = currentStep + direction;
+      if (next >= 0 && next < totalSteps) {
+        currentStep = next;
+        updateUI();
+      }
+    }
+
+    updateUI();
+  </script>
 </body>
 </html>

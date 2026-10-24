@@ -1,48 +1,56 @@
-# Trip-Itinerary (TripPacer)
+# TripPacer Library
 
-Offline-capable, pure-CSS mobile itinerary helper and getaway library designed for regional Pacific Northwest travel departing from Belltown, Seattle (2929 1st Ave).
+A mobile-first, zero-dependency travel itinerary runner optimized for regional Pacific Northwest day trips, overnight getaways, and local doorstep walking excursions originating from downtown Seattle.
 
-## Available Itineraries
-
-* **Historic Fairhaven (Bellingham, WA)** — `BellinghamDayTrip.html`
-  * **Transit:** Monorail $\rightarrow$ Link Light Rail $\rightarrow$ Amtrak Cascades Northbound (Train 516 / 519)
-  * **Highlights:** Taylor Dock boardwalk stroll over Bellingham Bay, lunch at Keenan's at the Pier, 19th-century brick village shopping.
-
-* **Historic Centralia, WA** — `CentraliaDayTrip.html`
-  * **Transit:** Monorail $\rightarrow$ Link Light Rail $\rightarrow$ Amtrak Cascades Southbound (Train 505 / 504)
-  * **Highlights:** Historic 1912 Union Depot, lunch & craft beer at McMenamins Olympic Club, Tower Avenue antique district.
-
-* **Mount Vernon & Skagit Valley** — `MountVernonDayTrip.html`
-  * **Transit:** Monorail $\rightarrow$ Link Light Rail $\rightarrow$ Amtrak Cascades Northbound (Train 516 / 519)
-  * **Highlights:** Skagit Riverwalk Trail, wood-fired lunch at Skagit River Brewery, historic 1st Street and Lincoln Theatre.
+Built specifically for hands-free and mobile field use on iOS Safari and modern mobile browsers.
 
 ---
 
-## Technical Architecture
+## Architecture & Features
 
-* **Multi-Trip Library Hub (`index.html`):** Acts as the home launcher menu, allowing one-tap access to any trip without reinstalling or reconfiguring home screen shortcuts.
-* **Pure CSS State Machine:** Drives step progression via hidden radio inputs (`<input type="radio">`) paired with CSS `:checked` siblings—eliminating all JavaScript.
-* **Sandbox & Webview Immune:** Zero `<script>` tags ensures full compatibility across iOS Safari, Edge, email sandboxes, and content blockers.
-* **100% Offline Capable:** Once loaded or added to the iPhone Home Screen, layout, pacing, and steps remain completely cached and responsive even through rail dead zones.
-* **PWA & Viewport Optimized:** Utilizes `100dvh`, strict touch targets, and generous `safe-area-inset-bottom` padding to elevate controls safely above native iOS swipe-gesture lines.
+- **Zero-Dependency Engine:** Pure client-side HTML, CSS, and lightweight vanilla JavaScript. No node modules, build tools, external CDNs, or server runtimes.
+- **Dynamic Step Sizing:** Itineraries dynamically calculate their own total steps (`Step 1 of N`). Outings adapt naturally to however many stops are required—from quick 6-step neighborhood walks to 18-step regional multi-modal rail journeys—with zero artificial filler.
+- **Automated Navigation Controls:** 
+  - Dynamic **Back** and **Next** progression.
+  - Automatic conversion to a blue **Finish ➔** button on the final step.
+  - Native **Up Next** chronological preview cards.
+- **Tab State Persistence:** Bottom **⌂ Menu** and **Finish** buttons route back to specific URL category anchors (`#day`, `#overnight`, `#local`), guaranteeing iOS Safari preserves the active filter tab when returning to the library.
+- **Mobile-First Layout:** Designed to accommodate iOS safe areas (Dynamic Island / home bar) with fixed touch targets and high-contrast night styling.
 
 ---
 
-## Adding a New Trip in the Future
+## Repository Structure
 
-1. **Create the Trip File:**
-   * Click **Add file** $\rightarrow$ **Create new file** in GitHub (e.g., `BainbridgeDayTrip.html`).
-   * Paste the 14-step pure-CSS template code and commit.
+- `index.html` — The main portal and categorized library runner. Contains the tabbed segmented filter (`Day Trips`, `Overnights`, `Local Walks`).
+- `[TripName].html` — Self-contained itinerary files powered by the internal template engine.
 
-2. **Link It in the Launcher (`index.html`):**
-   * Edit `index.html` and append a card link block to `<main class="trip-list">`:
-     ```html
-     <a href="YourNewTrip.html" class="trip-card">
-       <div class="trip-info">
-         <h2>Destination Name</h2>
-         <div class="trip-meta">Transit Mode • Key Highlights • Dining</div>
-       </div>
-       <div class="trip-arrow">➔</div>
-     </a>
-     ```
-   * Commit changes. The iPhone
+---
+
+## How to Add a New Itinerary
+
+Follow this standard 2-step workflow to add a new trip to the library:
+
+### 1. Create the New Trip File
+1. In the repository root, create a new file (e.g., `FridayHarbor.html`).
+2. Copy and paste the standard **TripPacer Dynamic Template** into the file.
+3. Update the `TRIP_CONFIG` block at the top of the `<script>` tag:
+   - `title`: Display title in the header (e.g., `"Friday Harbor Day Trip"`).
+   - `returnHash`: Target category tab (`"#day"`, `"#overnight"`, or `"#local"`).
+   - `steps`: An array of step objects containing `time`, `tag`, `title`, and an array of `bullets`.
+4. Save and commit the file.
+
+### 2. Add the Card to `index.html`
+Open `index.html` and add a new card link under the appropriate section:
+- `#list-day` for Day Trips
+- `#list-overnight` for Overnight Getaways
+- `#list-local` for Local Walks & Excursions
+
+```html
+<a href="YourFileName.html" class="trip-card">
+  <div class="trip-info">
+    <h2>Destination — Subtitle or Route</h2>
+    <div class="trip-time-window">⏱ Departure – Return • ~Total Duration</div>
+    <div class="trip-meta">Transit Mode • Primary Highlights • Dining</div>
+  </div>
+  <div class="trip-arrow">➔</div>
+</a>

@@ -8,14 +8,12 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     html, body { width: 100%; height: 100%; overflow: hidden; background-color: #0b1120; }
     body { color: #f8fafc; display: flex; flex-direction: column; max-width: 600px; margin: 0 auto; }
-    input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; opacity: 0; }
     header { padding-top: max(env(safe-area-inset-top), 44px); padding-left: 16px; padding-right: 16px; padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; background-color: #0b1120; flex-shrink: 0; }
     .brand-title { font-size: 1.1rem; font-weight: 800; color: #38bdf8; }
-    .step-pill { display: none; font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
-    #step1:checked ~ header #pill1, #step2:checked ~ header #pill2, #step3:checked ~ header #pill3, #step4:checked ~ header #pill4, #step5:checked ~ header #pill5, #step6:checked ~ header #pill6, #step7:checked ~ header #pill7, #step8:checked ~ header #pill8, #step9:checked ~ header #pill9, #step10:checked ~ header #pill10, #step11:checked ~ header #pill11, #step12:checked ~ header #pill12, #step13:checked ~ header #pill13, #step14:checked ~ header #pill14 { display: inline-block; }
+    .step-pill { font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
     main { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 16px; -webkit-overflow-scrolling: touch; }
     .step-pane { display: none; flex-direction: column; gap: 12px; padding-bottom: 10px; }
-    #step1:checked ~ main #pane1, #step2:checked ~ main #pane2, #step3:checked ~ main #pane3, #step4:checked ~ main #pane4, #step5:checked ~ main #pane5, #step6:checked ~ main #pane6, #step7:checked ~ main #pane7, #step8:checked ~ main #pane8, #step9:checked ~ main #pane9, #step10:checked ~ main #pane10, #step11:checked ~ main #pane11, #step12:checked ~ main #pane12, #step13:checked ~ main #pane13, #step14:checked ~ main #pane14 { display: flex; }
+    .step-pane.active { display: flex; }
     .active-card { background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid #38bdf8; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
     .card-top-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
     .time-badge { font-size: 1.25rem; font-weight: 900; color: #fbbf24; }
@@ -30,322 +28,215 @@
     .preview-time { font-size: 0.82rem; font-weight: 800; color: #fbbf24; min-width: 65px; }
     .preview-title { font-size: 0.82rem; color: #f8fafc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     footer { flex-shrink: 0; padding-top: 10px; padding-left: 16px; padding-right: 16px; padding-bottom: max(env(safe-area-inset-bottom), 24px); border-top: 1px solid #334155; background-color: #0b1120; display: flex; gap: 8px; z-index: 100; }
-    .btn-nav { flex: 1; text-align: center; text-decoration: none; display: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
+    .btn-nav { flex: 1; text-align: center; text-decoration: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
     .btn-back { background-color: #1e293b; color: #94a3b8; border: 1px solid #334155; }
     .btn-back:active { background-color: #334155; color: #f8fafc; }
     .btn-disabled { opacity: 0.35; pointer-events: none; }
-    .btn-menu { display: block !important; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
+    .btn-menu { background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
     .btn-menu:active { background-color: #334155; }
     .btn-next { background-color: #10b981; color: #ffffff; border: 1px solid #10b981; }
     .btn-next:active { background-color: #059669; }
     .btn-finish { background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6; }
-    #step1:checked ~ footer .next-2, #step2:checked ~ footer .next-3, #step3:checked ~ footer .next-4, #step4:checked ~ footer .next-5, #step5:checked ~ footer .next-6, #step6:checked ~ footer .next-7, #step7:checked ~ footer .next-8, #step8:checked ~ footer .next-9, #step9:checked ~ footer .next-10, #step10:checked ~ footer .next-11, #step11:checked ~ footer .next-12, #step12:checked ~ footer .next-13, #step13:checked ~ footer .next-14 { display: block; }
-    #step14:checked ~ footer .next-finish { display: block; }
-    #step1:checked ~ footer .back-disabled { display: block; }
-    #step2:checked ~ footer .back-1, #step3:checked ~ footer .back-2, #step4:checked ~ footer .back-3, #step5:checked ~ footer .back-4, #step6:checked ~ footer .back-5, #step7:checked ~ footer .back-6, #step8:checked ~ footer .back-7, #step9:checked ~ footer .back-8, #step10:checked ~ footer .back-9, #step11:checked ~ footer .back-10, #step12:checked ~ footer .back-11, #step13:checked ~ footer .back-12, #step14:checked ~ footer .back-13 { display: block; }
   </style>
 </head>
 <body>
-  <input type="radio" name="tripstep" id="step1" checked>
-  <input type="radio" name="tripstep" id="step2">
-  <input type="radio" name="tripstep" id="step3">
-  <input type="radio" name="tripstep" id="step4">
-  <input type="radio" name="tripstep" id="step5">
-  <input type="radio" name="tripstep" id="step6">
-  <input type="radio" name="tripstep" id="step7">
-  <input type="radio" name="tripstep" id="step8">
-  <input type="radio" name="tripstep" id="step9">
-  <input type="radio" name="tripstep" id="step10">
-  <input type="radio" name="tripstep" id="step11">
-  <input type="radio" name="tripstep" id="step12">
-  <input type="radio" name="tripstep" id="step13">
-  <input type="radio" name="tripstep" id="step14">
 
   <header>
-    <span class="brand-title">Pike Place Boil Run</span>
-    <div>
-      <span class="step-pill" id="pill1">Step 1 of 14</span>
-      <span class="step-pill" id="pill2">Step 2 of 14</span>
-      <span class="step-pill" id="pill3">Step 3 of 14</span>
-      <span class="step-pill" id="pill4">Step 4 of 14</span>
-      <span class="step-pill" id="pill5">Step 5 of 14</span>
-      <span class="step-pill" id="pill6">Step 6 of 14</span>
-      <span class="step-pill" id="pill7">Step 7 of 14</span>
-      <span class="step-pill" id="pill8">Step 8 of 14</span>
-      <span class="step-pill" id="pill9">Step 9 of 14</span>
-      <span class="step-pill" id="pill10">Step 10 of 14</span>
-      <span class="step-pill" id="pill11">Step 11 of 14</span>
-      <span class="step-pill" id="pill12">Step 12 of 14</span>
-      <span class="step-pill" id="pill13">Step 13 of 14</span>
-      <span class="step-pill" id="pill14">Step 14 of 14</span>
-    </div>
+    <span class="brand-title" id="trip-header-title"></span>
+    <span class="step-pill" id="step-indicator"></span>
   </header>
 
-  <main>
-    <div class="step-pane" id="pane1">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">11:30 AM</span><span class="tag-badge">DEPARTURE</span></div>
-        <h1 class="step-title">Depart 2929 1st Ave Southbound</h1>
-        <ul class="bullet-list">
-          <li>Exit building with an insulated tote bag / market bag.</li>
-          <li>Walk southeast straight down 1st Avenue through Belltown.</li>
-          <li>Easy, flat 10-minute stroll (~0.7 miles) to the market arch at Pike St.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">11:45 AM</span><span class="preview-title">MarketSpice: Boil Seasoning & Peppercorns</span></div>
-        <div class="preview-card"><span class="preview-time">12:05 PM</span><span class="preview-title">Sosio's Produce: Potatoes, Corn, Garlic & Lemons</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane2">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">11:45 AM</span><span class="tag-badge">SPICES</span></div>
-        <h1 class="step-title">MarketSpice: Boil Seasoning & Peppercorns</h1>
-        <ul class="bullet-list">
-          <li>Enter the Main Arcade near the Corner Market and clock.</li>
-          <li>Pick up whole bay leaves, coarse sea salt, and whole black peppercorns.</li>
-          <li>Select their regional Crab & Shrimp Boil spice blend and crushed red pepper.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">12:05 PM</span><span class="preview-title">Sosio's Produce: Potatoes, Corn, Garlic & Lemons</span></div>
-        <div class="preview-card"><span class="preview-time">12:20 PM</span><span class="preview-title">Lunch at Place Pigalle</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane3">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">12:05 PM</span><span class="tag-badge">PRODUCE</span></div>
-        <h1 class="step-title">Sosio's Produce: Potatoes, Corn, Garlic & Lemons</h1>
-        <ul class="bullet-list">
-          <li>Head across the arcade breezeway to Sosio's (stall #13).</li>
-          <li>Pick up baby Dutch Yellow or red creamer potatoes.</li>
-          <li>Grab sweet corn ears, whole garlic bulbs, a sweet yellow onion, and fresh lemons.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">12:20 PM</span><span class="preview-title">Lunch at Place Pigalle</span></div>
-        <div class="preview-card"><span class="preview-time">01:30 PM</span><span class="preview-title">Three Girls Bakery: Crusty Sourdough</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane4">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">12:20 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Lunch at Place Pigalle</h1>
-        <ul class="bullet-list">
-          <li>Walk behind the fish stall and head down to Place Pigalle (81 Pike St).</li>
-          <li>Place your market tote under the table by the window overlooking Elliott Bay.</li>
-          <li>Enjoy steamed Penn Cove mussels, oyster pan roast, or fresh seasonal catch with crisp white wine.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">01:30 PM</span><span class="preview-title">Three Girls Bakery: Crusty Sourdough</span></div>
-        <div class="preview-card"><span class="preview-time">01:45 PM</span><span class="preview-title">Don & Joe's Meats: Andouille Sausage</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane5">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">01:30 PM</span><span class="tag-badge">BAKERY</span></div>
-        <h1 class="step-title">Three Girls Bakery: Crusty Sourdough</h1>
-        <ul class="bullet-list">
-          <li>Step back up into the Sanitary Market arcade breezeway.</li>
-          <li>Pick up a fresh, crusty sourdough round boule or warm French baguette.</li>
-          <li>Perfect for dipping into garlic-herb broth and warm clarified butter tonight.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">01:45 PM</span><span class="preview-title">Don & Joe's Meats: Andouille Sausage</span></div>
-        <div class="preview-card"><span class="preview-time">02:00 PM</span><span class="preview-title">Pike Place Fish: Pre-Packed Seafood Boil</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane6">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">01:45 PM</span><span class="tag-badge">MEAT</span></div>
-        <h1 class="step-title">Don & Joe's Meats: Andouille Sausage</h1>
-        <ul class="bullet-list">
-          <li>Walk a few paces down the hall to Don & Joe's Meats.</li>
-          <li>Pick up artisan smoked Andouille or spicy Polish kielbasa rope sausage.</li>
-          <li>Coarse, richly spiced sausage that releases deep flavor into the pot without crumbling.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:00 PM</span><span class="preview-title">Pike Place Fish: Pre-Packed Seafood Boil</span></div>
-        <div class="preview-card"><span class="preview-time">02:20 PM</span><span class="preview-title">Pike Place Overlook & Departure</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane7">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:00 PM</span><span class="tag-badge">SEAFOOD</span></div>
-        <h1 class="step-title">Pike Place Fish: Pre-Packed Seafood Boil</h1>
-        <ul class="bullet-list">
-          <li>Walk out to the main market sign and fish counter.</li>
-          <li>Request their fresh Shellfish / Crab Boil package (Dungeness crab, wild prawns, Manila clams, and Penn Cove mussels).</li>
-          <li>Packed directly on fresh crushed ice in a leak-proof bag right into your insulated tote.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:20 PM</span><span class="preview-title">Pike Place Overlook & Departure</span></div>
-        <div class="preview-card"><span class="preview-time">02:35 PM</span><span class="preview-title">Northbound Stroll via 1st Ave</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane8">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:20 PM</span><span class="tag-badge">SCENIC</span></div>
-        <h1 class="step-title">Pike Place Overlook & Departure</h1>
-        <ul class="bullet-list">
-          <li>Take 10 minutes to enjoy the breeze and mountain view from the deck.</li>
-          <li>Zip up the tote bag; all provisions are gathered and the clock starts on the ice.</li>
-          <li>Head north toward Pike St and 1st Ave.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:35 PM</span><span class="preview-title">Northbound Stroll via 1st Ave</span></div>
-        <div class="preview-card"><span class="preview-time">02:50 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane9">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:35 PM</span><span class="tag-badge">WALK</span></div>
-        <h1 class="step-title">Northbound Stroll via 1st Ave</h1>
-        <ul class="bullet-list">
-          <li>Begin the flat, easy stroll back north along 1st Avenue through Belltown.</li>
-          <li>Pass neighborhood shops and coffee houses at an easy pace.</li>
-          <li>Relaxed ~15-minute neighborhood walk.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:50 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
-        <div class="preview-card"><span class="preview-time">02:55 PM</span><span class="preview-title">Unpack & Stage Provisions</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane10">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:50 PM</span><span class="tag-badge">HOME</span></div>
-        <h1 class="step-title">Arrive Home at 2929 1st Ave</h1>
-        <ul class="bullet-list">
-          <li>Arrive at your front door with the fresh dinner provisions.</li>
-          <li>Total seafood transit time off the stall ice: under 35 minutes.</li>
-          <li>Zero transit or car hassles; completely on foot.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:55 PM</span><span class="preview-title">Unpack & Stage Provisions</span></div>
-        <div class="preview-card"><span class="preview-time">03:00 PM</span><span class="preview-title">Boil Staging Complete</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane11">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:55 PM</span><span class="tag-badge">PREP</span></div>
-        <h1 class="step-title">Unpack & Stage Provisions</h1>
-        <ul class="bullet-list">
-          <li>Transfer shellfish immediately to refrigerator ice; keep clams and mussels aerated in a bowl covered with a damp cloth.</li>
-          <li>Slice andouille into 1-inch medallion coins; halve potatoes and snap corn into mini ears.</li>
-          <li>Set out the pantry clarified butter and fresh lemons for melting.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:00 PM</span><span class="preview-title">Boil Staging Complete</span></div>
-        <div class="preview-card"><span class="preview-time">03:05 PM</span><span class="preview-title">Market Run Complete</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane12">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:00 PM</span><span class="tag-badge">READY</span></div>
-        <h1 class="step-title">Boil Staging Complete</h1>
-        <ul class="bullet-list">
-          <li>Stockpot, spice blend, smoked sausage, sweet corn, potatoes, and Puget Sound shellfish staged.</li>
-          <li>Spread newspaper across the counter and prepare for the evening boil.</li>
-          <li>Warm the clarified butter with a squeeze of fresh lemon right before serving.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:05 PM</span><span class="preview-title">Market Run Complete</span></div>
-        <div class="preview-card"><span class="preview-time">03:10 PM</span><span class="preview-title">Itinerary Concluded</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane13">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:05 PM</span><span class="tag-badge">SUMMARY</span></div>
-        <h1 class="step-title">Market Run Complete</h1>
-        <ul class="bullet-list">
-          <li>Pike Place Market lunch and seafood provisions run finished!</li>
-          <li>All components ready for evening stockpot boil.</li>
-          <li>100% on foot from your doorstep.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:10 PM</span><span class="preview-title">Itinerary Concluded</span></div>
-      </section>
-    </div>
-
-    <div class="step-pane" id="pane14">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:10 PM</span><span class="tag-badge">FINISH</span></div>
-        <h1 class="step-title">Itinerary Concluded</h1>
-        <ul class="bullet-list">
-          <li>Excursion concluded.</li>
-          <li>Tap Menu or Finish below to return to Local Walks.</li>
-        </ul>
-      </section>
-    </div>
-  </main>
+  <main id="panes-container"></main>
 
   <footer>
-    <div class="btn-nav btn-back btn-disabled back-disabled">&larr; Back</div>
-    <label for="step1" class="btn-nav btn-back back-1" onclick="">&larr; Back</label>
-    <label for="step2" class="btn-nav btn-back back-2" onclick="">&larr; Back</label>
-    <label for="step3" class="btn-nav btn-back back-3" onclick="">&larr; Back</label>
-    <label for="step4" class="btn-nav btn-back back-4" onclick="">&larr; Back</label>
-    <label for="step5" class="btn-nav btn-back back-5" onclick="">&larr; Back</label>
-    <label for="step6" class="btn-nav btn-back back-6" onclick="">&larr; Back</label>
-    <label for="step7" class="btn-nav btn-back back-7" onclick="">&larr; Back</label>
-    <label for="step8" class="btn-nav btn-back back-8" onclick="">&larr; Back</label>
-    <label for="step9" class="btn-nav btn-back back-9" onclick="">&larr; Back</label>
-    <label for="step10" class="btn-nav btn-back back-10" onclick="">&larr; Back</label>
-    <label for="step11" class="btn-nav btn-back back-11" onclick="">&larr; Back</label>
-    <label for="step12" class="btn-nav btn-back back-12" onclick="">&larr; Back</label>
-    <label for="step13" class="btn-nav btn-back back-13" onclick="">&larr; Back</label>
-
-    <a href="index.html#local" class="btn-nav btn-menu">&#8962; Menu</a>
-
-    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next &rarr;</label>
-    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next &rarr;</label>
-    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next &rarr;</label>
-    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next &rarr;</label>
-    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next &rarr;</label>
-    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next &rarr;</label>
-    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next &rarr;</label>
-    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next &rarr;</label>
-    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next &rarr;</label>
-    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next &rarr;</label>
-    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next &rarr;</label>
-    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next &rarr;</label>
-    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next &rarr;</label>
-    <a href="index.html#local" class="btn-nav btn-finish next-finish">Finish &rarr;</a>
+    <button class="btn-nav btn-back" id="btn-back" onclick="navigate(-1)">← Back</button>
+    <a href="index.html#local" class="btn-nav btn-menu" id="btn-menu">⌂ Menu</a>
+    <button class="btn-nav btn-next" id="btn-next" onclick="navigate(1)">Next →</button>
+    <a href="index.html#local" class="btn-nav btn-finish" id="btn-finish" style="display: none;">Finish ➔</a>
   </footer>
+
+  <script>
+    // ==========================================
+    // 1. TRIP DATA DEFINITION (Edit only this part!)
+    // ==========================================
+    const TRIP_CONFIG = {
+      title: "Pike Place Boil Run",
+      returnHash: "#local",
+      steps: [
+        {
+          time: "11:30 AM",
+          tag: "DEPARTURE",
+          title: "Depart 2929 1st Ave Southbound",
+          bullets: [
+            "Exit building with an insulated tote / market bag.",
+            "Walk southeast straight down 1st Avenue through Belltown.",
+            "Easy, flat 10-minute stroll (~0.7 miles) to the market arch at Pike St."
+          ]
+        },
+        {
+          time: "11:45 AM",
+          tag: "SPICES",
+          title: "MarketSpice (Main Arcade)",
+          bullets: [
+            "Enter the Main Arcade near the Corner Market and clock.",
+            "Pick up whole bay leaves, coarse sea salt, and whole black peppercorns.",
+            "Select their regional Crab & Shrimp Boil spice blend and crushed red pepper."
+          ]
+        },
+        {
+          time: "12:05 PM",
+          tag: "PRODUCE",
+          title: "Sosio’s Produce: Potatoes, Corn, Garlic & Lemons",
+          bullets: [
+            "Head across the arcade breezeway to Sosio's (stall #13).",
+            "Pick up baby Dutch Yellow or red creamer potatoes.",
+            "Grab sweet corn ears, whole garlic bulbs, a sweet yellow onion, and fresh lemons."
+          ]
+        },
+        {
+          time: "12:20 PM",
+          tag: "DINING",
+          title: "Lunch at Place Pigalle",
+          bullets: [
+            "Walk behind the fish stall and head down to Place Pigalle (81 Pike St).",
+            "Place your market tote under the table by the window overlooking Elliott Bay.",
+            "Enjoy steamed Penn Cove mussels, oyster pan roast, or fresh seasonal catch with crisp white wine."
+          ]
+        },
+        {
+          time: "01:30 PM",
+          tag: "BAKERY",
+          title: "Three Girls Bakery: Crusty Sourdough",
+          bullets: [
+            "Step back up into the Sanitary Market arcade breezeway.",
+            "Pick up a fresh, crusty sourdough round boule or warm French baguette.",
+            "Perfect for dipping into garlic broth and warm clarified butter tonight."
+          ]
+        },
+        {
+          time: "01:45 PM",
+          tag: "MEAT",
+          title: "Don & Joe’s Meats: Andouille Sausage",
+          bullets: [
+            "Walk a few paces down the hall to Don & Joe’s Meats.",
+            "Pick up artisan smoked Andouille or spicy Polish kielbasa rope sausage.",
+            "Coarse, richly spiced sausage that releases deep flavor into the pot without crumbling."
+          ]
+        },
+        {
+          time: "02:00 PM",
+          tag: "SEAFOOD",
+          title: "Pike Place Fish Market (Under the Clock)",
+          bullets: [
+            "Walk out to the main market sign and fish counter.",
+            "Request their fresh Shellfish / Crab Boil package (Dungeness crab, wild prawns, Manila clams, and Penn Cove mussels).",
+            "Packed directly on fresh crushed ice in a leak-proof bag right into your insulated tote."
+          ]
+        },
+        {
+          time: "02:35 PM",
+          tag: "HOME",
+          title: "Walk via 1st Ave & Arrive Home",
+          bullets: [
+            "Take 10 minutes to enjoy the view from the overlook deck.",
+            "Stroll back north along 1st Avenue through Belltown (~15 mins).",
+            "Arrive home at 2929 1st Ave with fresh shellfish off the stall ice for under 35 mins!"
+          ]
+        }
+      ]
+    };
+
+    // ==========================================
+    // 2. ENGINE (Renders and controls everything dynamically)
+    // ==========================================
+    let currentStep = 0;
+    const steps = TRIP_CONFIG.steps;
+    const totalSteps = steps.length;
+
+    document.getElementById("trip-header-title").textContent = TRIP_CONFIG.title;
+    document.getElementById("btn-menu").href = `index.html${TRIP_CONFIG.returnHash}`;
+    document.getElementById("btn-finish").href = `index.html${TRIP_CONFIG.returnHash}`;
+
+    // Render panes dynamically
+    const container = document.getElementById("panes-container");
+    container.innerHTML = steps.map((s, idx) => {
+      const bulletsHtml = s.bullets.map(b => `<li>${b}</li>`).join("");
+      
+      let previewHtml = "";
+      if (idx < totalSteps - 1) {
+        const nextCards = [idx + 1, idx + 2]
+          .filter(n => n < totalSteps)
+          .map(n => `
+            <div class="preview-card">
+              <span class="preview-time">${steps[n].time}</span>
+              <span class="preview-title">${steps[n].title}</span>
+            </div>
+          `).join("");
+
+        previewHtml = `
+          <section class="preview-section">
+            <div class="preview-label">Up Next</div>
+            ${nextCards}
+          </section>
+        `;
+      }
+
+      return `
+        <div class="step-pane ${idx === 0 ? 'active' : ''}" id="pane-${idx}">
+          <section class="active-card">
+            <div class="card-top-row">
+              <span class="time-badge">${s.time}</span>
+              <span class="tag-badge">${s.tag}</span>
+            </div>
+            <h1 class="step-title">${s.title}</h1>
+            <ul class="bullet-list">${bulletsHtml}</ul>
+          </section>
+          ${previewHtml}
+        </div>
+      `;
+    }).join("");
+
+    function updateUI() {
+      // Toggle panes
+      for (let i = 0; i < totalSteps; i++) {
+        document.getElementById(`pane-${i}`).classList.toggle("active", i === currentStep);
+      }
+
+      // Update Step Pill
+      document.getElementById("step-indicator").textContent = `Step ${currentStep + 1} of ${totalSteps}`;
+
+      // Update Back Button
+      const btnBack = document.getElementById("btn-back");
+      if (currentStep === 0) {
+        btnBack.classList.add("btn-disabled");
+      } else {
+        btnBack.classList.remove("btn-disabled");
+      }
+
+      // Update Next / Finish Button
+      const btnNext = document.getElementById("btn-next");
+      const btnFinish = document.getElementById("btn-finish");
+      if (currentStep === totalSteps - 1) {
+        btnNext.style.display = "none";
+        btnFinish.style.display = "block";
+      } else {
+        btnNext.style.display = "block";
+        btnFinish.style.display = "none";
+      }
+
+      // Scroll top on mobile
+      container.scrollTop = 0;
+    }
+
+    function navigate(direction) {
+      const next = currentStep + direction;
+      if (next >= 0 && next < totalSteps) {
+        currentStep = next;
+        updateUI();
+      }
+    }
+
+    updateUI();
+  </script>
 </body>
 </html>

@@ -12,10 +12,10 @@
     header { padding-top: max(env(safe-area-inset-top), 44px); padding-left: 16px; padding-right: 16px; padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; background-color: #0b1120; flex-shrink: 0; }
     .brand-title { font-size: 1.1rem; font-weight: 800; color: #38bdf8; }
     .step-pill { display: none; font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
-    #step1:checked ~ header #pill1,  { display: inline-block; }#step2:checked ~ header #pill2,  { display: inline-block; }#step3:checked ~ header #pill3,  { display: inline-block; }#step4:checked ~ header #pill4,  { display: inline-block; }#step5:checked ~ header #pill5,  { display: inline-block; }#step6:checked ~ header #pill6,  { display: inline-block; }#step7:checked ~ header #pill7,  { display: inline-block; }#step8:checked ~ header #pill8,  { display: inline-block; }#step9:checked ~ header #pill9,  { display: inline-block; }#step10:checked ~ header #pill10,  { display: inline-block; }#step11:checked ~ header #pill11,  { display: inline-block; }#step12:checked ~ header #pill12,  { display: inline-block; }#step13:checked ~ header #pill13,  { display: inline-block; }#step14:checked ~ header #pill14
+    #step1:checked ~ header #pill1, #step2:checked ~ header #pill2, #step3:checked ~ header #pill3, #step4:checked ~ header #pill4, #step5:checked ~ header #pill5, #step6:checked ~ header #pill6, #step7:checked ~ header #pill7, #step8:checked ~ header #pill8, #step9:checked ~ header #pill9, #step10:checked ~ header #pill10, #step11:checked ~ header #pill11, #step12:checked ~ header #pill12, #step13:checked ~ header #pill13, #step14:checked ~ header #pill14 { display: inline-block; }
     main { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 16px; -webkit-overflow-scrolling: touch; }
     .step-pane { display: none; flex-direction: column; gap: 12px; padding-bottom: 10px; }
-    #step1:checked ~ main #pane1,  { display: flex; }#step2:checked ~ main #pane2,  { display: flex; }#step3:checked ~ main #pane3,  { display: flex; }#step4:checked ~ main #pane4,  { display: flex; }#step5:checked ~ main #pane5,  { display: flex; }#step6:checked ~ main #pane6,  { display: flex; }#step7:checked ~ main #pane7,  { display: flex; }#step8:checked ~ main #pane8,  { display: flex; }#step9:checked ~ main #pane9,  { display: flex; }#step10:checked ~ main #pane10,  { display: flex; }#step11:checked ~ main #pane11,  { display: flex; }#step12:checked ~ main #pane12,  { display: flex; }#step13:checked ~ main #pane13,  { display: flex; }#step14:checked ~ main #pane14
+    #step1:checked ~ main #pane1, #step2:checked ~ main #pane2, #step3:checked ~ main #pane3, #step4:checked ~ main #pane4, #step5:checked ~ main #pane5, #step6:checked ~ main #pane6, #step7:checked ~ main #pane7, #step8:checked ~ main #pane8, #step9:checked ~ main #pane9, #step10:checked ~ main #pane10, #step11:checked ~ main #pane11, #step12:checked ~ main #pane12, #step13:checked ~ main #pane13, #step14:checked ~ main #pane14 { display: flex; }
     .active-card { background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid #38bdf8; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
     .card-top-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
     .time-badge { font-size: 1.25rem; font-weight: 900; color: #fbbf24; }
@@ -23,7 +23,7 @@
     .step-title { font-size: 1.15rem; font-weight: 800; line-height: 1.25; margin-bottom: 10px; color: #f8fafc; }
     .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .bullet-list li { font-size: 0.92rem; line-height: 1.35; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; }
-    .bullet-list li::before { content: "•"; color: #38bdf8; font-weight: bold; font-size: 1.1rem; line-height: 0.8; }
+    .bullet-list li::before { content: "â€¢"; color: #38bdf8; font-weight: bold; font-size: 1.1rem; line-height: 0.8; }
     .step-note { margin-top: 10px; padding: 8px 10px; background: #131d2e; border-radius: 6px; border-left: 3px solid #fbbf24; font-size: 0.82rem; color: #e2e8f0; line-height: 1.3; }
     .preview-section { margin-top: 4px; }
     .preview-label { font-size: 0.7rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; padding-left: 2px; }
@@ -40,27 +40,28 @@
     .btn-next { background-color: #10b981; color: #ffffff; border: 1px solid #10b981; }
     .btn-next:active { background-color: #059669; }
     .btn-finish { background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6; }
-    #step1:checked ~ footer .next-2,  { display: block; }#step2:checked ~ footer .next-3,  { display: block; }#step3:checked ~ footer .next-4,  { display: block; }#step4:checked ~ footer .next-5,  { display: block; }#step5:checked ~ footer .next-6,  { display: block; }#step6:checked ~ footer .next-7,  { display: block; }#step7:checked ~ footer .next-8,  { display: block; }#step8:checked ~ footer .next-9,  { display: block; }#step9:checked ~ footer .next-10,  { display: block; }#step10:checked ~ footer .next-11,  { display: block; }#step11:checked ~ footer .next-12,  { display: block; }#step12:checked ~ footer .next-13,  { display: block; }#step13:checked ~ footer .next-14
+    #step1:checked ~ footer .next-2, #step2:checked ~ footer .next-3, #step3:checked ~ footer .next-4, #step4:checked ~ footer .next-5, #step5:checked ~ footer .next-6, #step6:checked ~ footer .next-7, #step7:checked ~ footer .next-8, #step8:checked ~ footer .next-9, #step9:checked ~ footer .next-10, #step10:checked ~ footer .next-11, #step11:checked ~ footer .next-12, #step12:checked ~ footer .next-13, #step13:checked ~ footer .next-14 { display: block; }
     #step14:checked ~ footer .next-finish { display: block; }
     #step1:checked ~ footer .back-disabled { display: block; }
-    #step2:checked ~ footer .back-1,  { display: block; }#step3:checked ~ footer .back-2,  { display: block; }#step4:checked ~ footer .back-3,  { display: block; }#step5:checked ~ footer .back-4,  { display: block; }#step6:checked ~ footer .back-5,  { display: block; }#step7:checked ~ footer .back-6,  { display: block; }#step8:checked ~ footer .back-7,  { display: block; }#step9:checked ~ footer .back-8,  { display: block; }#step10:checked ~ footer .back-9,  { display: block; }#step11:checked ~ footer .back-10,  { display: block; }#step12:checked ~ footer .back-11,  { display: block; }#step13:checked ~ footer .back-12,  { display: block; }#step14:checked ~ footer .back-13
+    #step2:checked ~ footer .back-1, #step3:checked ~ footer .back-2, #step4:checked ~ footer .back-3, #step5:checked ~ footer .back-4, #step6:checked ~ footer .back-5, #step7:checked ~ footer .back-6, #step8:checked ~ footer .back-7, #step9:checked ~ footer .back-8, #step10:checked ~ footer .back-9, #step11:checked ~ footer .back-10, #step12:checked ~ footer .back-11, #step13:checked ~ footer .back-12, #step14:checked ~ footer .back-13 { display: block; }
   </style>
 </head>
 <body>
   <input type="radio" name="tripstep" id="step1" checked>
-  <input type="radio" name="tripstep" id="step2" >
-  <input type="radio" name="tripstep" id="step3" >
-  <input type="radio" name="tripstep" id="step4" >
-  <input type="radio" name="tripstep" id="step5" >
-  <input type="radio" name="tripstep" id="step6" >
-  <input type="radio" name="tripstep" id="step7" >
-  <input type="radio" name="tripstep" id="step8" >
-  <input type="radio" name="tripstep" id="step9" >
-  <input type="radio" name="tripstep" id="step10" >
-  <input type="radio" name="tripstep" id="step11" >
-  <input type="radio" name="tripstep" id="step12" >
-  <input type="radio" name="tripstep" id="step13" >
-  <input type="radio" name="tripstep" id="step14" >
+  <input type="radio" name="tripstep" id="step2">
+  <input type="radio" name="tripstep" id="step3">
+  <input type="radio" name="tripstep" id="step4">
+  <input type="radio" name="tripstep" id="step5">
+  <input type="radio" name="tripstep" id="step6">
+  <input type="radio" name="tripstep" id="step7">
+  <input type="radio" name="tripstep" id="step8">
+  <input type="radio" name="tripstep" id="step9">
+  <input type="radio" name="tripstep" id="step10">
+  <input type="radio" name="tripstep" id="step11">
+  <input type="radio" name="tripstep" id="step12">
+  <input type="radio" name="tripstep" id="step13">
+  <input type="radio" name="tripstep" id="step14">
+
   <header>
     <span class="brand-title">Tacoma Waterfront</span>
     <div>
@@ -85,132 +86,233 @@
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">08:45 AM</span><span class="tag-badge">DEPARTURE</span></div>
         <h1 class="step-title">Depart 2929 1st Ave to King St</h1>
-        <ul class="bullet-list"><li>Walk to Seattle Center Monorail or take a quick rideshare down 1st Ave.</li><li>Transfer via tunnel light rail south to Int'l District.</li><li>Enter King Street Station.</li></ul>
+        <ul class="bullet-list">
+          <li>Walk to Seattle Center Monorail or take a quick rideshare down 1st Ave.</li>
+          <li>Transfer via tunnel light rail south to Int'l District.</li>
+          <li>Enter King Street Station.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">09:20 AM</span><span class="preview-title">King Street Station Boarding</span></div>
+        <div class="preview-card"><span class="preview-time">09:55 AM</span><span class="preview-title">Amtrak Cascades Southbound</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane2">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">09:20 AM</span><span class="tag-badge">CHECK-IN</span></div>
         <h1 class="step-title">King Street Station Boarding</h1>
-        <ul class="bullet-list"><li>Check in at Business Class boarding line.</li><li>Grab coffee and board southbound Amtrak Cascades.</li><li>Depart Seattle at 09:55 AM.</li></ul>
+        <ul class="bullet-list">
+          <li>Check in at Business Class boarding line.</li>
+          <li>Grab coffee and board southbound Amtrak Cascades.</li>
+          <li>Depart Seattle at 09:55 AM.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">09:55 AM</span><span class="preview-title">Amtrak Cascades Southbound</span></div>
+        <div class="preview-card"><span class="preview-time">10:43 AM</span><span class="preview-title">Arrive Tacoma Dome / Freighthouse</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane3">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">09:55 AM</span><span class="tag-badge">RAIL</span></div>
         <h1 class="step-title">Amtrak Cascades Southbound</h1>
-        <ul class="bullet-list"><li>Relaxing 45-minute rail run south.</li><li>Views of Boeing Field, Green River Valley, and Mt. Rainier.</li><li>Arrive Tacoma Dome Station at 10:43 AM.</li></ul>
+        <ul class="bullet-list">
+          <li>Relaxing 45-minute rail run south.</li>
+          <li>Views of Boeing Field, Green River Valley, and Mt. Rainier.</li>
+          <li>Arrive Tacoma Dome Station at 10:43 AM.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">10:43 AM</span><span class="preview-title">Arrive Tacoma Dome / Freighthouse</span></div>
+        <div class="preview-card"><span class="preview-time">11:05 AM</span><span class="preview-title">T Line Streetcar to Downtown</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane4">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">10:43 AM</span><span class="tag-badge">ARRIVAL</span></div>
         <h1 class="step-title">Arrive Tacoma Dome / Freighthouse</h1>
-        <ul class="bullet-list"><li>Disembark at Tacoma Dome Station / Freighthouse Square.</li><li>Explore historic wooden train depot and artisan shops.</li><li>Cross over to Tacoma T Line (free streetcar/light rail).</li></ul>
+        <ul class="bullet-list">
+          <li>Disembark at Tacoma Dome Station / Freighthouse Square.</li>
+          <li>Explore historic wooden train depot and artisan shops.</li>
+          <li>Cross over to Tacoma T Line (free streetcar/light rail).</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">11:05 AM</span><span class="preview-title">T Line Streetcar to Downtown</span></div>
+        <div class="preview-card"><span class="preview-time">11:25 AM</span><span class="preview-title">Chihuly Bridge of Glass</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane5">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">11:05 AM</span><span class="tag-badge">TRANSIT</span></div>
         <h1 class="step-title">T Line Streetcar to Downtown</h1>
-        <ul class="bullet-list"><li>Board free T Line light rail heading downtown.</li><li>Pass Tacoma Dome and Convention Center.</li><li>Disembark at Union Station / Pacific Ave stop.</li></ul>
+        <ul class="bullet-list">
+          <li>Board free T Line light rail heading downtown.</li>
+          <li>Pass Tacoma Dome and Convention Center.</li>
+          <li>Disembark at Union Station / Pacific Ave stop.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">11:25 AM</span><span class="preview-title">Chihuly Bridge of Glass</span></div>
+        <div class="preview-card"><span class="preview-time">12:00 PM</span><span class="preview-title">Lunch at The Fish Peddler</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane6">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">11:25 AM</span><span class="tag-badge">EXPLORE</span></div>
         <h1 class="step-title">Chihuly Bridge of Glass</h1>
-        <ul class="bullet-list"><li>Walk across the spectacular 500-foot outdoor Bridge of Glass.</li><li>Marvel at crystal glass towers overlooking the Foss Waterway.</li><li>Arrive directly at the Museum of Glass plaza.</li></ul>
+        <ul class="bullet-list">
+          <li>Walk across the spectacular 500-foot outdoor Bridge of Glass.</li>
+          <li>Marvel at crystal glass towers overlooking the Foss Waterway.</li>
+          <li>Arrive directly at the Museum of Glass plaza.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">12:00 PM</span><span class="preview-title">Lunch at The Fish Peddler</span></div>
+        <div class="preview-card"><span class="preview-time">01:30 PM</span><span class="preview-title">Museum of Glass Hot Shop</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane7">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">12:00 PM</span><span class="tag-badge">DINING</span></div>
         <h1 class="step-title">Lunch at The Fish Peddler</h1>
-        <ul class="bullet-list"><li>Location: 1147 Dock St (right on Foss Waterway boardwalk).</li><li>Fresh Pacific Northwest grilled salmon, halibut, and clam chowder.</li><li>Waterfront outdoor or indoor dining overlooking marina.</li></ul>
+        <ul class="bullet-list">
+          <li>Location: 1147 Dock St (right on Foss Waterway boardwalk).</li>
+          <li>Fresh Pacific Northwest grilled salmon, halibut, and clam chowder.</li>
+          <li>Waterfront outdoor or indoor dining overlooking marina.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">01:30 PM</span><span class="preview-title">Museum of Glass Hot Shop</span></div>
+        <div class="preview-card"><span class="preview-time">02:45 PM</span><span class="preview-title">Foss Waterway Esplanade Stroll</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane8">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">01:30 PM</span><span class="tag-badge">CULTURE</span></div>
         <h1 class="step-title">Museum of Glass Hot Shop</h1>
-        <ul class="bullet-list"><li>Visit the Hot Shop cone inside the Museum of Glass.</li><li>Watch live glassblowing artists shape molten glass.</li><li>Explore the museum galleries and outdoor reflection pools.</li></ul>
+        <ul class="bullet-list">
+          <li>Visit the Hot Shop cone inside the Museum of Glass.</li>
+          <li>Watch live glassblowing artists shape molten glass.</li>
+          <li>Explore the museum galleries and outdoor reflection pools.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">02:45 PM</span><span class="preview-title">Foss Waterway Esplanade Stroll</span></div>
+        <div class="preview-card"><span class="preview-time">03:30 PM</span><span class="preview-title">T Line Return to Freighthouse</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane9">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">02:45 PM</span><span class="tag-badge">LEISURE</span></div>
         <h1 class="step-title">Foss Waterway Esplanade Stroll</h1>
-        <ul class="bullet-list"><li>Stroll the flat, wide paved promenade along the marina.</li><li>Take in maritime tugboats and yachts against Mt. Rainier views.</li><li>Drop into Anthem Coffee for afternoon espresso.</li></ul>
+        <ul class="bullet-list">
+          <li>Stroll the flat, wide paved promenade along the marina.</li>
+          <li>Take in maritime tugboats and yachts against Mt. Rainier views.</li>
+          <li>Drop into Anthem Coffee for afternoon espresso.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">03:30 PM</span><span class="preview-title">T Line Return to Freighthouse</span></div>
+        <div class="preview-card"><span class="preview-time">04:00 PM</span><span class="preview-title">Tacoma Dome Station Platform</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane10">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">03:30 PM</span><span class="tag-badge">TRANSIT</span></div>
         <h1 class="step-title">T Line Return to Freighthouse</h1>
-        <ul class="bullet-list"><li>Board T Line northbound back to Freighthouse Square.</li><li>Relax in the restored depot hall before departure.</li></ul>
+        <ul class="bullet-list">
+          <li>Board T Line northbound back to Freighthouse Square.</li>
+          <li>Relax in the restored depot hall before departure.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">04:00 PM</span><span class="preview-title">Tacoma Dome Station Platform</span></div>
+        <div class="preview-card"><span class="preview-time">04:25 PM</span><span class="preview-title">Amtrak Cascades North to Seattle</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane11">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">04:00 PM</span><span class="tag-badge">CHECK-IN</span></div>
         <h1 class="step-title">Tacoma Dome Station Platform</h1>
-        <ul class="bullet-list"><li>Wait on platform for northbound Amtrak Cascades 504.</li><li>Priority boarding call for business class passengers.</li></ul>
+        <ul class="bullet-list">
+          <li>Wait on platform for northbound Amtrak Cascades 504.</li>
+          <li>Priority boarding call for business class passengers.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">04:25 PM</span><span class="preview-title">Amtrak Cascades North to Seattle</span></div>
+        <div class="preview-card"><span class="preview-time">05:10 PM</span><span class="preview-title">King Street to Monorail</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane12">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">04:25 PM</span><span class="tag-badge">RAIL</span></div>
         <h1 class="step-title">Amtrak Cascades North to Seattle</h1>
-        <ul class="bullet-list"><li>Board train 504 heading north.</li><li>Enjoy evening scenery on the 45-minute run into Seattle.</li></ul>
+        <ul class="bullet-list">
+          <li>Board train 504 heading north.</li>
+          <li>Enjoy evening scenery on the 45-minute run into Seattle.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">05:10 PM</span><span class="preview-title">King Street to Monorail</span></div>
+        <div class="preview-card"><span class="preview-time">05:30 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane13">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">05:10 PM</span><span class="tag-badge">TRANSIT</span></div>
         <h1 class="step-title">King Street to Monorail</h1>
-        <ul class="bullet-list"><li>Disembark at King Street Station.</li><li>Quick light rail ride up to Westlake Station and transfer to Monorail.</li></ul>
+        <ul class="bullet-list">
+          <li>Disembark at King Street Station.</li>
+          <li>Quick light rail ride up to Westlake Station and transfer to Monorail.</li>
+        </ul>
       </section>
-      <section class="preview-section"><div class="preview-label">Up Next</div></section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">05:30 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
+      </section>
     </div>    <div class="step-pane" id="pane14">
       <section class="active-card">
         <div class="card-top-row"><span class="time-badge">05:30 PM</span><span class="tag-badge">HOME</span></div>
         <h1 class="step-title">Arrive Home at 2929 1st Ave</h1>
-        <ul class="bullet-list"><li>Step off Monorail and walk down Denny Way.</li><li>Arrive back at 2929 1st Ave.</li><li>Tacoma excursion complete!</li></ul>
+        <ul class="bullet-list">
+          <li>Step off Monorail and walk down Denny Way.</li>
+          <li>Arrive back at 2929 1st Ave.</li>
+          <li>Tacoma excursion complete!</li>
+        </ul>
       </section>
-      
-    </div>
-  </main>
+    </div>  </main>
   <footer>
-    <div class="btn-nav btn-back btn-disabled back-disabled">← Back</div>
-    <label for="step1" class="btn-nav btn-back back-1" onclick="">← Back</label>
-    <label for="step2" class="btn-nav btn-back back-2" onclick="">← Back</label>
-    <label for="step3" class="btn-nav btn-back back-3" onclick="">← Back</label>
-    <label for="step4" class="btn-nav btn-back back-4" onclick="">← Back</label>
-    <label for="step5" class="btn-nav btn-back back-5" onclick="">← Back</label>
-    <label for="step6" class="btn-nav btn-back back-6" onclick="">← Back</label>
-    <label for="step7" class="btn-nav btn-back back-7" onclick="">← Back</label>
-    <label for="step8" class="btn-nav btn-back back-8" onclick="">← Back</label>
-    <label for="step9" class="btn-nav btn-back back-9" onclick="">← Back</label>
-    <label for="step10" class="btn-nav btn-back back-10" onclick="">← Back</label>
-    <label for="step11" class="btn-nav btn-back back-11" onclick="">← Back</label>
-    <label for="step12" class="btn-nav btn-back back-12" onclick="">← Back</label>
-    <label for="step13" class="btn-nav btn-back back-13" onclick="">← Back</label>
-    <a href="index.html" class="btn-nav btn-menu">⌂ Menu</a>
-    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next →</label>
-    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next →</label>
-    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next →</label>
-    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next →</label>
-    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next →</label>
-    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next →</label>
-    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next →</label>
-    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next →</label>
-    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next →</label>
-    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next →</label>
-    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next →</label>
-    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next →</label>
-    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next →</label>
-    <a href="index.html" class="btn-nav btn-finish next-finish">Finish ➔</a>
+    <div class="btn-nav btn-back btn-disabled back-disabled">&#8592; Back</div>
+    <label for="step1" class="btn-nav btn-back back-1" onclick="">&#8592; Back</label>
+    <label for="step2" class="btn-nav btn-back back-2" onclick="">&#8592; Back</label>
+    <label for="step3" class="btn-nav btn-back back-3" onclick="">&#8592; Back</label>
+    <label for="step4" class="btn-nav btn-back back-4" onclick="">&#8592; Back</label>
+    <label for="step5" class="btn-nav btn-back back-5" onclick="">&#8592; Back</label>
+    <label for="step6" class="btn-nav btn-back back-6" onclick="">&#8592; Back</label>
+    <label for="step7" class="btn-nav btn-back back-7" onclick="">&#8592; Back</label>
+    <label for="step8" class="btn-nav btn-back back-8" onclick="">&#8592; Back</label>
+    <label for="step9" class="btn-nav btn-back back-9" onclick="">&#8592; Back</label>
+    <label for="step10" class="btn-nav btn-back back-10" onclick="">&#8592; Back</label>
+    <label for="step11" class="btn-nav btn-back back-11" onclick="">&#8592; Back</label>
+    <label for="step12" class="btn-nav btn-back back-12" onclick="">&#8592; Back</label>
+    <label for="step13" class="btn-nav btn-back back-13" onclick="">&#8592; Back</label>
+    <a href="index.html" class="btn-nav btn-menu">&#9001; Menu</a>
+    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next &#8594;</label>
+    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next &#8594;</label>
+    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next &#8594;</label>
+    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next &#8594;</label>
+    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next &#8594;</label>
+    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next &#8594;</label>
+    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next &#8594;</label>
+    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next &#8594;</label>
+    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next &#8594;</label>
+    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next &#8594;</label>
+    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next &#8594;</label>
+    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next &#8594;</label>
+    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next &#8594;</label>
+    <a href="index.html" class="btn-nav btn-finish next-finish">Finish &#10148;</a>
   </footer>
 </body>
 </html>

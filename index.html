@@ -5,30 +5,174 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>TripPacer Library</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: #0b1120; color: #f8fafc; min-height: 100dvh; display: flex; flex-direction: column; padding: max(env(safe-area-inset-top), 48px) 16px max(env(safe-area-inset-bottom), 30px); max-width: 600px; margin: 0 auto; }
-    input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; opacity: 0; }
-    header { margin-bottom: 16px; border-bottom: 1px solid #334155; padding-bottom: 12px; }
-    .app-title { font-size: 1.4rem; font-weight: 900; color: #38bdf8; letter-spacing: -0.3px; }
-    .app-subtitle { font-size: 0.85rem; color: #94a3b8; margin-top: 3px; }
-    .filter-bar { display: flex; background-color: #1e293b; padding: 4px; border-radius: 10px; border: 1px solid #334155; margin-bottom: 16px; gap: 4px; }
-    .filter-tab { flex: 1; text-align: center; padding: 10px 4px; font-size: 0.82rem; font-weight: 700; color: #94a3b8; border-radius: 7px; cursor: pointer; user-select: none; -webkit-user-select: none; display: block; transition: background-color 0.15s ease, color 0.15s ease; }
-    #tab-day:checked ~ .filter-bar label[for="tab-day"], #tab-overnight:checked ~ .filter-bar label[for="tab-overnight"], #tab-local:checked ~ .filter-bar label[for="tab-local"] { background-color: #38bdf8; color: #0b1120; font-weight: 800; box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25); }
-    .trip-section { display: none; flex-direction: column; gap: 12px; }
-    #tab-day:checked ~ #list-day { display: flex !important; }
-    #tab-overnight:checked ~ #list-overnight { display: flex !important; }
-    #tab-local:checked ~ #list-local { display: flex !important; }
-    .trip-card { background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid #10b981; border-radius: 12px; padding: 15px 16px; text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .trip-card:active { background-color: #273549; }
-    .trip-info { flex: 1; }
-    .trip-info h2 { font-size: 1.05rem; font-weight: 800; color: #f8fafc; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-    .trip-time-window { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 800; color: #fbbf24; background-color: #131d2e; border: 1px solid #334155; padding: 2px 7px; border-radius: 5px; margin-bottom: 6px; }
-    .trip-meta { font-size: 0.8rem; color: #94a3b8; line-height: 1.35; }
-    .trip-arrow { font-size: 1.25rem; color: #38bdf8; font-weight: bold; padding-left: 12px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #0b1120;
+      color: #f8fafc;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: max(env(safe-area-inset-top), 48px) 16px max(env(safe-area-inset-bottom), 30px);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    input[type="radio"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      opacity: 0;
+    }
+
+    header {
+      margin-bottom: 16px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 12px;
+    }
+
+    .app-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #38bdf8;
+      letter-spacing: -0.3px;
+    }
+
+    .app-subtitle {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-top: 3px;
+    }
+
+    /* Segmented Filter Bar */
+    .filter-bar {
+      display: flex;
+      background-color: #1e293b;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      margin-bottom: 16px;
+      gap: 4px;
+    }
+
+    .filter-tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 4px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #94a3b8;
+      border-radius: 7px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      display: block;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    /* Tab Highlights */
+    #tab-day:checked ~ .filter-bar label[for="tab-day"],
+    #tab-overnight:checked ~ .filter-bar label[for="tab-overnight"],
+    #tab-local:checked ~ .filter-bar label[for="tab-local"] {
+      background-color: #38bdf8;
+      color: #0b1120;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Sections */
+    .trip-section {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #tab-day:checked ~ #list-day {
+      display: flex !important;
+    }
+
+    #tab-overnight:checked ~ #list-overnight {
+      display: flex !important;
+    }
+
+    #tab-local:checked ~ #list-local {
+      display: flex !important;
+    }
+
+    .trip-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-left: 4px solid #10b981;
+      border-radius: 12px;
+      padding: 15px 16px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .trip-card:active {
+      background-color: #273549;
+    }
+
+    .trip-info {
+      flex: 1;
+    }
+
+    .trip-info h2 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trip-time-window {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #fbbf24;
+      background-color: #131d2e;
+      border: 1px solid #334155;
+      padding: 2px 7px;
+      border-radius: 5px;
+      margin-bottom: 6px;
+    }
+
+    .trip-meta {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+
+    .trip-arrow {
+      font-size: 1.25rem;
+      color: #38bdf8;
+      font-weight: bold;
+      padding-left: 12px;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Pure CSS Category Radio Controls -->
   <input type="radio" name="category" id="tab-day" checked>
   <input type="radio" name="category" id="tab-overnight">
   <input type="radio" name="category" id="tab-local">
@@ -143,6 +287,15 @@
       <div class="trip-arrow">➔</div>
     </a>
   </section>
+
+  <!-- Reads the URL hash on load for iOS Safari -->
+  <script>
+    (function() {
+      var h = window.location.hash;
+      if (h === '#overnight') document.getElementById('tab-overnight').checked = true;
+      if (h === '#local') document.getElementById('tab-local').checked = true;
+    })();
+  </script>
 
 </body>
 </html>

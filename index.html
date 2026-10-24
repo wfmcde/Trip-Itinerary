@@ -5,193 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>TripPacer Library</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: #0b1120;
-      color: #f8fafc;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      padding: max(env(safe-area-inset-top), 48px) 16px max(env(safe-area-inset-bottom), 30px);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Edge & Safari zero-size inputs to ensure reliable tap bubbling */
-    input[type="radio"] {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      padding: 0;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-      opacity: 0;
-    }
-
-    header {
-      margin-bottom: 16px;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 12px;
-    }
-
-    .app-title {
-      font-size: 1.4rem;
-      font-weight: 900;
-      color: #38bdf8;
-      letter-spacing: -0.3px;
-    }
-
-    .app-subtitle {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      margin-top: 3px;
-    }
-
-    /* Segmented Category Filter Bar */
-    .filter-bar {
-      display: flex;
-      background-color: #1e293b;
-      padding: 4px;
-      border-radius: 10px;
-      border: 1px solid #334155;
-      margin-bottom: 16px;
-      gap: 4px;
-    }
-
-    .filter-tab {
-      flex: 1;
-      text-align: center;
-      padding: 10px 4px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #94a3b8;
-      border-radius: 7px;
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-      display: block;
-      transition: background-color 0.15s ease, color 0.15s ease;
-    }
-
-    /* Active Tab Highlights */
-    #tab-day:checked ~ .filter-bar label[for="tab-day"],
-    #tab-overnight:checked ~ .filter-bar label[for="tab-overnight"],
-    #tab-local:checked ~ .filter-bar label[for="tab-local"] {
-      background-color: #38bdf8;
-      color: #0b1120;
-      font-weight: 800;
-      box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
-    }
-
-    /* Sections hidden by default */
-    .trip-section {
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    /* Active Category Display */
-    #tab-day:checked ~ #list-day {
-      display: flex !important;
-    }
-
-    #tab-overnight:checked ~ #list-overnight {
-      display: flex !important;
-    }
-
-    #tab-local:checked ~ #list-local {
-      display: flex !important;
-    }
-
-    .trip-card {
-      background-color: #1e293b;
-      border: 1px solid #334155;
-      border-left: 4px solid #10b981;
-      border-radius: 12px;
-      padding: 15px 16px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .trip-card:active {
-      background-color: #273549;
-    }
-
-    .trip-card.upcoming {
-      border-left-color: #64748b;
-      opacity: 0.85;
-    }
-
-    .trip-info {
-      flex: 1;
-    }
-
-    .trip-info h2 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #f8fafc;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* High-visibility Time Window Badge */
-    .trip-time-window {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: #fbbf24;
-      background-color: #131d2e;
-      border: 1px solid #334155;
-      padding: 2px 7px;
-      border-radius: 5px;
-      margin-bottom: 6px;
-    }
-
-    .trip-meta {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      line-height: 1.35;
-    }
-
-    .badge-status {
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #334155;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    .trip-arrow {
-      font-size: 1.25rem;
-      color: #38bdf8;
-      font-weight: bold;
-      padding-left: 12px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: #0b1120; color: #f8fafc; min-height: 100dvh; display: flex; flex-direction: column; padding: max(env(safe-area-inset-top), 48px) 16px max(env(safe-area-inset-bottom), 30px); max-width: 600px; margin: 0 auto; }
+    input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; opacity: 0; }
+    header { margin-bottom: 16px; border-bottom: 1px solid #334155; padding-bottom: 12px; }
+    .app-title { font-size: 1.4rem; font-weight: 900; color: #38bdf8; letter-spacing: -0.3px; }
+    .app-subtitle { font-size: 0.85rem; color: #94a3b8; margin-top: 3px; }
+    .filter-bar { display: flex; background-color: #1e293b; padding: 4px; border-radius: 10px; border: 1px solid #334155; margin-bottom: 16px; gap: 4px; }
+    .filter-tab { flex: 1; text-align: center; padding: 10px 4px; font-size: 0.82rem; font-weight: 700; color: #94a3b8; border-radius: 7px; cursor: pointer; user-select: none; -webkit-user-select: none; display: block; transition: background-color 0.15s ease, color 0.15s ease; }
+    #tab-day:checked ~ .filter-bar label[for="tab-day"], #tab-overnight:checked ~ .filter-bar label[for="tab-overnight"], #tab-local:checked ~ .filter-bar label[for="tab-local"] { background-color: #38bdf8; color: #0b1120; font-weight: 800; box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25); }
+    .trip-section { display: none; flex-direction: column; gap: 12px; }
+    #tab-day:checked ~ #list-day { display: flex !important; }
+    #tab-overnight:checked ~ #list-overnight { display: flex !important; }
+    #tab-local:checked ~ #list-local { display: flex !important; }
+    .trip-card { background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid #10b981; border-radius: 12px; padding: 15px 16px; text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .trip-card:active { background-color: #273549; }
+    .trip-info { flex: 1; }
+    .trip-info h2 { font-size: 1.05rem; font-weight: 800; color: #f8fafc; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .trip-time-window { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 800; color: #fbbf24; background-color: #131d2e; border: 1px solid #334155; padding: 2px 7px; border-radius: 5px; margin-bottom: 6px; }
+    .trip-meta { font-size: 0.8rem; color: #94a3b8; line-height: 1.35; }
+    .trip-arrow { font-size: 1.25rem; color: #38bdf8; font-weight: bold; padding-left: 12px; }
   </style>
 </head>
 <body>
 
-  <!-- Pure CSS Category State Machine -->
   <input type="radio" name="category" id="tab-day" checked>
   <input type="radio" name="category" id="tab-overnight">
   <input type="radio" name="category" id="tab-local">
@@ -207,9 +44,8 @@
     <label for="tab-local" class="filter-tab" onclick="">Local Walks</label>
   </nav>
 
-  <!-- CATEGORY 1: DAY TRIPS (ALPHABETICAL BY CITY) -->
+  <!-- CATEGORY 1: DAY TRIPS -->
   <section class="trip-section" id="list-day">
-    <!-- Bellingham -->
     <a href="BellinghamDayTrip.html" class="trip-card">
       <div class="trip-info">
         <h2>Bellingham — Historic Fairhaven</h2>
@@ -218,8 +54,6 @@
       </div>
       <div class="trip-arrow">➔</div>
     </a>
-
-    <!-- Centralia -->
     <a href="CentraliaDayTrip.html" class="trip-card">
       <div class="trip-info">
         <h2>Centralia — Olympic Club & Antiques</h2>
@@ -228,8 +62,14 @@
       </div>
       <div class="trip-arrow">➔</div>
     </a>
-
-    <!-- Mount Vernon -->
+    <a href="EdmondsDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Edmonds — Waterfront & Bowl</h2>
+        <div class="trip-time-window">⏱ 10:15 AM – 5:45 PM • ~7h 30m total</div>
+        <div class="trip-meta">Amtrak Cascades • Waterfront Walk • Salt & Iron</div>
+      </div>
+      <div class="trip-arrow">➔</div>
+    </a>
     <a href="MountVernonDayTrip.html" class="trip-card">
       <div class="trip-info">
         <h2>Mount Vernon — Skagit Riverwalk</h2>
@@ -238,54 +78,54 @@
       </div>
       <div class="trip-arrow">➔</div>
     </a>
+    <a href="TacomaDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Tacoma — Museum of Glass & Waterfront</h2>
+        <div class="trip-time-window">⏱ 8:45 AM – 5:30 PM • ~8h 45m total</div>
+        <div class="trip-meta">Amtrak Cascades • T Line Light Rail • The Fish Peddler</div>
+      </div>
+      <div class="trip-arrow">➔</div>
+    </a>
   </section>
 
-  <!-- CATEGORY 2: OVERNIGHT TRIPS (ALPHABETICAL) -->
+  <!-- CATEGORY 2: OVERNIGHT TRIPS -->
   <section class="trip-section" id="list-overnight">
-    <!-- Leavenworth -->
-    <div class="trip-card upcoming">
+    <a href="LeavenworthOvernight.html" class="trip-card">
       <div class="trip-info">
-        <h2>Leavenworth — Bavarian Alpine Village <span class="badge-status">Coming Soon</span></h2>
+        <h2>Leavenworth — Bavarian Alpine Village</h2>
         <div class="trip-time-window">⏱ 2 Days • Mountain Rail</div>
-        <div class="trip-meta">Amtrak Empire Builder • Cascade Mountains • Blackbird Island</div>
+        <div class="trip-meta">Amtrak Empire Builder • Bavarian Lodge • Andreas Keller</div>
       </div>
-      <div class="trip-arrow">⋯</div>
-    </div>
-
-    <!-- Portland -->
-    <div class="trip-card upcoming">
+      <div class="trip-arrow">➔</div>
+    </a>
+    <a href="PortlandOvernight.html" class="trip-card">
       <div class="trip-info">
-        <h2>Portland — Pearl District & Books <span class="badge-status">Coming Soon</span></h2>
-        <div class="trip-time-window">⏱ 2–3 Days • Direct Rail</div>
-        <div class="trip-meta">Amtrak Cascades South • Powell’s Books • Streetcar & Dining</div>
+        <h2>Portland — Pearl District & Books</h2>
+        <div class="trip-time-window">⏱ 2 Days • Direct Cascades Rail</div>
+        <div class="trip-meta">Amtrak Cascades • Dossier Hotel • Jake's Famous Crawfish</div>
       </div>
-      <div class="trip-arrow">⋯</div>
-    </div>
-
-    <!-- Victoria -->
-    <div class="trip-card upcoming">
+      <div class="trip-arrow">➔</div>
+    </a>
+    <a href="VictoriaOvernight.html" class="trip-card">
       <div class="trip-info">
-        <h2>Victoria, BC — Inner Harbour & Empress <span class="badge-status">Coming Soon</span></h2>
+        <h2>Victoria, BC — Inner Harbour & Empress</h2>
         <div class="trip-time-window">⏱ 2–3 Days • Pier 69 Fast Ferry</div>
-        <div class="trip-meta">Victoria Clipper • High Tea • Walkable Harbour Causeway</div>
+        <div class="trip-meta">Victoria Clipper • The Magnolia Hotel • Ferris' Grill</div>
       </div>
-      <div class="trip-arrow">⋯</div>
-    </div>
+      <div class="trip-arrow">➔</div>
+    </a>
   </section>
 
-  <!-- CATEGORY 3: LOCAL WALKS & EXCURSIONS (ALPHABETICAL) -->
+  <!-- CATEGORY 3: LOCAL WALKS & EXCURSIONS -->
   <section class="trip-section" id="list-local">
-    <!-- Alki Beach -->
-    <div class="trip-card upcoming">
+    <a href="AlkiBeachDayTrip.html" class="trip-card">
       <div class="trip-info">
-        <h2>Alki Beach — Water Taxi Shoreline <span class="badge-status">Coming Soon</span></h2>
-        <div class="trip-time-window">⏱ 2–4 Hours • Pier 50 Water Taxi</div>
-        <div class="trip-meta">Seacrest Dock • Elliott Bay Skyline • Marination Ma Kai</div>
+        <h2>Alki Beach — Water Taxi Shoreline</h2>
+        <div class="trip-time-window">⏱ 10:30 AM – 3:30 PM • ~5h total</div>
+        <div class="trip-meta">Pier 50 Water Taxi • Shoreline Promenade • Marination Ma Kai</div>
       </div>
-      <div class="trip-arrow">⋯</div>
-    </div>
-
-    <!-- Bainbridge Island (ACTIVE LINK) -->
+      <div class="trip-arrow">➔</div>
+    </a>
     <a href="BainbridgeDayTrip.html" class="trip-card">
       <div class="trip-info">
         <h2>Bainbridge Island — Winslow Ferry Walk</h2>
@@ -294,16 +134,14 @@
       </div>
       <div class="trip-arrow">➔</div>
     </a>
-
-    <!-- Elliott Bay / Sculpture Park -->
-    <div class="trip-card upcoming">
+    <a href="SculptureParkDayTrip.html" class="trip-card">
       <div class="trip-info">
-        <h2>Elliott Bay Trail — Sculpture Park <span class="badge-status">Coming Soon</span></h2>
-        <div class="trip-time-window">⏱ 1.5–3 Hours • Doorstep Walk</div>
-        <div class="trip-meta">Broad St Entry • Myrtle Edwards Park • Waterfront Trail</div>
+        <h2>Olympic Sculpture Park — Doorstep Walk</h2>
+        <div class="trip-time-window">⏱ 11:30 AM – 3:00 PM • ~3h 30m total</div>
+        <div class="trip-meta">Doorstep Walk • Myrtle Edwards Shoreline • Anthony's</div>
       </div>
-      <div class="trip-arrow">⋯</div>
-    </div>
+      <div class="trip-arrow">➔</div>
+    </a>
   </section>
 
 </body>

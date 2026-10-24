@@ -13,11 +13,16 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body {
-      background-color: #0b1120;
-      color: #f8fafc;
-      height: 100dvh;
+    /* Fixed mobile app viewport container */
+    html, body {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
+      background-color: #0b1120;
+    }
+
+    body {
+      color: #f8fafc;
       display: flex;
       flex-direction: column;
       max-width: 600px;
@@ -28,13 +33,17 @@
       position: absolute;
       width: 1px;
       height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
       opacity: 0;
-      pointer-events: none;
     }
 
     /* Header */
     header {
-      padding-top: max(env(safe-area-inset-top), 48px);
+      padding-top: max(env(safe-area-inset-top), 44px);
       padding-left: 16px;
       padding-right: 16px;
       padding-bottom: 10px;
@@ -47,7 +56,7 @@
     }
 
     .brand-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: #38bdf8;
     }
@@ -82,7 +91,8 @@
 
     /* Scrollable Step Content */
     main {
-      flex: 1;
+      flex: 1 1 auto;
+      min-height: 0; /* Prevents overflow from pushing footer down */
       overflow-y: auto;
       padding: 12px 16px;
       -webkit-overflow-scrolling: touch;
@@ -92,6 +102,7 @@
       display: none;
       flex-direction: column;
       gap: 12px;
+      padding-bottom: 10px;
     }
 
     #step1:checked ~ main #pane1,
@@ -224,17 +235,18 @@
       text-overflow: ellipsis;
     }
 
-    /* Streamlined Single-Row Bottom Cockpit */
+    /* Fixed Bottom Cockpit Footer */
     footer {
+      flex-shrink: 0;
       padding-top: 10px;
       padding-left: 16px;
       padding-right: 16px;
-      padding-bottom: max(env(safe-area-inset-bottom), 32px);
+      padding-bottom: max(env(safe-area-inset-bottom), 24px);
       border-top: 1px solid #334155;
       background-color: #0b1120;
       display: flex;
       gap: 8px;
-      flex-shrink: 0;
+      z-index: 100;
     }
 
     .btn-nav {
@@ -242,8 +254,8 @@
       text-align: center;
       text-decoration: none;
       display: none;
-      padding: 12px 6px;
-      font-size: 0.9rem;
+      padding: 13px 6px;
+      font-size: 0.92rem;
       font-weight: 800;
       border-radius: 8px;
       user-select: none;
@@ -251,7 +263,7 @@
       cursor: pointer;
     }
 
-    /* Back Button Styling */
+    /* Back Button */
     .btn-back {
       background-color: #1e293b;
       color: #94a3b8;
@@ -264,11 +276,11 @@
     }
 
     .btn-disabled {
-      opacity: 0.3;
+      opacity: 0.35;
       pointer-events: none;
     }
 
-    /* Main Menu Button Styling */
+    /* Center Menu Button */
     .btn-menu {
       display: block !important;
       background-color: #1e293b;
@@ -280,7 +292,7 @@
       background-color: #334155;
     }
 
-    /* Next Button Styling */
+    /* Next Button */
     .btn-next {
       background-color: #10b981;
       color: #ffffff;
@@ -329,13 +341,13 @@
     #step5:checked ~ footer .back-4,
     #step6:checked ~ footer .back-5,
     #step7:checked ~ footer .back-6,
-    #step8:checked ~ footer .back-7,
-    #step9:checked ~ footer .back-8,
-    #step10:checked ~ footer .back-9,
-    #step11:checked ~ footer .back-10,
-    #step12:checked ~ footer .back-11,
-    #step13:checked ~ footer .back-12,
-    #step14:checked ~ footer .back-13 {
+    #step7:checked ~ footer .back-7,
+    #step8:checked ~ footer .back-8,
+    #step9:checked ~ footer .back-9,
+    #step10:checked ~ footer .back-10,
+    #step11:checked ~ footer .back-11,
+    #step12:checked ~ footer .back-12,
+    #step13:checked ~ footer .back-13 {
       display: block;
     }
   </style>
@@ -468,4 +480,214 @@
       </section>
       <section class="preview-section">
         <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time
+        <div class="preview-card"><span class="preview-time">10:09 AM</span><span class="preview-title">Arrive Mount Vernon Station</span></div>
+        <div class="preview-card"><span class="preview-time">10:20 AM</span><span class="preview-title">Skagit Riverwalk Stroll</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step-pane" id="pane6">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">10:09 AM</span><span class="tag-badge">ARRIVAL</span></div>
+        <h1 class="step-title">Arrive Mount Vernon Station</h1>
+        <ul class="bullet-list">
+          <li>Disembark at Skagit Station multimodal depot (105 E Kincaid St).</li>
+          <li>Step directly into downtown; no rideshare or taxi needed.</li>
+          <li>Walk 2 blocks west on Kincaid St toward the riverfront.</li>
+        </ul>
+        <div class="step-note">Skagit Station has visitor maps, seating, and restrooms.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">10:20 AM</span><span class="preview-title">Skagit Riverwalk Stroll</span></div>
+        <div class="preview-card"><span class="preview-time">11:30 AM</span><span class="preview-title">Lunch at Skagit River Brewery</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step-pane" id="pane7">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">10:20 AM</span><span class="tag-badge">EXPLORE</span></div>
+        <h1 class="step-title">Skagit Riverwalk Stroll</h1>
+        <ul class="bullet-list">
+          <li>Walk the paved Riverwalk Trail directly along the Skagit River.</li>
+          <li>Take in views of the historic metal bridge and Cascade foothills.</li>
+          <li>Enjoy wide paved brick walkways, benches, and river outlooks.</li>
+        </ul>
+        <div class="step-note">Completely flat, peaceful 15-minute scenic waterfront walk.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">11:30 AM</span><span class="preview-title">Lunch at Skagit River Brewery</span></div>
+        <div class="preview-card"><span class="preview-time">01:00 PM</span><span class="preview-title">Historic 1st Street & Lincoln Theatre</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step-pane" id="pane8">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">11:30 AM</span><span class="tag-badge">DINING</span></div>
+        <h1 class="step-title">Lunch at Skagit River Brewery</h1>
+        <ul class="bullet-list">
+          <li>Location: 404 S 3rd St (short 3-minute stroll from riverfront).</li>
+          <li>Spacious Pacific Northwest brewpub with wood-fired pizzas and sandwiches.</li>
+          <li>Relax with local seasonal beers, hard cider, or local wine.</li>
+        </ul>
+        <div class="step-note">Comfortable indoor booth seating with great local character.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">01:00 PM</span><span class="preview-title">Historic 1st Street & Lincoln Theatre</span></div>
+        <div class="preview-card"><span class="preview-time">02:30 PM</span><span class="preview-title">Afternoon Stop at Valley Cafe</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 9 -->
+    <div class="step-pane" id="pane9">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">01:00 PM</span><span class="tag-badge">EXPLORE</span></div>
+        <h1 class="step-title">Historic 1st Street & Lincoln Theatre</h1>
+        <ul class="bullet-list">
+          <li>Stroll 1st Street to see the 1926 historic Lincoln Theatre.</li>
+          <li>Browse Skagit Valley Food Co-op and local bookshops.</li>
+          <li>Explore local artisan shops and vintage boutiques on Pine & Montgomery.</li>
+        </ul>
+        <div class="step-note">Charming, compact red-brick downtown corridor.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">02:30 PM</span><span class="preview-title">Afternoon Stop at Valley Cafe</span></div>
+        <div class="preview-card"><span class="preview-time">04:45 PM</span><span class="preview-title">Return to Skagit Station</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 10 -->
+    <div class="step-pane" id="pane10">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">02:30 PM</span><span class="tag-badge">LEISURE</span></div>
+        <h1 class="step-title">Afternoon Stop at Valley Cafe</h1>
+        <ul class="bullet-list">
+          <li>Relax with artisan coffee, espresso, and fresh pastries.</li>
+          <li>Or stop into Empire Ale House on 1st St for an afternoon drink.</li>
+          <li>Take an easy 5-minute stroll back toward Kincaid St and the depot.</li>
+        </ul>
+        <div class="step-note">Easy walking distance from all downtown shops.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">04:45 PM</span><span class="preview-title">Return to Skagit Station</span></div>
+        <div class="preview-card"><span class="preview-time">05:12 PM</span><span class="preview-title">Amtrak Cascades (Train 519) South</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 11 -->
+    <div class="step-pane" id="pane11">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">04:45 PM</span><span class="tag-badge">CHECK-IN</span></div>
+        <h1 class="step-title">Return to Skagit Station</h1>
+        <ul class="bullet-list">
+          <li>Arrive at 105 E Kincaid St platform.</li>
+          <li>Wait in the depot waiting lobby or covered outdoor boarding area.</li>
+          <li>Prepare for Business Class priority return boarding.</li>
+        </ul>
+        <div class="step-note">Train 519 originates in Vancouver, BC; listen for arrival call.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">05:12 PM</span><span class="preview-title">Amtrak Cascades (Train 519) South</span></div>
+        <div class="preview-card"><span class="preview-time">06:55 PM</span><span class="preview-title">Arrive King Street Station</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 12 -->
+    <div class="step-pane" id="pane12">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">05:12 PM</span><span class="tag-badge">RAIL</span></div>
+        <h1 class="step-title">Amtrak Cascades (Train 519) South</h1>
+        <ul class="bullet-list">
+          <li>Board Business Class heading south to Seattle.</li>
+          <li>Sit on the right (west) side for sunset views along Puget Sound.</li>
+          <li>Bistro car open for light snacks, wine, or hot coffee.</li>
+        </ul>
+        <div class="step-note">Relaxing 1 hr 43 min coastal run back into downtown Seattle.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">06:55 PM</span><span class="preview-title">Arrive King Street Station</span></div>
+        <div class="preview-card"><span class="preview-time">07:05 PM</span><span class="preview-title">Link Light Rail to Westlake</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 13 -->
+    <div class="step-pane" id="pane13">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">06:55 PM</span><span class="tag-badge">TRANSIT</span></div>
+        <h1 class="step-title">Arrive King Street Station</h1>
+        <ul class="bullet-list">
+          <li>Disembark onto platform at King Street Station.</li>
+          <li>Walk 1 block east on S Jackson St into International District tunnel.</li>
+          <li>Board 1 Line Northbound 3 stops back to Westlake Station.</li>
+        </ul>
+        <div class="step-note">Tunnel ride takes approximately 6 minutes.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">07:15 PM</span><span class="preview-title">Monorail & Return to 2929 1st Ave</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 14 -->
+    <div class="step-pane" id="pane14">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">07:15 PM</span><span class="tag-badge">HOME</span></div>
+        <h1 class="step-title">Monorail & Return to 2929 1st Ave</h1>
+        <ul class="bullet-list">
+          <li>Ascend to Westlake Center Monorail platform.</li>
+          <li>Take 90-second ride back to Seattle Center.</li>
+          <li>Walk down Denny Way, arriving home at 2929 1st Ave (~7:35 PM).</li>
+        </ul>
+        <div class="step-note">Mount Vernon & Skagit Valley trip complete!</div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Single-Row 3-Button Cockpit -->
+  <footer>
+    <!-- Back Button -->
+    <div class="btn-nav btn-back btn-disabled back-disabled">← Back</div>
+    <label for="step1" class="btn-nav btn-back back-1" onclick="">← Back</label>
+    <label for="step2" class="btn-nav btn-back back-2" onclick="">← Back</label>
+    <label for="step3" class="btn-nav btn-back back-3" onclick="">← Back</label>
+    <label for="step4" class="btn-nav btn-back back-4" onclick="">← Back</label>
+    <label for="step5" class="btn-nav btn-back back-5" onclick="">← Back</label>
+    <label for="step6" class="btn-nav btn-back back-6" onclick="">← Back</label>
+    <label for="step7" class="btn-nav btn-back back-7" onclick="">← Back</label>
+    <label for="step8" class="btn-nav btn-back back-8" onclick="">← Back</label>
+    <label for="step9" class="btn-nav btn-back back-9" onclick="">← Back</label>
+    <label for="step10" class="btn-nav btn-back back-10" onclick="">← Back</label>
+    <label for="step11" class="btn-nav btn-back back-11" onclick="">← Back</label>
+    <label for="step12" class="btn-nav btn-back back-12" onclick="">← Back</label>
+    <label for="step13" class="btn-nav btn-back back-13" onclick="">← Back</label>
+
+    <!-- Center Menu Button -->
+    <a href="index.html" class="btn-nav btn-menu">⌂ Menu</a>
+
+    <!-- Next Button -->
+    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next →</label>
+    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next →</label>
+    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next →</label>
+    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next →</label>
+    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next →</label>
+    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next →</label>
+    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next →</label>
+    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next →</label>
+    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next →</label>
+    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next →</label>
+    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next →</label>
+    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next →</label>
+    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next →</label>
+    <a href="index.html" class="btn-nav btn-finish next-finish">Finish ➔</a>
+  </footer>
+
+</body>
+</html>

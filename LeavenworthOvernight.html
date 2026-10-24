@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,14 +8,12 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     html, body { width: 100%; height: 100%; overflow: hidden; background-color: #0b1120; }
     body { color: #f8fafc; display: flex; flex-direction: column; max-width: 600px; margin: 0 auto; }
-    input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; opacity: 0; }
     header { padding-top: max(env(safe-area-inset-top), 44px); padding-left: 16px; padding-right: 16px; padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; background-color: #0b1120; flex-shrink: 0; }
     .brand-title { font-size: 1.1rem; font-weight: 800; color: #38bdf8; }
-    .step-pill { display: none; font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
-    #step1:checked ~ header #pill1, #step2:checked ~ header #pill2, #step3:checked ~ header #pill3, #step4:checked ~ header #pill4, #step5:checked ~ header #pill5, #step6:checked ~ header #pill6, #step7:checked ~ header #pill7, #step8:checked ~ header #pill8, #step9:checked ~ header #pill9, #step10:checked ~ header #pill10, #step11:checked ~ header #pill11, #step12:checked ~ header #pill12, #step13:checked ~ header #pill13, #step14:checked ~ header #pill14 { display: inline-block; }
+    .step-pill { font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
     main { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 16px; -webkit-overflow-scrolling: touch; }
     .step-pane { display: none; flex-direction: column; gap: 12px; padding-bottom: 10px; }
-    #step1:checked ~ main #pane1, #step2:checked ~ main #pane2, #step3:checked ~ main #pane3, #step4:checked ~ main #pane4, #step5:checked ~ main #pane5, #step6:checked ~ main #pane6, #step7:checked ~ main #pane7, #step8:checked ~ main #pane8, #step9:checked ~ main #pane9, #step10:checked ~ main #pane10, #step11:checked ~ main #pane11, #step12:checked ~ main #pane12, #step13:checked ~ main #pane13, #step14:checked ~ main #pane14 { display: flex; }
+    .step-pane.active { display: flex; }
     .active-card { background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid #38bdf8; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
     .card-top-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
     .time-badge { font-size: 1.25rem; font-weight: 900; color: #fbbf24; }
@@ -24,295 +22,294 @@
     .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .bullet-list li { font-size: 0.92rem; line-height: 1.35; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; }
     .bullet-list li::before { content: "\2022"; color: #38bdf8; font-weight: bold; font-size: 1.1rem; line-height: 0.8; }
-    .step-note { margin-top: 10px; padding: 8px 10px; background: #131d2e; border-radius: 6px; border-left: 3px solid #fbbf24; font-size: 0.82rem; color: #e2e8f0; line-height: 1.3; }
     .preview-section { margin-top: 4px; }
     .preview-label { font-size: 0.7rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; padding-left: 2px; }
     .preview-card { background-color: #131d2e; border: 1px solid #334155; border-radius: 8px; padding: 8px 12px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
     .preview-time { font-size: 0.82rem; font-weight: 800; color: #fbbf24; min-width: 65px; }
     .preview-title { font-size: 0.82rem; color: #f8fafc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     footer { flex-shrink: 0; padding-top: 10px; padding-left: 16px; padding-right: 16px; padding-bottom: max(env(safe-area-inset-bottom), 24px); border-top: 1px solid #334155; background-color: #0b1120; display: flex; gap: 8px; z-index: 100; }
-    .btn-nav { flex: 1; text-align: center; text-decoration: none; display: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
+    .btn-nav { flex: 1; text-align: center; text-decoration: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
     .btn-back { background-color: #1e293b; color: #94a3b8; border: 1px solid #334155; }
     .btn-back:active { background-color: #334155; color: #f8fafc; }
     .btn-disabled { opacity: 0.35; pointer-events: none; }
-    .btn-menu { display: block !important; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
+    .btn-menu { background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
     .btn-menu:active { background-color: #334155; }
     .btn-next { background-color: #10b981; color: #ffffff; border: 1px solid #10b981; }
     .btn-next:active { background-color: #059669; }
     .btn-finish { background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6; }
-    #step1:checked ~ footer .next-2, #step2:checked ~ footer .next-3, #step3:checked ~ footer .next-4, #step4:checked ~ footer .next-5, #step5:checked ~ footer .next-6, #step6:checked ~ footer .next-7, #step7:checked ~ footer .next-8, #step8:checked ~ footer .next-9, #step9:checked ~ footer .next-10, #step10:checked ~ footer .next-11, #step11:checked ~ footer .next-12, #step12:checked ~ footer .next-13, #step13:checked ~ footer .next-14 { display: block; }
-    #step14:checked ~ footer .next-finish { display: block; }
-    #step1:checked ~ footer .back-disabled { display: block; }
-    #step2:checked ~ footer .back-1, #step3:checked ~ footer .back-2, #step4:checked ~ footer .back-3, #step5:checked ~ footer .back-4, #step6:checked ~ footer .back-5, #step7:checked ~ footer .back-6, #step8:checked ~ footer .back-7, #step9:checked ~ footer .back-8, #step10:checked ~ footer .back-9, #step11:checked ~ footer .back-10, #step12:checked ~ footer .back-11, #step13:checked ~ footer .back-12, #step14:checked ~ footer .back-13 { display: block; }
   </style>
 </head>
 <body>
-  <input type="radio" name="tripstep" id="step1" checked>
-  <input type="radio" name="tripstep" id="step2">
-  <input type="radio" name="tripstep" id="step3">
-  <input type="radio" name="tripstep" id="step4">
-  <input type="radio" name="tripstep" id="step5">
-  <input type="radio" name="tripstep" id="step6">
-  <input type="radio" name="tripstep" id="step7">
-  <input type="radio" name="tripstep" id="step8">
-  <input type="radio" name="tripstep" id="step9">
-  <input type="radio" name="tripstep" id="step10">
-  <input type="radio" name="tripstep" id="step11">
-  <input type="radio" name="tripstep" id="step12">
-  <input type="radio" name="tripstep" id="step13">
-  <input type="radio" name="tripstep" id="step14">
 
   <header>
-    <span class="brand-title">Leavenworth Overnight</span>
-    <div>
-      <span class="step-pill" id="pill1">Step 1 of 14</span>
-      <span class="step-pill" id="pill2">Step 2 of 14</span>
-      <span class="step-pill" id="pill3">Step 3 of 14</span>
-      <span class="step-pill" id="pill4">Step 4 of 14</span>
-      <span class="step-pill" id="pill5">Step 5 of 14</span>
-      <span class="step-pill" id="pill6">Step 6 of 14</span>
-      <span class="step-pill" id="pill7">Step 7 of 14</span>
-      <span class="step-pill" id="pill8">Step 8 of 14</span>
-      <span class="step-pill" id="pill9">Step 9 of 14</span>
-      <span class="step-pill" id="pill10">Step 10 of 14</span>
-      <span class="step-pill" id="pill11">Step 11 of 14</span>
-      <span class="step-pill" id="pill12">Step 12 of 14</span>
-      <span class="step-pill" id="pill13">Step 13 of 14</span>
-      <span class="step-pill" id="pill14">Step 14 of 14</span>
-    </div>
+    <span class="brand-title" id="trip-header-title"></span>
+    <span class="step-pill" id="step-indicator"></span>
   </header>
-  <main>
-    <div class="step-pane" id="pane1">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">08:00 AM</span><span class="tag-badge">DEPARTURE</span></div>
-        <h1 class="step-title">Depart 2929 1st Ave to King St</h1>
-        <ul class="bullet-list">
-          <li>Take Monorail and light rail tunnel south to King Street Station.</li>
-          <li>Board historic Empire Builder transcontinental train.</li>
-          <li>Depart Seattle at 08:35 AM.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">08:35 AM</span><span class="preview-title">Amtrak Empire Builder Eastbound</span></div>
-        <div class="preview-card"><span class="preview-time">12:15 PM</span><span class="preview-title">Arrive Leavenworth Icicle Station</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane2">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">08:35 AM</span><span class="tag-badge">RAIL</span></div>
-        <h1 class="step-title">Amtrak Empire Builder Eastbound</h1>
-        <ul class="bullet-list">
-          <li>Travel east through the Cascade Mountains.</li>
-          <li>Traverse the legendary 7.8-mile Cascade Tunnel under Stevens Pass.</li>
-          <li>Stunning snow-capped peaks, rushing rivers, and canyon views.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">12:15 PM</span><span class="preview-title">Arrive Leavenworth Icicle Station</span></div>
-        <div class="preview-card"><span class="preview-time">12:45 PM</span><span class="preview-title">Check In: Bavarian Lodge</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane3">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">12:15 PM</span><span class="tag-badge">ARRIVAL</span></div>
-        <h1 class="step-title">Arrive Leavenworth Icicle Station</h1>
-        <ul class="bullet-list">
-          <li>Disembark at Leavenworth's mountain depot.</li>
-          <li>Hop on the dedicated 4-minute Bavarian village shuttle.</li>
-          <li>Step directly onto Front Street.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">12:45 PM</span><span class="preview-title">Check In: Bavarian Lodge</span></div>
-        <div class="preview-card"><span class="preview-time">01:15 PM</span><span class="preview-title">Lunch at Andreas Keller</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane4">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">12:45 PM</span><span class="tag-badge">HOTEL</span></div>
-        <h1 class="step-title">Check In: Bavarian Lodge</h1>
-        <ul class="bullet-list">
-          <li>Location: 810 Highway 2 (directly across from Front Street Park).</li>
-          <li>Charming mid-range alpine lodge with fireplaces, cozy rooms, and mountain views.</li>
-          <li>Check in or drop baggage.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">01:15 PM</span><span class="preview-title">Lunch at Andreas Keller</span></div>
-        <div class="preview-card"><span class="preview-time">02:45 PM</span><span class="preview-title">Front Street Alpine Boutiques</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane5">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">01:15 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Lunch at Andreas Keller</h1>
-        <ul class="bullet-list">
-          <li>Location: 829 Front St (downstairs Bavarian rathskeller).</li>
-          <li>Authentic Bavarian bratwurst, schnitzel, sauerkraut, and imported German beer.</li>
-          <li>Lively accordion music and alpine hospitality.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:45 PM</span><span class="preview-title">Front Street Alpine Boutiques</span></div>
-        <div class="preview-card"><span class="preview-time">04:15 PM</span><span class="preview-title">Blackbird Island River Walk</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane6">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:45 PM</span><span class="tag-badge">EXPLORE</span></div>
-        <h1 class="step-title">Front Street Alpine Boutiques</h1>
-        <ul class="bullet-list">
-          <li>Stroll the timber-framed Bavarian storefronts.</li>
-          <li>Visit The Cheesemonger, ginger bread shops, and cuckoo clock crafters.</li>
-          <li>Sample Washington wines at local tasting rooms.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">04:15 PM</span><span class="preview-title">Blackbird Island River Walk</span></div>
-        <div class="preview-card"><span class="preview-time">06:30 PM</span><span class="preview-title">Dinner & Beer at Icicle Brewing Co.</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane7">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">04:15 PM</span><span class="tag-badge">LEISURE</span></div>
-        <h1 class="step-title">Blackbird Island River Walk</h1>
-        <ul class="bullet-list">
-          <li>Walk down to Waterfront Park along the rushing Wenatchee River.</li>
-          <li>Paved trail loops across wooden footbridges onto Blackbird Island.</li>
-          <li>Peaceful forest trails with mountain backdrops.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">06:30 PM</span><span class="preview-title">Dinner & Beer at Icicle Brewing Co.</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 09:00 AM</span><span class="preview-title">Breakfast at Bavarian Lodge</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane8">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">06:30 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Dinner & Beer at Icicle Brewing Co.</h1>
-        <ul class="bullet-list">
-          <li>Location: 935 Front St.</li>
-          <li>Local craft brewery with outdoor fire pits and local charcuterie boards.</li>
-          <li>Relaxed alpine evening ambiance.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 09:00 AM</span><span class="preview-title">Breakfast at Bavarian Lodge</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 10:30 AM</span><span class="preview-title">Nutcracker Museum & Waterfront</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane9">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 09:00 AM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Breakfast at Bavarian Lodge</h1>
-        <ul class="bullet-list">
-          <li>Enjoy complimentary hot lodge breakfast with cinnamon rolls and eggs.</li>
-          <li>Coffee on the terrace overlooking Cascade peaks.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 10:30 AM</span><span class="preview-title">Nutcracker Museum & Waterfront</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 12:45 PM</span><span class="preview-title">Departure Lunch at Munchen Haus</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane10">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 10:30 AM</span><span class="tag-badge">EXPLORE</span></div>
-        <h1 class="step-title">Nutcracker Museum & Waterfront</h1>
-        <ul class="bullet-list">
-          <li>Visit the world-famous Leavenworth Nutcracker Museum (over 7,000 nutcrackers).</li>
-          <li>Pick up artisan chocolates or local honey on 9th St.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 12:45 PM</span><span class="preview-title">Departure Lunch at Munchen Haus</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 05:00 PM</span><span class="preview-title">Shuttle to Icicle Station</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane11">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 12:45 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Departure Lunch at Munchen Haus</h1>
-        <ul class="bullet-list">
-          <li>Location: 709 Front St.</li>
-          <li>Famous outdoor Bavarian grill garden with specialty wursts and mustard bar.</li>
-          <li>Quick, delicious, and steps from the return shuttle.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 05:00 PM</span><span class="preview-title">Shuttle to Icicle Station</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 05:35 PM</span><span class="preview-title">Empire Builder West to Seattle</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane12">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 05:00 PM</span><span class="tag-badge">CHECK-IN</span></div>
-        <h1 class="step-title">Shuttle to Icicle Station</h1>
-        <ul class="bullet-list">
-          <li>Take village shuttle back to Leavenworth Icicle Station depot.</li>
-          <li>Board westbound Empire Builder 7 back to Seattle (departs ~5:35 PM).</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 05:35 PM</span><span class="preview-title">Empire Builder West to Seattle</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 09:15 PM</span><span class="preview-title">Arrive King St & Return to 1st Ave</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane13">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 05:35 PM</span><span class="tag-badge">RAIL</span></div>
-        <h1 class="step-title">Empire Builder West to Seattle</h1>
-        <ul class="bullet-list">
-          <li>Scenic evening descent back through Stevens Pass tunnel and Cascades.</li>
-          <li>Full observation lounge car seating for mountain sunset views.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 09:15 PM</span><span class="preview-title">Arrive King St & Return to 1st Ave</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane14">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 09:15 PM</span><span class="tag-badge">HOME</span></div>
-        <h1 class="step-title">Arrive King St & Return to 1st Ave</h1>
-        <ul class="bullet-list">
-          <li>Disembark at King Street Station.</li>
-          <li>Quick cab or transit back to 2929 1st Ave.</li>
-          <li>Leavenworth mountain getaway complete!</li>
-        </ul>
-      </section>
-    </div>  </main>
+
+  <main id="panes-container"></main>
+
   <footer>
-    <div class="btn-nav btn-back btn-disabled back-disabled">&larr; Back</div>
-    <label for="step1" class="btn-nav btn-back back-1" onclick="">&larr; Back</label>
-    <label for="step2" class="btn-nav btn-back back-2" onclick="">&larr; Back</label>
-    <label for="step3" class="btn-nav btn-back back-3" onclick="">&larr; Back</label>
-    <label for="step4" class="btn-nav btn-back back-4" onclick="">&larr; Back</label>
-    <label for="step5" class="btn-nav btn-back back-5" onclick="">&larr; Back</label>
-    <label for="step6" class="btn-nav btn-back back-6" onclick="">&larr; Back</label>
-    <label for="step7" class="btn-nav btn-back back-7" onclick="">&larr; Back</label>
-    <label for="step8" class="btn-nav btn-back back-8" onclick="">&larr; Back</label>
-    <label for="step9" class="btn-nav btn-back back-9" onclick="">&larr; Back</label>
-    <label for="step10" class="btn-nav btn-back back-10" onclick="">&larr; Back</label>
-    <label for="step11" class="btn-nav btn-back back-11" onclick="">&larr; Back</label>
-    <label for="step12" class="btn-nav btn-back back-12" onclick="">&larr; Back</label>
-    <label for="step13" class="btn-nav btn-back back-13" onclick="">&larr; Back</label>
-    <a href="index.html#overnight" class="btn-nav btn-menu">&#8962; Menu</a>
-    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next &rarr;</label>
-    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next &rarr;</label>
-    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next &rarr;</label>
-    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next &rarr;</label>
-    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next &rarr;</label>
-    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next &rarr;</label>
-    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next &rarr;</label>
-    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next &rarr;</label>
-    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next &rarr;</label>
-    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next &rarr;</label>
-    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next &rarr;</label>
-    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next &rarr;</label>
-    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next &rarr;</label>
-    <a href="index.html#overnight" class="btn-nav btn-finish next-finish">Finish &rarr;</a>
+    <button class="btn-nav btn-back" id="btn-back" onclick="navigate(-1)">← Back</button>
+    <a href="index.html#overnight" class="btn-nav btn-menu" id="btn-menu">⌂ Menu</a>
+    <button class="btn-nav btn-next" id="btn-next" onclick="navigate(1)">Next →</button>
+    <a href="index.html#overnight" class="btn-nav btn-finish" id="btn-finish" style="display: none;">Finish ➔</a>
   </footer>
+
+  <script>
+    const TRIP_CONFIG = {
+      title: "Leavenworth Overnight",
+      returnHash: "#overnight",
+      steps: [
+        {
+          time: "07:15 AM",
+          tag: "DEPARTURE",
+          title: "Walk to Seattle Center Monorail",
+          bullets: [
+            "Exit 2929 1st Ave and walk northeast on Denny Way.",
+            "Walk 8 minutes to the Seattle Center Monorail terminal across from Space Needle.",
+            "Tap ORCA or contactless credit card at the turnstile."
+          ]
+        },
+        {
+          time: "07:25 AM",
+          tag: "TRANSIT",
+          title: "Monorail Ride to Westlake Center",
+          bullets: [
+            "Board the Monorail for the 90-second elevated ride over Belltown traffic.",
+            "Disembark on the 3rd floor inside Westlake Center.",
+            "Take the central escalators or elevator straight down to the transit tunnel."
+          ]
+        },
+        {
+          time: "07:35 AM",
+          tag: "TRANSIT",
+          title: "Link 1 Line Tunnel to King Street",
+          bullets: [
+            "Tap ORCA or contactless card at the Link mezzanine level.",
+            "Board 1 Line Southbound (toward Angle Lake / Federal Way).",
+            "Ride 3 quick stops: University St → Pioneer Square → Int'l District/Chinatown.",
+            "Take the Jackson St escalator up to street level."
+          ]
+        },
+        {
+          time: "07:50 AM",
+          tag: "CHECK-IN",
+          title: "King Street Station Priority Boarding",
+          bullets: [
+            "Walk 1 block west down S Jackson St into King Street Station.",
+            "Enter the restored historic hall under the brick clock tower.",
+            "Join the Amtrak Empire Builder boarding queue with tickets ready."
+          ]
+        },
+        {
+          time: "08:35 AM",
+          tag: "RAIL",
+          title: "Amtrak Empire Builder Eastbound",
+          bullets: [
+            "Board train 8 heading east toward the Cascade Range.",
+            "Traverse the legendary 7.8-mile Cascade Tunnel under Stevens Pass.",
+            "Head to the Sightseer Lounge car for sweeping mountain peaks, rushing rivers, and canyon views."
+          ]
+        },
+        {
+          time: "12:15 PM",
+          tag: "ARRIVAL",
+          title: "Arrive Leavenworth Icicle Station",
+          bullets: [
+            "Disembark at Leavenworth's mountain depot platform.",
+            "Step directly onto the dedicated Leavenworth village shuttle bus.",
+            "Quick 5-minute shuttle ride into downtown Front Street."
+          ]
+        },
+        {
+          time: "12:45 PM",
+          tag: "HOTEL",
+          title: "Check In: Bavarian Lodge",
+          bullets: [
+            "Location: 810 Highway 2 (directly across from Front Street Park).",
+            "Charming alpine lodge with fireplaces, cozy timber rooms, and mountain views.",
+            "Drop overnight bags with the front desk or complete early check-in."
+          ]
+        },
+        {
+          time: "01:15 PM",
+          tag: "DINING",
+          title: "Lunch at Andreas Keller",
+          bullets: [
+            "Location: 829 Front St (downstairs Bavarian rathskeller).",
+            "Authentic German bratwurst, schnitzel, potato salad, and imported draft beer.",
+            "Lively Bavarian accordion music and cozy wood-carved booth seating."
+          ]
+        },
+        {
+          time: "02:45 PM",
+          tag: "EXPLORE",
+          title: "Front Street Alpine Boutiques",
+          bullets: [
+            "Stroll the Bavarian storefront arcades along Front Street.",
+            "Visit The Cheesemonger, ginger bread shops, and cuckoo clock crafters.",
+            "Sample regional Washington wines at local tasting rooms."
+          ]
+        },
+        {
+          time: "04:15 PM",
+          tag: "LEISURE",
+          title: "Blackbird Island River Walk",
+          bullets: [
+            "Walk down into Waterfront Park along the rushing Wenatchee River.",
+            "Paved loop trail crosses wooden footbridges onto Blackbird Island.",
+            "Peaceful wooded paths framed against snow-capped Cascade ridges."
+          ]
+        },
+        {
+          time: "06:30 PM",
+          tag: "DINING",
+          title: "Dinner & Drinks at Icicle Brewing Co.",
+          bullets: [
+            "Location: 935 Front St.",
+            "Popular local craft brewery with outdoor fire pits and local charcuterie boards.",
+            "Relaxed alpine evening atmosphere."
+          ]
+        },
+        {
+          time: "DAY 2 - 09:00 AM",
+          tag: "DINING",
+          title: "Breakfast at Bavarian Lodge",
+          bullets: [
+            "Enjoy hot lodge breakfast with warm cinnamon rolls, eggs, and fruit.",
+            "Morning coffee on the terrace overlooking the mountains."
+          ]
+        },
+        {
+          time: "DAY 2 - 12:45 PM",
+          tag: "DINING",
+          title: "Departure Lunch at München Haus",
+          bullets: [
+            "Location: 709 Front St.",
+            "Famous outdoor Bavarian grill garden with specialty wursts and legendary mustard bar.",
+            "Quick, delicious lunch steps from the afternoon shuttle pick-up."
+          ]
+        },
+        {
+          time: "DAY 2 - 05:00 PM",
+          tag: "CHECK-IN",
+          title: "Shuttle to Icicle Station & Boarding",
+          bullets: [
+            "Catch the village shuttle from Front Street back to Icicle Station.",
+            "Board westbound Amtrak Empire Builder 7 back to Seattle (departs ~5:35 PM).",
+            "Take in the golden-hour mountain descent through Stevens Pass."
+          ]
+        },
+        {
+          time: "DAY 2 - 09:15 PM",
+          tag: "TRANSIT",
+          title: "Arrive King Street Station to 1 Line",
+          bullets: [
+            "Disembark train at King Street Station.",
+            "Walk east through the depot plaza to the International District Link tunnel entrance.",
+            "Tap ORCA or card and board Link 1 Line Northbound."
+          ]
+        },
+        {
+          time: "DAY 2 - 09:30 PM",
+          tag: "TRANSIT",
+          title: "Link Tunnel to Monorail at Westlake",
+          bullets: [
+            "Ride 3 stops north to Westlake Station.",
+            "Take escalators up to the 3rd floor Westlake Monorail platform.",
+            "Board Monorail for the 90-second return ride to Seattle Center."
+          ]
+        },
+        {
+          time: "DAY 2 - 09:45 PM",
+          tag: "HOME",
+          title: "Arrive Home at 2929 1st Ave",
+          bullets: [
+            "Step off the Monorail and walk down Denny Way back into Belltown.",
+            "Arrive home at 2929 1st Ave.",
+            "Leavenworth Cascade mountain getaway complete!"
+          ]
+        }
+      ]
+    };
+
+    let currentStep = 0;
+    const steps = TRIP_CONFIG.steps;
+    const totalSteps = steps.length;
+
+    document.getElementById("trip-header-title").textContent = TRIP_CONFIG.title;
+    document.getElementById("btn-menu").href = `index.html${TRIP_CONFIG.returnHash}`;
+    document.getElementById("btn-finish").href = `index.html${TRIP_CONFIG.returnHash}`;
+
+    const container = document.getElementById("panes-container");
+    container.innerHTML = steps.map((s, idx) => {
+      const bulletsHtml = s.bullets.map(b => `<li>${b}</li>`).join("");
+      let previewHtml = "";
+      if (idx < totalSteps - 1) {
+        const nextCards = [idx + 1, idx + 2]
+          .filter(n => n < totalSteps)
+          .map(n => `
+            <div class="preview-card">
+              <span class="preview-time">${steps[n].time}</span>
+              <span class="preview-title">${steps[n].title}</span>
+            </div>
+          `).join("");
+
+        previewHtml = `
+          <section class="preview-section">
+            <div class="preview-label">Up Next</div>
+            ${nextCards}
+          </section>
+        `;
+      }
+
+      return `
+        <div class="step-pane ${idx === 0 ? 'active' : ''}" id="pane-${idx}">
+          <section class="active-card">
+            <div class="card-top-row">
+              <span class="time-badge">${s.time}</span>
+              <span class="tag-badge">${s.tag}</span>
+            </div>
+            <h1 class="step-title">${s.title}</h1>
+            <ul class="bullet-list">${bulletsHtml}</ul>
+          </section>
+          ${previewHtml}
+        </div>
+      `;
+    }).join("");
+
+    function updateUI() {
+      for (let i = 0; i < totalSteps; i++) {
+        document.getElementById(`pane-${i}`).classList.toggle("active", i === currentStep);
+      }
+      document.getElementById("step-indicator").textContent = `Step ${currentStep + 1} of ${totalSteps}`;
+      const btnBack = document.getElementById("btn-back");
+      if (currentStep === 0) {
+        btnBack.classList.add("btn-disabled");
+      } else {
+        btnBack.classList.remove("btn-disabled");
+      }
+      const btnNext = document.getElementById("btn-next");
+      const btnFinish = document.getElementById("btn-finish");
+      if (currentStep === totalSteps - 1) {
+        btnNext.style.display = "none";
+        btnFinish.style.display = "block";
+      } else {
+        btnNext.style.display = "block";
+        btnFinish.style.display = "none";
+      }
+      container.scrollTop = 0;
+    }
+
+    function navigate(direction) {
+      const next = currentStep + direction;
+      if (next >= 0 && next < totalSteps) {
+        currentStep = next;
+        updateUI();
+      }
+    }
+
+    updateUI();
+  </script>
 </body>
 </html>

@@ -13,25 +13,40 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body {
-      background-color: #0b1120;
-      color: #f8fafc;
-      height: 100dvh;
+    /* Fixed mobile app viewport container */
+    html, body {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
+      background-color: #0b1120;
+    }
+
+    body {
+      color: #f8fafc;
       display: flex;
       flex-direction: column;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     input[type="radio"] {
-      display: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      opacity: 0;
     }
 
     /* Header */
     header {
-      padding-top: max(env(safe-area-inset-top), 48px);
+      padding-top: max(env(safe-area-inset-top), 44px);
       padding-left: 16px;
       padding-right: 16px;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -41,7 +56,7 @@
     }
 
     .brand-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: #38bdf8;
     }
@@ -50,9 +65,10 @@
       display: none;
       font-size: 0.75rem;
       font-weight: 700;
-      background-color: #334155;
+      background-color: #1e293b;
+      border: 1px solid #334155;
       color: #94a3b8;
-      padding: 4px 8px;
+      padding: 4px 10px;
       border-radius: 12px;
     }
 
@@ -73,18 +89,20 @@
       display: inline-block;
     }
 
-    /* Middle Scrollable Section */
+    /* Scrollable Step Content */
     main {
-      flex: 1;
+      flex: 1 1 auto;
+      min-height: 0; /* Prevents overflow from pushing footer offscreen */
       overflow-y: auto;
-      padding: 10px 16px;
+      padding: 12px 16px;
       -webkit-overflow-scrolling: touch;
     }
 
     .step-pane {
       display: none;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      padding-bottom: 10px;
     }
 
     #step1:checked ~ main #pane1,
@@ -109,7 +127,7 @@
       border: 1px solid #334155;
       border-left: 4px solid #38bdf8;
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 14px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
@@ -117,11 +135,11 @@
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .time-badge {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 900;
       color: #fbbf24;
     }
@@ -138,7 +156,7 @@
       font-size: 1.15rem;
       font-weight: 800;
       line-height: 1.25;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #f8fafc;
     }
 
@@ -146,7 +164,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
     .bullet-list li {
@@ -167,8 +185,8 @@
     }
 
     .step-note {
-      margin-top: 8px;
-      padding: 7px 9px;
+      margin-top: 10px;
+      padding: 8px 10px;
       background: #131d2e;
       border-radius: 6px;
       border-left: 3px solid #fbbf24;
@@ -178,7 +196,7 @@
     }
 
     .preview-section {
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .preview-label {
@@ -187,7 +205,7 @@
       color: #94a3b8;
       text-transform: uppercase;
       letter-spacing: 0.6px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       padding-left: 2px;
     }
 
@@ -196,7 +214,7 @@
       border: 1px solid #334155;
       border-radius: 8px;
       padding: 8px 12px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -217,62 +235,81 @@
       text-overflow: ellipsis;
     }
 
-    /* Elevated Bottom Footer */
+    /* Fixed Bottom Cockpit Footer */
     footer {
-      padding-top: 8px;
+      flex-shrink: 0;
+      padding-top: 10px;
       padding-left: 16px;
       padding-right: 16px;
-      padding-bottom: max(env(safe-area-inset-bottom), 34px);
+      padding-bottom: max(env(safe-area-inset-bottom), 24px);
       border-top: 1px solid #334155;
       background-color: #0b1120;
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex-shrink: 0;
+      gap: 8px;
+      z-index: 100;
     }
 
-    .btn-next, .btn-prev, .btn-restart {
-      display: none;
+    .btn-nav {
+      flex: 1;
       text-align: center;
       text-decoration: none;
+      display: none;
+      padding: 13px 6px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      border-radius: 8px;
+      user-select: none;
+      -webkit-user-select: none;
       cursor: pointer;
     }
 
+    /* Back Button */
+    .btn-back {
+      background-color: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+
+    .btn-back:active {
+      background-color: #334155;
+      color: #f8fafc;
+    }
+
+    .btn-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* Center Menu Button */
+    .btn-menu {
+      display: block !important;
+      background-color: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #334155;
+    }
+
+    .btn-menu:active {
+      background-color: #334155;
+    }
+
+    /* Next Button */
     .btn-next {
       background-color: #10b981;
       color: #ffffff;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 1rem;
-      font-weight: 800;
+      border: 1px solid #10b981;
     }
 
     .btn-next:active {
       background-color: #059669;
     }
 
-    .secondary-row {
-      display: flex;
-      gap: 8px;
+    .btn-finish {
+      background-color: #3b82f6;
+      color: #ffffff;
+      border: 1px solid #3b82f6;
     }
 
-    .btn-prev, .btn-restart {
-      flex: 1;
-      background: #1e293b;
-      color: #94a3b8;
-      border: 1px solid #334155;
-      border-radius: 6px;
-      padding: 9px;
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
-
-    .btn-prev:active, .btn-restart:active {
-      background: #334155;
-      color: #f8fafc;
-    }
-
-    /* Next button progression */
+    /* Pure CSS Next Button Reveal */
     #step1:checked ~ footer .next-2,
     #step2:checked ~ footer .next-3,
     #step3:checked ~ footer .next-4,
@@ -289,43 +326,35 @@
       display: block;
     }
 
-    #step14:checked ~ footer .next-done {
-      display: block;
-      background-color: #475569;
-    }
-
-    /* Previous buttons */
-    #step2:checked ~ footer .prev-1,
-    #step3:checked ~ footer .prev-2,
-    #step4:checked ~ footer .prev-3,
-    #step5:checked ~ footer .prev-4,
-    #step6:checked ~ footer .prev-5,
-    #step7:checked ~ footer .prev-6,
-    #step8:checked ~ footer .prev-7,
-    #step9:checked ~ footer .prev-8,
-    #step10:checked ~ footer .prev-9,
-    #step11:checked ~ footer .prev-10,
-    #step11:checked ~ footer .prev-11,
-    #step12:checked ~ footer .prev-12,
-    #step13:checked ~ footer .prev-13,
-    #step14:checked ~ footer .prev-13 {
+    #step14:checked ~ footer .next-finish {
       display: block;
     }
 
-    #step1:checked ~ footer .prev-disabled {
+    /* Pure CSS Back Button Reveal */
+    #step1:checked ~ footer .back-disabled {
       display: block;
-      opacity: 0.35;
-      pointer-events: none;
     }
 
-    footer .btn-restart {
+    #step2:checked ~ footer .back-1,
+    #step3:checked ~ footer .back-2,
+    #step4:checked ~ footer .back-3,
+    #step5:checked ~ footer .back-4,
+    #step6:checked ~ footer .back-5,
+    #step7:checked ~ footer .back-6,
+    #step8:checked ~ footer .back-7,
+    #step9:checked ~ footer .back-8,
+    #step10:checked ~ footer .back-9,
+    #step11:checked ~ footer .back-10,
+    #step12:checked ~ footer .back-11,
+    #step13:checked ~ footer .back-12,
+    #step14:checked ~ footer .back-13 {
       display: block;
     }
   </style>
 </head>
 <body>
 
-  <!-- Pure CSS State Machine (14 Radio Inputs) -->
+  <!-- Pure CSS State Machine -->
   <input type="radio" name="tripstep" id="step1" checked>
   <input type="radio" name="tripstep" id="step2">
   <input type="radio" name="tripstep" id="step3">
@@ -342,7 +371,7 @@
   <input type="radio" name="tripstep" id="step14">
 
   <header>
-    <div class="brand-title">DayTrip2Centralia</div>
+    <span class="brand-title">Centralia Getaway</span>
     <div>
       <span class="step-pill" id="pill1">Step 1 of 14</span>
       <span class="step-pill" id="pill2">Step 2 of 14</span>
@@ -622,40 +651,42 @@
     </div>
   </main>
 
+  <!-- Single-Row 3-Button Cockpit -->
   <footer>
-    <!-- Next Buttons -->
-    <label for="step2" class="btn-next next-2">Done — Next Step ➔</label>
-    <label for="step3" class="btn-next next-3">Done — Next Step ➔</label>
-    <label for="step4" class="btn-next next-4">Done — Next Step ➔</label>
-    <label for="step5" class="btn-next next-5">Done — Next Step ➔</label>
-    <label for="step6" class="btn-next next-6">Done — Next Step ➔</label>
-    <label for="step7" class="btn-next next-7">Done — Next Step ➔</label>
-    <label for="step8" class="btn-next next-8">Done — Next Step ➔</label>
-    <label for="step9" class="btn-next next-9">Done — Next Step ➔</label>
-    <label for="step10" class="btn-next next-10">Done — Next Step ➔</label>
-    <label for="step11" class="btn-next next-11">Done — Next Step ➔</label>
-    <label for="step12" class="btn-next next-12">Done — Next Step ➔</label>
-    <label for="step13" class="btn-next next-13">Done — Next Step ➔</label>
-    <label for="step14" class="btn-next next-14">Done — Next Step ➔</label>
-    <div class="btn-next next-done">Trip Completed! ✓</div>
+    <!-- Back Button -->
+    <div class="btn-nav btn-back btn-disabled back-disabled">← Back</div>
+    <label for="step1" class="btn-nav btn-back back-1" onclick="">← Back</label>
+    <label for="step2" class="btn-nav btn-back back-2" onclick="">← Back</label>
+    <label for="step3" class="btn-nav btn-back back-3" onclick="">← Back</label>
+    <label for="step4" class="btn-nav btn-back back-4" onclick="">← Back</label>
+    <label for="step5" class="btn-nav btn-back back-5" onclick="">← Back</label>
+    <label for="step6" class="btn-nav btn-back back-6" onclick="">← Back</label>
+    <label for="step7" class="btn-nav btn-back back-7" onclick="">← Back</label>
+    <label for="step8" class="btn-nav btn-back back-8" onclick="">← Back</label>
+    <label for="step9" class="btn-nav btn-back back-9" onclick="">← Back</label>
+    <label for="step10" class="btn-nav btn-back back-10" onclick="">← Back</label>
+    <label for="step11" class="btn-nav btn-back back-11" onclick="">← Back</label>
+    <label for="step12" class="btn-nav btn-back back-12" onclick="">← Back</label>
+    <label for="step13" class="btn-nav btn-back back-13" onclick="">← Back</label>
 
-    <div class="secondary-row">
-      <div class="btn-prev prev-disabled">← Previous</div>
-      <label for="step1" class="btn-prev prev-1">← Previous</label>
-      <label for="step2" class="btn-prev prev-2">← Previous</label>
-      <label for="step3" class="btn-prev prev-3">← Previous</label>
-      <label for="step4" class="btn-prev prev-4">← Previous</label>
-      <label for="step5" class="btn-prev prev-5">← Previous</label>
-      <label for="step6" class="btn-prev prev-6">← Previous</label>
-      <label for="step7" class="btn-prev prev-7">← Previous</label>
-      <label for="step8" class="btn-prev prev-8">← Previous</label>
-      <label for="step9" class="btn-prev prev-9">← Previous</label>
-      <label for="step10" class="btn-prev prev-10">← Previous</label>
-      <label for="step11" class="btn-prev prev-11">← Previous</label>
-      <label for="step12" class="btn-prev prev-12">← Previous</label>
-      <label for="step13" class="btn-prev prev-13">← Previous</label>
-      <label for="step1" class="btn-restart">↺ Restart</label>
-    </div>
+    <!-- Center Menu Button -->
+    <a href="index.html" class="btn-nav btn-menu">⌂ Menu</a>
+
+    <!-- Next Button -->
+    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next →</label>
+    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next →</label>
+    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next →</label>
+    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next →</label>
+    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next →</label>
+    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next →</label>
+    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next →</label>
+    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next →</label>
+    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next →</label>
+    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next →</label>
+    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next →</label>
+    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next →</label>
+    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next →</label>
+    <a href="index.html" class="btn-nav btn-finish next-finish">Finish ➔</a>
   </footer>
 
 </body>

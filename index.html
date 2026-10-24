@@ -22,7 +22,7 @@
       padding: max(env(safe-area-inset-top), 48px) 16px max(env(safe-area-inset-bottom), 30px);
     }
 
-    /* Hide category radio buttons */
+    /* Hide the radio inputs completely */
     input[type="radio"] {
       display: none;
     }
@@ -80,18 +80,24 @@
       box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
     }
 
-    /* Lists container */
+    /* Trip list containers - hidden by default */
     .trip-section {
       display: none;
       flex-direction: column;
       gap: 12px;
     }
 
-    /* Show only active category list */
-    #tab-day:checked ~ #list-day,
-    #tab-overnight:checked ~ #list-overnight,
+    /* Direct sibling selector to reveal active category */
+    #tab-day:checked ~ #list-day {
+      display: flex !important;
+    }
+
+    #tab-overnight:checked ~ #list-overnight {
+      display: flex !important;
+    }
+
     #tab-local:checked ~ #list-local {
-      display: flex;
+      display: flex !important;
     }
 
     .trip-card {
@@ -171,88 +177,86 @@
     <label for="tab-local" class="filter-tab">Local Walks</label>
   </nav>
 
-  <main>
-    <!-- CATEGORY 1: DAY TRIPS (UNDER 3 HOURS) -->
-    <section class="trip-section" id="list-day">
-      <a href="BellinghamDayTrip.html" class="trip-card">
-        <div class="trip-info">
-          <h2>Historic Fairhaven</h2>
-          <div class="trip-meta">Amtrak Cascades North • Taylor Dock • Keenan’s at the Pier</div>
-        </div>
-        <div class="trip-arrow">➔</div>
-      </a>
-
-      <a href="CentraliaDayTrip.html" class="trip-card">
-        <div class="trip-info">
-          <h2>Historic Centralia</h2>
-          <div class="trip-meta">Amtrak Cascades South • McMenamins Olympic Club • Antiques</div>
-        </div>
-        <div class="trip-arrow">➔</div>
-      </a>
-
-      <a href="MountVernonDayTrip.html" class="trip-card">
-        <div class="trip-info">
-          <h2>Mount Vernon & Skagit</h2>
-          <div class="trip-meta">Amtrak Cascades North • Riverwalk Trail • Skagit Brewery</div>
-        </div>
-        <div class="trip-arrow">➔</div>
-      </a>
-    </section>
-
-    <!-- CATEGORY 2: OVERNIGHT TRIPS (OVER 3 HOURS) -->
-    <section class="trip-section" id="list-overnight">
-      <div class="trip-card upcoming">
-        <div class="trip-info">
-          <h2>Victoria, BC <span class="badge-status">Coming Soon</span></h2>
-          <div class="trip-meta">Victoria Clipper (Pier 69) • Inner Harbour • Empress High Tea</div>
-        </div>
-        <div class="trip-arrow">⋯</div>
+  <!-- CATEGORY 1: DAY TRIPS (UNDER 3 HOURS) -->
+  <section class="trip-section" id="list-day">
+    <a href="BellinghamDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Historic Fairhaven</h2>
+        <div class="trip-meta">Amtrak Cascades North • Taylor Dock • Keenan’s at the Pier</div>
       </div>
+      <div class="trip-arrow">➔</div>
+    </a>
 
-      <div class="trip-card upcoming">
-        <div class="trip-info">
-          <h2>Leavenworth Bavarian Village <span class="badge-status">Coming Soon</span></h2>
-          <div class="trip-meta">Amtrak Empire Builder • Cascade Mountains • Blackbird Island</div>
-        </div>
-        <div class="trip-arrow">⋯</div>
+    <a href="CentraliaDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Historic Centralia</h2>
+        <div class="trip-meta">Amtrak Cascades South • McMenamins Olympic Club • Antiques</div>
       </div>
+      <div class="trip-arrow">➔</div>
+    </a>
 
-      <div class="trip-card upcoming">
-        <div class="trip-info">
-          <h2>Portland Pearl District <span class="badge-status">Coming Soon</span></h2>
-          <div class="trip-meta">Amtrak Cascades South • Powell’s Books • Streetcar & Dining</div>
-        </div>
-        <div class="trip-arrow">⋯</div>
+    <a href="MountVernonDayTrip.html" class="trip-card">
+      <div class="trip-info">
+        <h2>Mount Vernon & Skagit</h2>
+        <div class="trip-meta">Amtrak Cascades North • Riverwalk Trail • Skagit Brewery</div>
       </div>
-    </section>
+      <div class="trip-arrow">➔</div>
+    </a>
+  </section>
 
-    <!-- CATEGORY 3: LOCAL EXCURSIONS & URBAN WALKS -->
-    <section class="trip-section" id="list-local">
-      <div class="trip-card upcoming">
-        <div class="trip-info">
-          <h2>Bainbridge Island Ferry <span class="badge-status">Coming Soon</span></h2>
-          <div class="trip-meta">Colman Dock Walk-on • Winslow Way • Marina Waterfront Trail</div>
-        </div>
-        <div class="trip-arrow">⋯</div>
+  <!-- CATEGORY 2: OVERNIGHT TRIPS (OVER 3 HOURS) -->
+  <section class="trip-section" id="list-overnight">
+    <div class="trip-card upcoming">
+      <div class="trip-info">
+        <h2>Victoria, BC <span class="badge-status">Coming Soon</span></h2>
+        <div class="trip-meta">Victoria Clipper (Pier 69) • Inner Harbour • Empress High Tea</div>
       </div>
+      <div class="trip-arrow">⋯</div>
+    </div>
 
-      <div class="trip-card upcoming">
-        <div class="trip-info">
-          <h2>Alki Beach & West Seattle <span class="badge-status">Coming Soon</span></h2>
-          <div class="trip-meta">Pier 50 Water Taxi • Elliott Bay Shoreline • Marination Ma Kai</div>
-        </div>
-        <div class="trip-arrow">⋯</div>
+    <div class="trip-card upcoming">
+      <div class="trip-info">
+        <h2>Leavenworth Bavarian Village <span class="badge-status">Coming Soon</span></h2>
+        <div class="trip-meta">Amtrak Empire Builder • Cascade Mountains • Blackbird Island</div>
       </div>
+      <div class="trip-arrow">⋯</div>
+    </div>
 
-      <div class="trip-card upcoming">
-        <div class="trip-info">
-          <h2>Olympic Sculpture Park <span class="badge-status">Coming Soon</span></h2>
-          <div class="trip-meta">Doorstep Walk from 1st Ave • Myrtle Edwards Park • Elliott Bay Trail</div>
-        </div>
-        <div class="trip-arrow">⋯</div>
+    <div class="trip-card upcoming">
+      <div class="trip-info">
+        <h2>Portland Pearl District <span class="badge-status">Coming Soon</span></h2>
+        <div class="trip-meta">Amtrak Cascades South • Powell’s Books • Streetcar & Dining</div>
       </div>
-    </section>
-  </main>
+      <div class="trip-arrow">⋯</div>
+    </div>
+  </section>
+
+  <!-- CATEGORY 3: LOCAL EXCURSIONS & URBAN WALKS -->
+  <section class="trip-section" id="list-local">
+    <div class="trip-card upcoming">
+      <div class="trip-info">
+        <h2>Bainbridge Island Ferry <span class="badge-status">Coming Soon</span></h2>
+        <div class="trip-meta">Colman Dock Walk-on • Winslow Way • Marina Waterfront Trail</div>
+      </div>
+      <div class="trip-arrow">⋯</div>
+    </div>
+
+    <div class="trip-card upcoming">
+      <div class="trip-info">
+        <h2>Alki Beach & West Seattle <span class="badge-status">Coming Soon</span></h2>
+        <div class="trip-meta">Pier 50 Water Taxi • Elliott Bay Shoreline • Marination Ma Kai</div>
+      </div>
+      <div class="trip-arrow">⋯</div>
+    </div>
+
+    <div class="trip-card upcoming">
+      <div class="trip-info">
+        <h2>Olympic Sculpture Park <span class="badge-status">Coming Soon</span></h2>
+        <div class="trip-meta">Doorstep Walk from 1st Ave • Myrtle Edwards Park • Elliott Bay Trail</div>
+      </div>
+      <div class="trip-arrow">⋯</div>
+    </div>
+  </section>
 
 </body>
 </html>

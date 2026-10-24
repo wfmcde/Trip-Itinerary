@@ -22,8 +22,13 @@
       padding: max(env(safe-area-inset-top), 48px) 16px max(env(safe-area-inset-bottom), 30px);
     }
 
+    /* Hide category radio buttons */
+    input[type="radio"] {
+      display: none;
+    }
+
     header {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       border-bottom: 1px solid #334155;
       padding-bottom: 12px;
     }
@@ -38,13 +43,55 @@
     .app-subtitle {
       font-size: 0.85rem;
       color: #94a3b8;
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
-    .trip-list {
+    /* Category Filter Segmented Control */
+    .filter-bar {
       display: flex;
+      background-color: #1e293b;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      margin-bottom: 16px;
+      gap: 4px;
+    }
+
+    .filter-tab {
+      flex: 1;
+      text-align: center;
+      padding: 9px 4px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #94a3b8;
+      border-radius: 7px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease-in-out;
+    }
+
+    /* Highlight selected tab */
+    #tab-day:checked ~ .filter-bar label[for="tab-day"],
+    #tab-overnight:checked ~ .filter-bar label[for="tab-overnight"],
+    #tab-local:checked ~ .filter-bar label[for="tab-local"] {
+      background-color: #38bdf8;
+      color: #0b1120;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Lists container */
+    .trip-section {
+      display: none;
       flex-direction: column;
       gap: 12px;
+    }
+
+    /* Show only active category list */
+    #tab-day:checked ~ #list-day,
+    #tab-overnight:checked ~ #list-overnight,
+    #tab-local:checked ~ #list-local {
+      display: flex;
     }
 
     .trip-card {
@@ -52,7 +99,7 @@
       border: 1px solid #334155;
       border-left: 4px solid #10b981;
       border-radius: 12px;
-      padding: 16px;
+      padding: 15px 16px;
       text-decoration: none;
       color: inherit;
       display: flex;
@@ -65,15 +112,34 @@
       background-color: #273549;
     }
 
+    .trip-card.upcoming {
+      border-left-color: #fbbf24;
+      opacity: 0.85;
+    }
+
     .trip-info h2 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: #f8fafc;
       margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-status {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #334155;
+      color: #fbbf24;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
 
     .trip-meta {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: #94a3b8;
       line-height: 1.35;
     }
@@ -88,38 +154,104 @@
 </head>
 <body>
 
+  <!-- Pure CSS Category State Machine -->
+  <input type="radio" name="category" id="tab-day" checked>
+  <input type="radio" name="category" id="tab-overnight">
+  <input type="radio" name="category" id="tab-local">
+
   <header>
     <h1 class="app-title">TripPacer Library</h1>
-    <p class="app-subtitle">Select an active getaway itinerary</p>
+    <p class="app-subtitle">Select an active getaway or excursion</p>
   </header>
 
-  <main class="trip-list">
-    <!-- Trip 1: Bellingham -->
-    <a href="BellinghamDayTrip.html" class="trip-card">
-      <div class="trip-info">
-        <h2>Historic Fairhaven (Bellingham)</h2>
-        <div class="trip-meta">Amtrak Cascades North • Taylor Dock • Keenan’s at the Pier</div>
-      </div>
-      <div class="trip-arrow">➔</div>
-    </a>
+  <!-- 3-Segment Top Selector Bar -->
+  <nav class="filter-bar">
+    <label for="tab-day" class="filter-tab">Day Trips</label>
+    <label for="tab-overnight" class="filter-tab">Overnights</label>
+    <label for="tab-local" class="filter-tab">Local Walks</label>
+  </nav>
 
-    <!-- Trip 2: Centralia -->
-    <a href="CentraliaDayTrip.html" class="trip-card">
-      <div class="trip-info">
-        <h2>Historic Centralia</h2>
-        <div class="trip-meta">Amtrak Cascades South • McMenamins Olympic Club • Antiques</div>
-      </div>
-      <div class="trip-arrow">➔</div>
-    </a>
+  <main>
+    <!-- CATEGORY 1: DAY TRIPS (UNDER 3 HOURS) -->
+    <section class="trip-section" id="list-day">
+      <a href="BellinghamDayTrip.html" class="trip-card">
+        <div class="trip-info">
+          <h2>Historic Fairhaven</h2>
+          <div class="trip-meta">Amtrak Cascades North • Taylor Dock • Keenan’s at the Pier</div>
+        </div>
+        <div class="trip-arrow">➔</div>
+      </a>
 
-    <!-- Trip 3: Mount Vernon -->
-    <a href="MountVernonDayTrip.html" class="trip-card">
-      <div class="trip-info">
-        <h2>Mount Vernon & Skagit Valley</h2>
-        <div class="trip-meta">Amtrak Cascades North • Riverwalk Trail • Skagit River Brewery</div>
+      <a href="CentraliaDayTrip.html" class="trip-card">
+        <div class="trip-info">
+          <h2>Historic Centralia</h2>
+          <div class="trip-meta">Amtrak Cascades South • McMenamins Olympic Club • Antiques</div>
+        </div>
+        <div class="trip-arrow">➔</div>
+      </a>
+
+      <a href="MountVernonDayTrip.html" class="trip-card">
+        <div class="trip-info">
+          <h2>Mount Vernon & Skagit</h2>
+          <div class="trip-meta">Amtrak Cascades North • Riverwalk Trail • Skagit Brewery</div>
+        </div>
+        <div class="trip-arrow">➔</div>
+      </a>
+    </section>
+
+    <!-- CATEGORY 2: OVERNIGHT TRIPS (OVER 3 HOURS) -->
+    <section class="trip-section" id="list-overnight">
+      <div class="trip-card upcoming">
+        <div class="trip-info">
+          <h2>Victoria, BC <span class="badge-status">Coming Soon</span></h2>
+          <div class="trip-meta">Victoria Clipper (Pier 69) • Inner Harbour • Empress High Tea</div>
+        </div>
+        <div class="trip-arrow">⋯</div>
       </div>
-      <div class="trip-arrow">➔</div>
-    </a>
+
+      <div class="trip-card upcoming">
+        <div class="trip-info">
+          <h2>Leavenworth Bavarian Village <span class="badge-status">Coming Soon</span></h2>
+          <div class="trip-meta">Amtrak Empire Builder • Cascade Mountains • Blackbird Island</div>
+        </div>
+        <div class="trip-arrow">⋯</div>
+      </div>
+
+      <div class="trip-card upcoming">
+        <div class="trip-info">
+          <h2>Portland Pearl District <span class="badge-status">Coming Soon</span></h2>
+          <div class="trip-meta">Amtrak Cascades South • Powell’s Books • Streetcar & Dining</div>
+        </div>
+        <div class="trip-arrow">⋯</div>
+      </div>
+    </section>
+
+    <!-- CATEGORY 3: LOCAL EXCURSIONS & URBAN WALKS -->
+    <section class="trip-section" id="list-local">
+      <div class="trip-card upcoming">
+        <div class="trip-info">
+          <h2>Bainbridge Island Ferry <span class="badge-status">Coming Soon</span></h2>
+          <div class="trip-meta">Colman Dock Walk-on • Winslow Way • Marina Waterfront Trail</div>
+        </div>
+        <div class="trip-arrow">⋯</div>
+      </div>
+
+      <div class="trip-card upcoming">
+        <div class="trip-info">
+          <h2>Alki Beach & West Seattle <span class="badge-status">Coming Soon</span></h2>
+          <div class="trip-meta">Pier 50 Water Taxi • Elliott Bay Shoreline • Marination Ma Kai</div>
+        </div>
+        <div class="trip-arrow">⋯</div>
+      </div>
+
+      <div class="trip-card upcoming">
+        <div class="trip-info">
+          <h2>Olympic Sculpture Park <span class="badge-status">Coming Soon</span></h2>
+          <div class="trip-meta">Doorstep Walk from 1st Ave • Myrtle Edwards Park • Elliott Bay Trail</div>
+        </div>
+        <div class="trip-arrow">⋯</div>
+      </div>
+    </section>
   </main>
 
 </body>

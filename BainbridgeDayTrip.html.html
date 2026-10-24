@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DayTrip2Bainbridge</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #0b1120;
+    }
+
+    body {
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    input[type="radio"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      opacity: 0;
+    }
+
+    header {
+      padding-top: max(env(safe-area-inset-top), 44px);
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+      background-color: #0b1120;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    .step-pill {
+      display: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    #step1:checked ~ header #pill1,
+    #step2:checked ~ header #pill2,
+    #step3:checked ~ header #pill3,
+    #step4:checked ~ header #pill4,
+    #step5:checked ~ header #pill5,
+    #step6:checked ~ header #pill6,
+    #step7:checked ~ header #pill7,
+    #step8:checked ~ header #pill8,
+    #step9:checked ~ header #pill9,
+    #step10:checked ~ header #pill10,
+    #step11:checked ~ header #pill11,
+    #step12:checked ~ header #pill12,
+    #step13:checked ~ header #pill13,
+    #step14:checked ~ header #pill14 {
+      display: inline-block;
+    }
+
+    main {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .step-pane {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      padding-bottom: 10px;
+    }
+
+    #step1:checked ~ main #pane1,
+    #step2:checked ~ main #pane2,
+    #step3:checked ~ main #pane3,
+    #step4:checked ~ main #pane4,
+    #step5:checked ~ main #pane5,
+    #step6:checked ~ main #pane6,
+    #step7:checked ~ main #pane7,
+    #step8:checked ~ main #pane8,
+    #step9:checked ~ main #pane9,
+    #step10:checked ~ main #pane10,
+    #step11:checked ~ main #pane11,
+    #step12:checked ~ main #pane12,
+    #step13:checked ~ main #pane13,
+    #step14:checked ~ main #pane14 {
+      display: flex;
+    }
+
+    .active-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-left: 4px solid #38bdf8;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .time-badge {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #fbbf24;
+    }
+
+    .tag-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #38bdf8;
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #f8fafc;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bullet-list li {
+      font-size: 0.92rem;
+      line-height: 1.35;
+      color: #cbd5e1;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .bullet-list li::before {
+      content: "•";
+      color: #38bdf8;
+      font-weight: bold;
+      font-size: 1.1rem;
+      line-height: 0.8;
+    }
+
+    .step-note {
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: #131d2e;
+      border-radius: 6px;
+      border-left: 3px solid #fbbf24;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.3;
+    }
+
+    .preview-section {
+      margin-top: 4px;
+    }
+
+    .preview-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+      padding-left: 2px;
+    }
+
+    .preview-card {
+      background-color: #131d2e;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .preview-time {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #fbbf24;
+      min-width: 65px;
+    }
+
+    .preview-title {
+      font-size: 0.82rem;
+      color: #f8fafc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    footer {
+      flex-shrink: 0;
+      padding-top: 10px;
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: max(env(safe-area-inset-bottom), 24px);
+      border-top: 1px solid #334155;
+      background-color: #0b1120;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .btn-nav {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      display: none;
+      padding: 13px 6px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      border-radius: 8px;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: pointer;
+    }
+
+    .btn-back {
+      background-color: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+
+    .btn-back:active {
+      background-color: #334155;
+      color: #f8fafc;
+    }
+
+    .btn-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .btn-menu {
+      display: block !important;
+      background-color: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #334155;
+    }
+
+    .btn-menu:active {
+      background-color: #334155;
+    }
+
+    .btn-next {
+      background-color: #10b981;
+      color: #ffffff;
+      border: 1px solid #10b981;
+    }
+
+    .btn-next:active {
+      background-color: #059669;
+    }
+
+    .btn-finish {
+      background-color: #3b82f6;
+      color: #ffffff;
+      border: 1px solid #3b82f6;
+    }
+
+    #step1:checked ~ footer .next-2,
+    #step2:checked ~ footer .next-3,
+    #step3:checked ~ footer .next-4,
+    #step4:checked ~ footer .next-5,
+    #step5:checked ~ footer .next-6,
+    #step6:checked ~ footer .next-7,
+    #step7:checked ~ footer .next-8,
+    #step8:checked ~ footer .next-9,
+    #step9:checked ~ footer .next-10,
+    #step10:checked ~ footer .next-11,
+    #step11:checked ~ footer .next-12,
+    #step12:checked ~ footer .next-13,
+    #step13:checked ~ footer .next-14 {
+      display: block;
+    }
+
+    #step14:checked ~ footer .next-finish {
+      display: block;
+    }
+
+    #step1:checked ~ footer .back-disabled {
+      display: block;
+    }
+
+    #step2:checked ~ footer .back-1,
+    #step3:checked ~ footer .back-2,
+    #step4:checked ~ footer .back-3,
+    #step5:checked ~ footer .back-4,
+    #step6:checked ~ footer .back-5,
+    #step7:checked ~ footer .back-6,
+    #step8:checked ~ footer .back-7,
+    #step9:checked ~ footer .back-8,
+    #step10:checked ~ footer .back-9,
+    #step11:checked ~ footer .back-10,
+    #step12:checked ~ footer .back-11,
+    #step13:checked ~ footer .back-12,
+    #step14:checked ~ footer .back-13 {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pure CSS State Machine -->
+  <input type="radio" name="tripstep" id="step1" checked>
+  <input type="radio" name="tripstep" id="step2">
+  <input type="radio" name="tripstep" id="step3">
+  <input type="radio" name="tripstep" id="step4">
+  <input type="radio" name="tripstep" id="step5">
+  <input type="radio" name="tripstep" id="step6">
+  <input type="radio" name="tripstep" id="step7">
+  <input type="radio" name="tripstep" id="step8">
+  <input type="radio" name="tripstep" id="step9">
+  <input type="radio" name="tripstep" id="step10">
+  <input type="radio" name="tripstep" id="step11">
+  <input type="radio" name="tripstep" id="step12">
+  <input type="radio" name="tripstep" id="step13">
+  <input type="radio" name="tripstep" id="step14">
+
+  <header>
+    <span class="brand-title">Bainbridge Island</span>
+    <div>
+      <span class="step-pill" id="pill1">Step 1 of 14</span>
+      <span class="step-pill" id="pill2">Step 2 of 14</span>
+      <span class="step-pill" id="pill3">Step 3 of 14</span>
+      <span class="step-pill" id="pill4">Step 4 of 14</span>
+      <span class="step-pill" id="pill5">Step 5 of 14</span>
+      <span class="step-pill" id="pill6">Step 6 of 14</span>
+      <span class="step-pill" id="pill7">Step 7 of 14</span>
+      <span class="step-pill" id="pill8">Step 8 of 14</span>
+      <span class="step-pill" id="pill9">Step 9 of 14</span>
+      <span class="step-pill" id="pill10">Step 10 of 14</span>
+      <span class="step-pill" id="pill11">Step 11 of 14</span>
+      <span class="step-pill" id="pill12">Step 12 of 14</span>
+      <span class="step-pill" id="pill13">Step 13 of 14</span>
+      <span class="step-pill" id="pill14">Step 14 of 14</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- STEP 1 -->
+    <div class="step-pane" id="pane1">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">09:45 AM</span><span class="tag-badge">DEPARTURE</span></div>
+        <h1 class="step-title">Depart 2929 1st Ave to Colman Dock</h1>
+        <ul class="bullet-list">
+          <li>Exit 2929 1st Ave and head south down 1st Ave or western waterfront promenade.</li>
+          <li>Walk approx. 1.1 miles (or take a quick 5-min rideshare down Alaskan Way).</li>
+          <li>Arrive at Seattle Ferry Terminal at Colman Dock (Pier 52).</li>
+        </ul>
+        <div class="step-note">Pedestrian entry bridge is located along Alaskan Way and Columbia St.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">10:15 AM</span><span class="preview-title">Colman Dock Ticketing & Staging</span></div>
+        <div class="preview-card"><span class="preview-time">10:40 AM</span><span class="preview-title">WSF Bainbridge Ferry Sailing</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-pane" id="pane2">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">10:15 AM</span><span class="tag-badge">CHECK-IN</span></div>
+        <h1 class="step-title">Colman Dock Ticketing & Staging</h1>
+        <ul class="bullet-list">
+          <li>Tap ORCA card or purchase walk-on passenger ticket at the turnstiles.</li>
+          <li>Passenger fare is only collected westbound (return trip from island is free).</li>
+          <li>Wait inside the spacious, enclosed passenger terminal concourse.</li>
+        </ul>
+        <div class="step-note">Terminal has clean restrooms, coffee kiosks, and panoramic bay views.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">10:40 AM</span><span class="preview-title">WSF Bainbridge Ferry Sailing</span></div>
+        <div class="preview-card"><span class="preview-time">11:15 AM</span><span class="preview-title">Arrive Bainbridge (Winslow) Terminal</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-pane" id="pane3">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">10:40 AM</span><span class="tag-badge">FERRY</span></div>
+        <h1 class="step-title">WSF Bainbridge Ferry Sailing</h1>
+        <ul class="bullet-list">
+          <li>Walk aboard via the elevated covered passenger gangway.</li>
+          <li>Head to the upper outdoor sun deck for skyline views of Seattle and Mt. Rainier.</li>
+          <li>Enjoy the smooth 35-minute scenic crossing across Elliott Bay into Eagle Harbor.</li>
+        </ul>
+        <div class="step-note">Full galley onboard serves local coffee, beer, wine, and chowder.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">11:15 AM</span><span class="preview-title">Arrive Bainbridge (Winslow) Terminal</span></div>
+        <div class="preview-card"><span class="preview-time">11:25 AM</span><span class="preview-title">Walk to Winslow Way Main Street</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-pane" id="pane4">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">11:15 AM</span><span class="tag-badge">ARRIVAL</span></div>
+        <h1 class="step-title">Arrive Bainbridge (Winslow) Terminal</h1>
+        <ul class="bullet-list">
+          <li>Walk off the boat through the overhead passenger skybridge.</li>
+          <li>No car or shuttle needed: the entire historic town is on foot.</li>
+          <li>Exit down the pedestrian ramp toward Olympic Drive.</li>
+        </ul>
+        <div class="step-note">Visitor information center kiosk sits right at the base of the terminal.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">11:25 AM</span><span class="preview-title">Walk to Winslow Way Main Street</span></div>
+        <div class="preview-card"><span class="preview-time">11:45 AM</span><span class="preview-title">Lunch at Proper Fish or Doc's Marina</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step-pane" id="pane5">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">11:25 AM</span><span class="tag-badge">WALK</span></div>
+        <h1 class="step-title">Walk to Winslow Way Main Street</h1>
+        <ul class="bullet-list">
+          <li>Take the paved pedestrian walkway north up Olympic Drive (approx. 5 mins).</li>
+          <li>Turn left onto Winslow Way, the charming tree-lined main thoroughfare.</li>
+          <li>Pass the Bainbridge Island Museum of Art (BIMA) on the corner.</li>
+        </ul>
+        <div class="step-note">Gentle incline on the short walk up from the ferry slip.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">11:45 AM</span><span class="preview-title">Lunch at Proper Fish or Doc's Marina</span></div>
+        <div class="preview-card"><span class="preview-time">01:00 PM</span><span class="preview-title">Stroll Historic Winslow Way Shops</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step-pane" id="pane6">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">11:45 AM</span><span class="tag-badge">DINING</span></div>
+        <h1 class="step-title">Lunch at Proper Fish or Doc's Marina</h1>
+        <ul class="bullet-list">
+          <li>Option 1: Proper Fish on Winslow Way (world-class authentic British fish & chips).</li>
+          <li>Option 2: Doc’s Marina Grill overlooking the harbor yachts and docks.</li>
+          <li>Relaxed sit-down lunch with Northwest draft ales and fresh seafood.</li>
+        </ul>
+        <div class="step-note">Both spots are within a 5-minute flat stroll of the main intersection.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">01:00 PM</span><span class="preview-title">Stroll Historic Winslow Way Shops</span></div>
+        <div class="preview-card"><span class="preview-time">02:15 PM</span><span class="preview-title">Waterfront Trail & Marina Walk</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step-pane" id="pane7">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">01:00 PM</span><span class="tag-badge">EXPLORE</span></div>
+        <h1 class="step-title">Stroll Historic Winslow Way Shops</h1>
+        <ul class="bullet-list">
+          <li>Browse Eagle Harbor Book Co., an independent island bookstore.</li>
+          <li>Explore local artisan boutiques, gourmet oil & vinegar shops, and galleries.</li>
+          <li>Visit Mora Iced Creamery for handmade artisan ice cream or sorbet.</li>
+        </ul>
+        <div class="step-note">Winslow Way is completely flat, sidewalked, and very walkable.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">02:15 PM</span><span class="preview-title">Waterfront Trail & Marina Walk</span></div>
+        <div class="preview-card"><span class="preview-time">03:15 PM</span><span class="preview-title">Bainbridge Island Museum of Art (BIMA)</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step-pane" id="pane8">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">02:15 PM</span><span class="tag-badge">LEISURE</span></div>
+        <h1 class="step-title">Waterfront Trail & Marina Walk</h1>
+        <ul class="bullet-list">
+          <li>Walk down to the Bainbridge Waterfront Trail along Eagle Harbor.</li>
+          <li>Stroll the boardwalk past sailboats, floating homes, and Waterfront Park.</li>
+          <li>Rest on shoreline benches with views across the harbor mouth.</li>
+        </ul>
+        <div class="step-note">Paved, level shoreline trail loop connects back to Olympic Way.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">03:15 PM</span><span class="preview-title">Bainbridge Island Museum of Art (BIMA)</span></div>
+        <div class="preview-card"><span class="preview-time">04:10 PM</span><span class="preview-title">Walk to Bainbridge Ferry Terminal</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 9 -->
+    <div class="step-pane" id="pane9">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">03:15 PM</span><span class="tag-badge">CULTURE</span></div>
+        <h1 class="step-title">Bainbridge Island Museum of Art</h1>
+        <ul class="bullet-list">
+          <li>Location: 550 Winslow Way E (directly adjacent to the ferry path).</li>
+          <li>Free admission contemporary museum featuring Puget Sound regional artists.</li>
+          <li>Bistro and quiet courtyard seating inside before the boat ride.</li>
+        </ul>
+        <div class="step-note">Easy 3-minute stroll down to the boarding ramp.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">04:10 PM</span><span class="preview-title">Walk to Bainbridge Ferry Terminal</span></div>
+        <div class="preview-card"><span class="preview-time">04:45 PM</span><span class="preview-title">WSF Bainbridge to Seattle Ferry</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 10 -->
+    <div class="step-pane" id="pane10">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">04:10 PM</span><span class="tag-badge">CHECK-IN</span></div>
+        <h1 class="step-title">Walk to Bainbridge Ferry Terminal</h1>
+        <ul class="bullet-list">
+          <li>Walk down Olympic Way into the Bainbridge ferry waiting hall.</li>
+          <li>No ticket or payment required (walk-ons ride eastbound for free).</li>
+          <li>Wait in the covered overhead passenger bridge.</li>
+        </ul>
+        <div class="step-note">Listen for walk-on passenger pre-boarding boarding announcements.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">04:45 PM</span><span class="preview-title">WSF Bainbridge to Seattle Ferry</span></div>
+        <div class="preview-card"><span class="preview-time">05:20 PM</span><span class="preview-title">Arrive Seattle Colman Dock (Pier 52)</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 11 -->
+    <div class="step-pane" id="pane11">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">04:45 PM</span><span class="tag-badge">FERRY</span></div>
+        <h1 class="step-title">WSF Bainbridge to Seattle Ferry</h1>
+        <ul class="bullet-list">
+          <li>Board the jumbo ferry and take seats at the front or port side.</li>
+          <li>Spectacular golden-hour approach toward the Seattle skyline.</li>
+          <li>Views of the Space Needle, Great Wheel, and Smith Tower.</li>
+        </ul>
+        <div class="step-note">35-minute relaxing return crossing.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">05:20 PM</span><span class="preview-title">Arrive Seattle Colman Dock (Pier 52)</span></div>
+        <div class="preview-card"><span class="preview-time">05:35 PM</span><span class="preview-title">Alaskan Way Waterfront Promenade</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 12 -->
+    <div class="step-pane" id="pane12">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">05:20 PM</span><span class="tag-badge">ARRIVAL</span></div>
+        <h1 class="step-title">Arrive Seattle Colman Dock (Pier 52)</h1>
+        <ul class="bullet-list">
+          <li>Walk off the ferry across the passenger overhead bridge.</li>
+          <li>Exit directly onto the new Alaskan Way pedestrian boulevard.</li>
+        </ul>
+        <div class="step-note">Clean, wide accessible walkways all the way north.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">05:35 PM</span><span class="preview-title">Alaskan Way Waterfront Promenade</span></div>
+        <div class="preview-card"><span class="preview-time">06:05 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 13 -->
+    <div class="step-pane" id="pane13">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">05:35 PM</span><span class="tag-badge">WALK</span></div>
+        <h1 class="step-title">Alaskan Way Waterfront Promenade</h1>
+        <ul class="bullet-list">
+          <li>Stroll northward along the expanded waterfront park promenade.</li>
+          <li>Walk past the Seattle Great Wheel and Miner’s Landing (Piers 57–59).</li>
+          <li>Turn east up University St, Pike St, or Broad St back into Belltown.</li>
+        </ul>
+        <div class="step-note">Alternatively, grab a 5-minute rideshare directly from Pier 52.</div>
+      </section>
+      <section class="preview-section">
+        <div class="preview-label">Up Next</div>
+        <div class="preview-card"><span class="preview-time">06:05 PM</span><span class="preview-title">Arrive Home at 2929 1st Ave</span></div>
+      </section>
+    </div>
+
+    <!-- STEP 14 -->
+    <div class="step-pane" id="pane14">
+      <section class="active-card">
+        <div class="card-top-row"><span class="time-badge">06:05 PM</span><span class="tag-badge">HOME</span></div>
+        <h1 class="step-title">Arrive Home at 2929 1st Ave</h1>
+        <ul class="bullet-list">
+          <li>Arrive at 2929 1st Ave in Belltown.</li>
+          <li>Total outing: approx. 8 hours door-to-door with zero driving or parking.</li>
+        </ul>
+        <div class="step-note">Bainbridge Island ferry excursion complete!</div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Single-Row 3-Button Cockpit -->
+  <footer>
+    <div class="btn-nav btn-back btn-disabled back-disabled">← Back</div>
+    <label for="step1" class="btn-nav btn-back back-1" onclick="">← Back</label>
+    <label for="step2" class="btn-nav btn-back back-2" onclick="">← Back</label>
+    <label for="step3" class="btn-nav btn-back back-3" onclick="">← Back</label>
+    <label for="step4" class="btn-nav btn-back back-4" onclick="">← Back</label>
+    <label for="step5" class="btn-nav btn-back back-5" onclick="">← Back</label>
+    <label for="step6" class="btn-nav btn-back back-6" onclick="">← Back</label>
+    <label for="step7" class="btn-nav btn-back back-7" onclick="">← Back</label>
+    <label for="step8" class="btn-nav btn-back back-8" onclick="">← Back</label>
+    <label for="step9" class="btn-nav btn-back back-9" onclick="">← Back</label>
+    <label for="step10" class="btn-nav btn-back back-10" onclick="">← Back</label>
+    <label for="step11" class="btn-nav btn-back back-11" onclick="">← Back</label>
+    <label for="step12" class="btn-nav btn-back back-12" onclick="">← Back</label>
+    <label for="step13" class="btn-nav btn-back back-13" onclick="">← Back</label>
+
+    <a href="index.html" class="btn-nav btn-menu">⌂ Menu</a>
+
+    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next →</label>
+    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next →</label>
+    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next →</label>
+    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next →</label>
+    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next →</label>
+    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next →</label>
+    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next →</label>
+    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next →</label>
+    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next →</label>
+    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next →</label>
+    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next →</label>
+    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next →</label>
+    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next →</label>
+    <a href="index.html" class="btn-nav btn-finish next-finish">Finish ➔</a>
+  </footer>
+
+</body>
+</html>

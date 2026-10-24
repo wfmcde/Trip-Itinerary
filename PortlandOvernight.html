@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,14 +8,12 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     html, body { width: 100%; height: 100%; overflow: hidden; background-color: #0b1120; }
     body { color: #f8fafc; display: flex; flex-direction: column; max-width: 600px; margin: 0 auto; }
-    input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; opacity: 0; }
     header { padding-top: max(env(safe-area-inset-top), 44px); padding-left: 16px; padding-right: 16px; padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; background-color: #0b1120; flex-shrink: 0; }
     .brand-title { font-size: 1.1rem; font-weight: 800; color: #38bdf8; }
-    .step-pill { display: none; font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
-    #step1:checked ~ header #pill1, #step2:checked ~ header #pill2, #step3:checked ~ header #pill3, #step4:checked ~ header #pill4, #step5:checked ~ header #pill5, #step6:checked ~ header #pill6, #step7:checked ~ header #pill7, #step8:checked ~ header #pill8, #step9:checked ~ header #pill9, #step10:checked ~ header #pill10, #step11:checked ~ header #pill11, #step12:checked ~ header #pill12, #step13:checked ~ header #pill13, #step14:checked ~ header #pill14 { display: inline-block; }
+    .step-pill { font-size: 0.75rem; font-weight: 700; background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 12px; }
     main { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 16px; -webkit-overflow-scrolling: touch; }
     .step-pane { display: none; flex-direction: column; gap: 12px; padding-bottom: 10px; }
-    #step1:checked ~ main #pane1, #step2:checked ~ main #pane2, #step3:checked ~ main #pane3, #step4:checked ~ main #pane4, #step5:checked ~ main #pane5, #step6:checked ~ main #pane6, #step7:checked ~ main #pane7, #step8:checked ~ main #pane8, #step9:checked ~ main #pane9, #step10:checked ~ main #pane10, #step11:checked ~ main #pane11, #step12:checked ~ main #pane12, #step13:checked ~ main #pane13, #step14:checked ~ main #pane14 { display: flex; }
+    .step-pane.active { display: flex; }
     .active-card { background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid #38bdf8; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
     .card-top-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
     .time-badge { font-size: 1.25rem; font-weight: 900; color: #fbbf24; }
@@ -24,297 +22,302 @@
     .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .bullet-list li { font-size: 0.92rem; line-height: 1.35; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; }
     .bullet-list li::before { content: "\2022"; color: #38bdf8; font-weight: bold; font-size: 1.1rem; line-height: 0.8; }
-    .step-note { margin-top: 10px; padding: 8px 10px; background: #131d2e; border-radius: 6px; border-left: 3px solid #fbbf24; font-size: 0.82rem; color: #e2e8f0; line-height: 1.3; }
     .preview-section { margin-top: 4px; }
     .preview-label { font-size: 0.7rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; padding-left: 2px; }
     .preview-card { background-color: #131d2e; border: 1px solid #334155; border-radius: 8px; padding: 8px 12px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
     .preview-time { font-size: 0.82rem; font-weight: 800; color: #fbbf24; min-width: 65px; }
     .preview-title { font-size: 0.82rem; color: #f8fafc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     footer { flex-shrink: 0; padding-top: 10px; padding-left: 16px; padding-right: 16px; padding-bottom: max(env(safe-area-inset-bottom), 24px); border-top: 1px solid #334155; background-color: #0b1120; display: flex; gap: 8px; z-index: 100; }
-    .btn-nav { flex: 1; text-align: center; text-decoration: none; display: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
+    .btn-nav { flex: 1; text-align: center; text-decoration: none; padding: 13px 6px; font-size: 0.92rem; font-weight: 800; border-radius: 8px; user-select: none; -webkit-user-select: none; cursor: pointer; }
     .btn-back { background-color: #1e293b; color: #94a3b8; border: 1px solid #334155; }
     .btn-back:active { background-color: #334155; color: #f8fafc; }
     .btn-disabled { opacity: 0.35; pointer-events: none; }
-    .btn-menu { display: block !important; background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
+    .btn-menu { background-color: #1e293b; color: #38bdf8; border: 1px solid #334155; }
     .btn-menu:active { background-color: #334155; }
     .btn-next { background-color: #10b981; color: #ffffff; border: 1px solid #10b981; }
     .btn-next:active { background-color: #059669; }
     .btn-finish { background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6; }
-    #step1:checked ~ footer .next-2, #step2:checked ~ footer .next-3, #step3:checked ~ footer .next-4, #step4:checked ~ footer .next-5, #step5:checked ~ footer .next-6, #step6:checked ~ footer .next-7, #step7:checked ~ footer .next-8, #step8:checked ~ footer .next-9, #step9:checked ~ footer .next-10, #step10:checked ~ footer .next-11, #step11:checked ~ footer .next-12, #step12:checked ~ footer .next-13, #step13:checked ~ footer .next-14 { display: block; }
-    #step14:checked ~ footer .next-finish { display: block; }
-    #step1:checked ~ footer .back-disabled { display: block; }
-    #step2:checked ~ footer .back-1, #step3:checked ~ footer .back-2, #step4:checked ~ footer .back-3, #step5:checked ~ footer .back-4, #step6:checked ~ footer .back-5, #step7:checked ~ footer .back-6, #step8:checked ~ footer .back-7, #step9:checked ~ footer .back-8, #step10:checked ~ footer .back-9, #step11:checked ~ footer .back-10, #step12:checked ~ footer .back-11, #step13:checked ~ footer .back-12, #step14:checked ~ footer .back-13 { display: block; }
   </style>
 </head>
 <body>
-  <input type="radio" name="tripstep" id="step1" checked>
-  <input type="radio" name="tripstep" id="step2">
-  <input type="radio" name="tripstep" id="step3">
-  <input type="radio" name="tripstep" id="step4">
-  <input type="radio" name="tripstep" id="step5">
-  <input type="radio" name="tripstep" id="step6">
-  <input type="radio" name="tripstep" id="step7">
-  <input type="radio" name="tripstep" id="step8">
-  <input type="radio" name="tripstep" id="step9">
-  <input type="radio" name="tripstep" id="step10">
-  <input type="radio" name="tripstep" id="step11">
-  <input type="radio" name="tripstep" id="step12">
-  <input type="radio" name="tripstep" id="step13">
-  <input type="radio" name="tripstep" id="step14">
 
   <header>
-    <span class="brand-title">Portland Pearl Overnight</span>
-    <div>
-      <span class="step-pill" id="pill1">Step 1 of 14</span>
-      <span class="step-pill" id="pill2">Step 2 of 14</span>
-      <span class="step-pill" id="pill3">Step 3 of 14</span>
-      <span class="step-pill" id="pill4">Step 4 of 14</span>
-      <span class="step-pill" id="pill5">Step 5 of 14</span>
-      <span class="step-pill" id="pill6">Step 6 of 14</span>
-      <span class="step-pill" id="pill7">Step 7 of 14</span>
-      <span class="step-pill" id="pill8">Step 8 of 14</span>
-      <span class="step-pill" id="pill9">Step 9 of 14</span>
-      <span class="step-pill" id="pill10">Step 10 of 14</span>
-      <span class="step-pill" id="pill11">Step 11 of 14</span>
-      <span class="step-pill" id="pill12">Step 12 of 14</span>
-      <span class="step-pill" id="pill13">Step 13 of 14</span>
-      <span class="step-pill" id="pill14">Step 14 of 14</span>
-    </div>
+    <span class="brand-title" id="trip-header-title"></span>
+    <span class="step-pill" id="step-indicator"></span>
   </header>
-  <main>
-    <div class="step-pane" id="pane1">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">08:45 AM</span><span class="tag-badge">DEPARTURE</span></div>
-        <h1 class="step-title">Depart 2929 1st Ave to King St</h1>
-        <ul class="bullet-list">
-          <li>Take Monorail and light rail tunnel south to King Street Station.</li>
-          <li>Check into Business Class priority boarding queue.</li>
-          <li>Collect your complimentary beverage coupon.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">09:55 AM</span><span class="preview-title">Amtrak Cascades Southbound</span></div>
-        <div class="preview-card"><span class="preview-time">01:25 PM</span><span class="preview-title">Arrive Portland Union Station</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane2">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">09:55 AM</span><span class="tag-badge">RAIL</span></div>
-        <h1 class="step-title">Amtrak Cascades Southbound</h1>
-        <ul class="bullet-list">
-          <li>Board train 505 heading south toward Oregon.</li>
-          <li>Relax in wide seats with cafÃ© car meals and Wi-Fi.</li>
-          <li>Scenic crossing of the Columbia River into Portland.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">01:25 PM</span><span class="preview-title">Arrive Portland Union Station</span></div>
-        <div class="preview-card"><span class="preview-time">01:45 PM</span><span class="preview-title">Check In: Dossier Hotel</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane3">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">01:25 PM</span><span class="tag-badge">ARRIVAL</span></div>
-        <h1 class="step-title">Arrive Portland Union Station</h1>
-        <ul class="bullet-list">
-          <li>Disembark at Portland's historic 1896 Union Station.</li>
-          <li>Step outside under the iconic 'Go by Train' neon clock tower.</li>
-          <li>Walk or short 3-minute cab into the downtown core.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">01:45 PM</span><span class="preview-title">Check In: Dossier Hotel</span></div>
-        <div class="preview-card"><span class="preview-time">02:15 PM</span><span class="preview-title">Lunch at Jake's Famous Crawfish</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane4">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">01:45 PM</span><span class="tag-badge">HOTEL</span></div>
-        <h1 class="step-title">Check In: Dossier Hotel</h1>
-        <ul class="bullet-list">
-          <li>Location: 750 SW Alder St (or Mark Spencer Hotel in Pearl).</li>
-          <li>Classic mid-range boutique hotel with Northwest style and easy walkability.</li>
-          <li>Drop bags with concierge.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">02:15 PM</span><span class="preview-title">Lunch at Jake's Famous Crawfish</span></div>
-        <div class="preview-card"><span class="preview-time">03:30 PM</span><span class="preview-title">Powell's City of Books</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane5">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">02:15 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Lunch at Jake's Famous Crawfish</h1>
-        <ul class="bullet-list">
-          <li>Walk 1 block to Jake's (401 SW 12th Ave).</li>
-          <li>Historic 1892 wood-paneled Portland seafood institution.</li>
-          <li>Classic dungeness crab, fresh oysters, steaks, and wine.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">03:30 PM</span><span class="preview-title">Powell's City of Books</span></div>
-        <div class="preview-card"><span class="preview-time">05:00 PM</span><span class="preview-title">Pearl District Gallery Stroll</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane6">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">03:30 PM</span><span class="tag-badge">EXPLORE</span></div>
-        <h1 class="step-title">Powell's City of Books</h1>
-        <ul class="bullet-list">
-          <li>Walk into the Pearl District to Powell's flagship bookstore (1005 W Burnside).</li>
-          <li>Explore an entire multi-story city block of new and used books.</li>
-          <li>Pick up a new novel or regional Pacific Northwest history book.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">05:00 PM</span><span class="preview-title">Pearl District Gallery Stroll</span></div>
-        <div class="preview-card"><span class="preview-time">07:00 PM</span><span class="preview-title">Dinner at Andina</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane7">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">05:00 PM</span><span class="tag-badge">LEISURE</span></div>
-        <h1 class="step-title">Pearl District Gallery Stroll</h1>
-        <ul class="bullet-list">
-          <li>Walk cobblestone streets along NW 11th and 13th Avenues.</li>
-          <li>Explore boutique furniture, art galleries, and clothing designers.</li>
-          <li>Stop for a draft IPA at Deschutes Brewery pub.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">07:00 PM</span><span class="preview-title">Dinner at Andina</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 09:00 AM</span><span class="preview-title">Breakfast at Mother's Bistro</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane8">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">07:00 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Dinner at Andina</h1>
-        <ul class="bullet-list">
-          <li>Location: 1314 NW Glisan St.</li>
-          <li>Upscale Peruvian tapas and wine in an artful Pearl District warehouse.</li>
-          <li>Live Latin jazz music and relaxed evening ambiance.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 09:00 AM</span><span class="preview-title">Breakfast at Mother's Bistro</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 10:30 AM</span><span class="preview-title">Tom McCall Waterfront Park</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane9">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 09:00 AM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Breakfast at Mother's Bistro</h1>
-        <ul class="bullet-list">
-          <li>Walk to Mother's Bistro (212 SW Stark St).</li>
-          <li>Hearty scratch breakfast: Belgian waffles, hashes, and house pastries.</li>
-          <li>Fuel up for an easy morning walk.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 10:30 AM</span><span class="preview-title">Tom McCall Waterfront Park</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 12:30 PM</span><span class="preview-title">Departure Lunch at Higgins</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane10">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 10:30 AM</span><span class="tag-badge">EXPLORE</span></div>
-        <h1 class="step-title">Tom McCall Waterfront Park</h1>
-        <ul class="bullet-list">
-          <li>Walk along the Willamette River esplanade and marina.</li>
-          <li>Views of Portland's famous bridges and Mt. Hood on clear days.</li>
-          <li>Flat, paved scenic shoreline walking.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 12:30 PM</span><span class="preview-title">Departure Lunch at Higgins</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 02:15 PM</span><span class="preview-title">Return to Union Station</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane11">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 12:30 PM</span><span class="tag-badge">DINING</span></div>
-        <h1 class="step-title">Departure Lunch at Higgins</h1>
-        <ul class="bullet-list">
-          <li>Location: 1239 SW Broadway.</li>
-          <li>Portland's pioneering farm-to-table bistro.</li>
-          <li>Excellent cured meats, Northwest cheese boards, and lunch entrees.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 02:15 PM</span><span class="preview-title">Return to Union Station</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 03:00 PM</span><span class="preview-title">Amtrak Cascades North to Seattle</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane12">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 02:15 PM</span><span class="tag-badge">CHECK-IN</span></div>
-        <h1 class="step-title">Return to Union Station</h1>
-        <ul class="bullet-list">
-          <li>Head back to Union Station at 800 NW 6th Ave.</li>
-          <li>Board Business Class on northbound Amtrak Cascades 508.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 03:00 PM</span><span class="preview-title">Amtrak Cascades North to Seattle</span></div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 06:45 PM</span><span class="preview-title">Arrive King St & Return to 1st Ave</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane13">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 03:00 PM</span><span class="tag-badge">RAIL</span></div>
-        <h1 class="step-title">Amtrak Cascades North to Seattle</h1>
-        <ul class="bullet-list">
-          <li>Relaxing 3.5-hour rail run through Southwest Washington.</li>
-          <li>Sunset views along the Puget Sound coastline as you approach Seattle.</li>
-        </ul>
-      </section>
-      <section class="preview-section">
-        <div class="preview-label">Up Next</div>
-        <div class="preview-card"><span class="preview-time">DAY 2 - 06:45 PM</span><span class="preview-title">Arrive King St & Return to 1st Ave</span></div>
-      </section>
-    </div>    <div class="step-pane" id="pane14">
-      <section class="active-card">
-        <div class="card-top-row"><span class="time-badge">DAY 2 - 06:45 PM</span><span class="tag-badge">HOME</span></div>
-        <h1 class="step-title">Arrive King St & Return to 1st Ave</h1>
-        <ul class="bullet-list">
-          <li>Disembark at King Street Station.</li>
-          <li>Monorail back to Seattle Center and walk home to 2929 1st Ave.</li>
-          <li>Portland overnight complete!</li>
-        </ul>
-      </section>
-    </div>  </main>
+
+  <main id="panes-container"></main>
+
   <footer>
-    <div class="btn-nav btn-back btn-disabled back-disabled">&larr; Back</div>
-    <label for="step1" class="btn-nav btn-back back-1" onclick="">&larr; Back</label>
-    <label for="step2" class="btn-nav btn-back back-2" onclick="">&larr; Back</label>
-    <label for="step3" class="btn-nav btn-back back-3" onclick="">&larr; Back</label>
-    <label for="step4" class="btn-nav btn-back back-4" onclick="">&larr; Back</label>
-    <label for="step5" class="btn-nav btn-back back-5" onclick="">&larr; Back</label>
-    <label for="step6" class="btn-nav btn-back back-6" onclick="">&larr; Back</label>
-    <label for="step7" class="btn-nav btn-back back-7" onclick="">&larr; Back</label>
-    <label for="step8" class="btn-nav btn-back back-8" onclick="">&larr; Back</label>
-    <label for="step9" class="btn-nav btn-back back-9" onclick="">&larr; Back</label>
-    <label for="step10" class="btn-nav btn-back back-10" onclick="">&larr; Back</label>
-    <label for="step11" class="btn-nav btn-back back-11" onclick="">&larr; Back</label>
-    <label for="step12" class="btn-nav btn-back back-12" onclick="">&larr; Back</label>
-    <label for="step13" class="btn-nav btn-back back-13" onclick="">&larr; Back</label>
-    <a href="index.html#overnight" class="btn-nav btn-menu">&#8962; Menu</a>
-    <label for="step2" class="btn-nav btn-next next-2" onclick="">Next &rarr;</label>
-    <label for="step3" class="btn-nav btn-next next-3" onclick="">Next &rarr;</label>
-    <label for="step4" class="btn-nav btn-next next-4" onclick="">Next &rarr;</label>
-    <label for="step5" class="btn-nav btn-next next-5" onclick="">Next &rarr;</label>
-    <label for="step6" class="btn-nav btn-next next-6" onclick="">Next &rarr;</label>
-    <label for="step7" class="btn-nav btn-next next-7" onclick="">Next &rarr;</label>
-    <label for="step8" class="btn-nav btn-next next-8" onclick="">Next &rarr;</label>
-    <label for="step9" class="btn-nav btn-next next-9" onclick="">Next &rarr;</label>
-    <label for="step10" class="btn-nav btn-next next-10" onclick="">Next &rarr;</label>
-    <label for="step11" class="btn-nav btn-next next-11" onclick="">Next &rarr;</label>
-    <label for="step12" class="btn-nav btn-next next-12" onclick="">Next &rarr;</label>
-    <label for="step13" class="btn-nav btn-next next-13" onclick="">Next &rarr;</label>
-    <label for="step14" class="btn-nav btn-next next-14" onclick="">Next &rarr;</label>
-    <a href="index.html#overnight" class="btn-nav btn-finish next-finish">Finish &rarr;</a>
+    <button class="btn-nav btn-back" id="btn-back" onclick="navigate(-1)">← Back</button>
+    <a href="index.html#overnight" class="btn-nav btn-menu" id="btn-menu">⌂ Menu</a>
+    <button class="btn-nav btn-next" id="btn-next" onclick="navigate(1)">Next →</button>
+    <a href="index.html#overnight" class="btn-nav btn-finish" id="btn-finish" style="display: none;">Finish ➔</a>
   </footer>
+
+  <script>
+    const TRIP_CONFIG = {
+      title: "Portland Pearl Overnight",
+      returnHash: "#overnight",
+      steps: [
+        {
+          time: "08:25 AM",
+          tag: "DEPARTURE",
+          title: "Walk to Seattle Center Monorail",
+          bullets: [
+            "Exit 2929 1st Ave and walk northeast along Denny Way.",
+            "Walk 8 minutes to the Seattle Center platform.",
+            "Tap ORCA or credit card at the turnstile."
+          ]
+        },
+        {
+          time: "08:35 AM",
+          tag: "TRANSIT",
+          title: "Monorail Ride to Westlake Center",
+          bullets: [
+            "Board Monorail for the 90-second ride into Westlake Center 3rd floor.",
+            "Head to the central elevators/escalators straight down to the transit tunnel."
+          ]
+        },
+        {
+          time: "08:45 AM",
+          tag: "TRANSIT",
+          title: "Link 1 Line Tunnel to King Street",
+          bullets: [
+            "Tap ORCA card at the Link platform.",
+            "Take 1 Line Southbound 3 stops to International District/Chinatown.",
+            "Take the Jackson St escalator up to street level."
+          ]
+        },
+        {
+          time: "09:05 AM",
+          tag: "CHECK-IN",
+          title: "King Street Station Priority Boarding",
+          bullets: [
+            "Walk 1 block west down S Jackson St into King Street Station.",
+            "Check into the Business Class boarding queue.",
+            "Collect your complimentary beverage coupon from the conductor."
+          ]
+        },
+        {
+          time: "09:55 AM",
+          tag: "RAIL",
+          title: "Amtrak Cascades Southbound",
+          bullets: [
+            "Board Cascades train 505 heading south toward Oregon.",
+            "Relax in wide leather business class seating with Wi-Fi and bistro car.",
+            "Scenic rail run across the Columbia River into Oregon."
+          ]
+        },
+        {
+          time: "01:25 PM",
+          tag: "ARRIVAL",
+          title: "Arrive Portland Union Station",
+          bullets: [
+            "Disembark at Portland's historic 1896 Union Station under the 'Go by Train' clock tower.",
+            "Step outside to the taxi stand or take a brisk 10-minute walk into the Pearl District."
+          ]
+        },
+        {
+          time: "01:45 PM",
+          tag: "HOTEL",
+          title: "Check In: Dossier Hotel",
+          bullets: [
+            "Location: 750 SW Alder St (or Mark Spencer Hotel in the Pearl).",
+            "Classic boutique hotel with Northwest styling and complete walkability.",
+            "Check in or store overnight bags with the concierge."
+          ]
+        },
+        {
+          time: "02:15 PM",
+          tag: "DINING",
+          title: "Lunch at Jake's Famous Crawfish",
+          bullets: [
+            "Walk 1 block to Jake's (401 SW 12th Ave).",
+            "Historic 1892 wood-paneled Portland seafood institution.",
+            "Fresh Dungeness crab, regional oysters, thick steaks, and wine."
+          ]
+        },
+        {
+          time: "03:30 PM",
+          tag: "EXPLORE",
+          title: "Powell's City of Books",
+          bullets: [
+            "Walk into the Pearl District to Powell's flagship bookstore (1005 W Burnside).",
+            "Explore an entire multi-story city block of color-coded rooms.",
+            "Pick up a new novel, history book, or travel memoir."
+          ]
+        },
+        {
+          time: "05:00 PM",
+          tag: "LEISURE",
+          title: "Pearl District Gallery Stroll",
+          bullets: [
+            "Walk along cobblestone streets on NW 11th and 13th Avenues.",
+            "Explore boutique galleries, local craft shops, and loft architecture.",
+            "Stop for a Northwest draft IPA at Deschutes Brewery pub."
+          ]
+        },
+        {
+          time: "07:00 PM",
+          tag: "DINING",
+          title: "Dinner at Andina",
+          bullets: [
+            "Location: 1314 NW Glisan St.",
+            "Upscale Peruvian tapas and wine in an artful restored warehouse.",
+            "Lively evening ambiance and live Latin jazz music."
+          ]
+        },
+        {
+          time: "DAY 2 - 09:00 AM",
+          tag: "DINING",
+          title: "Breakfast at Mother's Bistro",
+          bullets: [
+            "Walk to Mother's Bistro (212 SW Stark St).",
+            "Scratch breakfast: Belgian waffles, scrambles, and house-baked pastries.",
+            "Comfortable, welcoming dining room."
+          ]
+        },
+        {
+          time: "DAY 2 - 10:30 AM",
+          tag: "EXPLORE",
+          title: "Tom McCall Waterfront Park",
+          bullets: [
+            "Walk along the Willamette River esplanade and marina.",
+            "Views of Portland's historic steel bridges and Mt. Hood on clear days.",
+            "Flat, paved shoreline walk."
+          ]
+        },
+        {
+          time: "DAY 2 - 12:30 PM",
+          tag: "DINING",
+          title: "Departure Lunch at Higgins",
+          bullets: [
+            "Location: 1239 SW Broadway.",
+            "Portland's pioneering farm-to-table bistro and bar.",
+            "Excellent charcuterie, regional cheese boards, and lunch specialties."
+          ]
+        },
+        {
+          time: "DAY 2 - 02:15 PM",
+          tag: "CHECK-IN",
+          title: "Return to Portland Union Station",
+          bullets: [
+            "Walk or take a 5-minute cab to Union Station (800 NW 6th Ave).",
+            "Check in for northbound Amtrak Cascades 508 business class.",
+            "Board train at 02:45 PM for 03:00 PM prompt departure."
+          ]
+        },
+        {
+          time: "DAY 2 - 06:45 PM",
+          tag: "TRANSIT",
+          title: "Arrive King Street Station to 1 Line",
+          bullets: [
+            "Disembark train at King Street Station.",
+            "Walk up the station plaza to the International District Link tunnel station.",
+            "Board Link 1 Line Northbound."
+          ]
+        },
+        {
+          time: "DAY 2 - 07:00 PM",
+          tag: "TRANSIT",
+          title: "Link Tunnel to Monorail at Westlake",
+          bullets: [
+            "Ride 3 stops north to Westlake Station.",
+            "Take escalators up to the 3rd floor Monorail platform.",
+            "Board Monorail for the quick ride to Seattle Center."
+          ]
+        },
+        {
+          time: "DAY 2 - 07:15 PM",
+          tag: "HOME",
+          title: "Arrive Home at 2929 1st Ave",
+          bullets: [
+            "Step off the Monorail at Seattle Center and walk down Denny Way.",
+            "Arrive home at 2929 1st Ave.",
+            "Portland Pearl District getaway complete!"
+          ]
+        }
+      ]
+    };
+
+    let currentStep = 0;
+    const steps = TRIP_CONFIG.steps;
+    const totalSteps = steps.length;
+
+    document.getElementById("trip-header-title").textContent = TRIP_CONFIG.title;
+    document.getElementById("btn-menu").href = `index.html${TRIP_CONFIG.returnHash}`;
+    document.getElementById("btn-finish").href = `index.html${TRIP_CONFIG.returnHash}`;
+
+    const container = document.getElementById("panes-container");
+    container.innerHTML = steps.map((s, idx) => {
+      const bulletsHtml = s.bullets.map(b => `<li>${b}</li>`).join("");
+      let previewHtml = "";
+      if (idx < totalSteps - 1) {
+        const nextCards = [idx + 1, idx + 2]
+          .filter(n => n < totalSteps)
+          .map(n => `
+            <div class="preview-card">
+              <span class="preview-time">${steps[n].time}</span>
+              <span class="preview-title">${steps[n].title}</span>
+            </div>
+          `).join("");
+
+        previewHtml = `
+          <section class="preview-section">
+            <div class="preview-label">Up Next</div>
+            ${nextCards}
+          </section>
+        `;
+      }
+
+      return `
+        <div class="step-pane ${idx === 0 ? 'active' : ''}" id="pane-${idx}">
+          <section class="active-card">
+            <div class="card-top-row">
+              <span class="time-badge">${s.time}</span>
+              <span class="tag-badge">${s.tag}</span>
+            </div>
+            <h1 class="step-title">${s.title}</h1>
+            <ul class="bullet-list">${bulletsHtml}</ul>
+          </section>
+          ${previewHtml}
+        </div>
+      `;
+    }).join("");
+
+    function updateUI() {
+      for (let i = 0; i < totalSteps; i++) {
+        document.getElementById(`pane-${i}`).classList.toggle("active", i === currentStep);
+      }
+      document.getElementById("step-indicator").textContent = `Step ${currentStep + 1} of ${totalSteps}`;
+      const btnBack = document.getElementById("btn-back");
+      if (currentStep === 0) {
+        btnBack.classList.add("btn-disabled");
+      } else {
+        btnBack.classList.remove("btn-disabled");
+      }
+      const btnNext = document.getElementById("btn-next");
+      const btnFinish = document.getElementById("btn-finish");
+      if (currentStep === totalSteps - 1) {
+        btnNext.style.display = "none";
+        btnFinish.style.display = "block";
+      } else {
+        btnNext.style.display = "block";
+        btnFinish.style.display = "none";
+      }
+      container.scrollTop = 0;
+    }
+
+    function navigate(direction) {
+      const next = currentStep + direction;
+      if (next >= 0 && next < totalSteps) {
+        currentStep = next;
+        updateUI();
+      }
+    }
+
+    updateUI();
+  </script>
 </body>
 </html>
